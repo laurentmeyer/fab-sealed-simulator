@@ -1,3 +1,4 @@
+import { Footer } from './Footer'
 import { deckCount } from './grouping'
 import type { PoolCard, SealedEvent } from './types'
 
@@ -81,6 +82,8 @@ export function MainScreen({
           </ul>
         )}
       </div>
+
+      <Footer />
     </div>
   )
 }
