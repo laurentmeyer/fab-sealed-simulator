@@ -402,3 +402,67 @@ Acceptance:
 - [ ] Unknown pattern images fall back to readable text cards.
 - [ ] `npm test` green.
 - [ ] `README.md` with acknowledgments + legal section, and `LICENSE` file exist per §10.
+
+## 12. Changes made after this plan was written
+
+The plan above is the original spec. These points were changed during and after the build —
+the README and the code are the source of truth now.
+
+- **Cards created during play are out of the pool.** Blasmophet, Gate to i'Arathael and
+  Corrupted Corpse are made by other cards, never opened. `fetch-cards.mjs` drops any card
+  listed in another card's `createdExtras` (or typed `Token`), so the snapshot holds 150
+  cards with 9 Basics: 3 heroes, 3 weapons, 3 equipment. The export no longer needs to filter
+  tokens, and §9's open question about tokens in the export is settled.
+- **Tile width is responsive**, not fixed at 200px. A fixed `minmax(165px|200px, …)` made the
+  size toggle inert on a narrow pane, where both settings fit the same number of columns. Each
+  size now sets `--card-floor` to `min(target, pane-share)`: the share (25% for small, 33.3%
+  for large, each minus its portion of the gaps plus 1px of slack against sub-pixel rounding)
+  guarantees 4 and 3 cards per row on narrow panes, the target adds columns as the pane grows,
+  and `--card-cap` stops a card exceeding the hover preview. Verified to keep small strictly
+  denser than large from 280px to 2400px.
+- **Duplicates are one stack**, fanned downwards with a count badge (Fabrary's presentation)
+  instead of repeated tiles. Clicking a stack moves a single copy.
+- **Grouping applies to the pool only** and is a single-select dropdown (rarity, class or
+  pitch; rarity by default). The deck side is a plain sorted list. The controls moved out of
+  the top menu bar into the pool pane's header so their scope is obvious.
+- **A hero selector replaces the class filter.** Three young hero portraits sit in the menu
+  bar (one at a time, clearable), and the choice is stored on the event as `heroId`.
+  - Heroes and weapons are **out of the pool**: picking a hero brings its signature weapon
+    (derived from the weapon's `legalHeroes`), so the only Basic singletons left are the three
+    class equipment.
+  - Legality is `card.legalHeroes.includes(hero.hero)`, not class matching. The two are
+    equivalent in this set — verified by a test — but FaB has hero-specialized cards, and the
+    fourth hero Baalghor is `NotClassed`, where class matching would break.
+  - Cards the hero cannot play move to a trailing greyed group in **both** panes, stop
+    counting toward the 30, and are left out of the export.
+  - A deck is legal only with a hero **and** exactly 30 cards; the menu bar names whichever is
+    missing.
+- **Dimming uses `brightness`, not `opacity`**, so cards in a stack stay solid — with opacity
+  the copies underneath showed through the top card.
+- **30 cards is a minimum, not an exact size.** Players start each game with 30 and sideboard
+  from the extras between games, so only a deck below 30 is flagged.
+- **The right pane is "Selected cards"**, split into an **Arena** section (hero, signature
+  weapon, equipment — the hero and weapon shown outlined and not clickable) and a **Deck**
+  section that carries the only "X / 30" in the app. Previously the pane header totalled every
+  selected instance, which read as equipment counting toward the 30.
+- **The export button doubles as the legality sign**, replacing the scattered counters: green
+  tick when legal, amber ⚠ otherwise, listing every issue on hover (`deckIssues` in
+  `grouping.ts`). It exports either way.
+- **Menu bar is a three-track grid**: back button left, and centred, the event name large with
+  the hero portraits (56px) beneath it. Delete moved to the main screen, per event. The hero is
+  cleared by clicking the chosen portrait again, or the "clear" link next to the Card pool
+  title, which also reads "legal cards for <hero>".
+- **Pane headers are a fixed 52px** so the two panes line up, and hold their own controls:
+  grouping and card size above the pool, pitch bar and export above the selection.
+- **The main screen leads with the set art** from `content.fabrary.net/sets/`, over a gradient
+  so the title stays readable.
+- **Equipment is a singleton, from generation onwards.** A second copy can never be worn, so
+  `generateEventPool` keeps only the first of each equipment a pack yields — otherwise the
+  spares sat in the pool while a copy was in the arena, showing the same card on both sides.
+  The pool now holds at most one of each piece of equipment (~107-110 cards). `canAdd` /
+  `equippedCardIds` remain as the guard, and the pool pane also hides equipment already worn,
+  so events saved before this change look right too. Note the rule is per card, not per
+  equipment slot — two different Arms pieces are still allowed.
+- **"Generic" is labelled "No class"** in the UI.
+- **Each pitch-bar segment has its own tooltip** with that colour's count.
+- **The copy button reads "Export for Fabrary"** and turns into "List copied to clipboard".

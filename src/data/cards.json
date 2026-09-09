@@ -1,0 +1,3823 @@
+[
+  {
+    "id": "acrid-stench-blue",
+    "name": "Acrid Stench",
+    "pitch": 3,
+    "cost": 0,
+    "power": 1,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR071",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "acrid-stench-red",
+    "name": "Acrid Stench",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR069",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "acrid-stench-yellow",
+    "name": "Acrid Stench",
+    "pitch": 2,
+    "cost": 0,
+    "power": 2,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR070",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "apex-buster-yellow",
+    "name": "Apex Buster",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action - Attack",
+    "image": "IAR039",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "appalling-bearers",
+    "name": "Appalling Bearers",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Basic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Shadow Necromancer Equipment - Arms",
+    "image": "IAR056",
+    "legalHeroes": [
+      "Malice",
+      "Taylor"
+    ]
+  },
+  {
+    "id": "arknight-descendancy-blue",
+    "name": "Arknight Descendancy",
+    "pitch": 3,
+    "cost": 5,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR111",
+    "legalHeroes": [
+      "Shiyana",
+      "Viserai2"
+    ]
+  },
+  {
+    "id": "battle-clearing-bellow-blue",
+    "name": "Battle Clearing Bellow",
+    "pitch": 3,
+    "cost": 3,
+    "power": null,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action",
+    "image": "IAR040",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "battle-prep-blue",
+    "name": "Battle Prep",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action",
+    "image": "IAR235",
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "battle-prep-red",
+    "name": "Battle Prep",
+    "pitch": 1,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action",
+    "image": "IAR233",
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "battle-prep-yellow",
+    "name": "Battle Prep",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action",
+    "image": "IAR234",
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "beckoning-hunger-blue",
+    "name": "Beckoning Hunger",
+    "pitch": 3,
+    "cost": 3,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR019",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "beckoning-hunger-red",
+    "name": "Beckoning Hunger",
+    "pitch": 1,
+    "cost": 3,
+    "power": 7,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR017",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "beckoning-hunger-yellow",
+    "name": "Beckoning Hunger",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR018",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "become-the-shadow-lord-blue",
+    "name": "Become the Shadow Lord",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR113",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "blood-harvest",
+    "name": "Blood Harvest",
+    "pitch": null,
+    "cost": 3,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR005",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "bloodfrenzy-gloomblade-blue",
+    "name": "Bloodfrenzy Gloomblade",
+    "pitch": 3,
+    "cost": 1,
+    "power": 1,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR125",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "bloodfrenzy-gloomblade-red",
+    "name": "Bloodfrenzy Gloomblade",
+    "pitch": 1,
+    "cost": 1,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR123",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "bloodfrenzy-gloomblade-yellow",
+    "name": "Bloodfrenzy Gloomblade",
+    "pitch": 2,
+    "cost": 1,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR124",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "bloodsong-gloomblade-red",
+    "name": "Bloodsong Gloomblade",
+    "pitch": 1,
+    "cost": 0,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR114",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "bone-barrier-blue",
+    "name": "Bone Barrier",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 2,
+    "rarity": "Majestic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Defense Reaction"
+    ],
+    "typeText": "Necromancer Defence Reaction",
+    "image": "IAR093",
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "bone-mass-blue",
+    "name": "Bone Mass",
+    "pitch": 3,
+    "cost": 0,
+    "power": 1,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR074",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "bone-mass-red",
+    "name": "Bone Mass",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR072",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "bone-mass-yellow",
+    "name": "Bone Mass",
+    "pitch": 2,
+    "cost": 0,
+    "power": 2,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR073",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "breach-flesh-blue",
+    "name": "Breach Flesh",
+    "pitch": 3,
+    "cost": 0,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR184",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "breach-flesh-red",
+    "name": "Breach Flesh",
+    "pitch": 1,
+    "cost": 0,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR182",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "breach-flesh-yellow",
+    "name": "Breach Flesh",
+    "pitch": 2,
+    "cost": 0,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR183",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "bridge-of-damnation-blue",
+    "name": "Bridge of Damnation",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Aura",
+    "image": "IAR058",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "cleave-the-heavens-blue",
+    "name": "Cleave the Heavens",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR022",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "cleave-the-heavens-red",
+    "name": "Cleave the Heavens",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR020",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "cleave-the-heavens-yellow",
+    "name": "Cleave the Heavens",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR021",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "commit-to-corruption-blue",
+    "name": "Commit to Corruption",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action",
+    "image": "IAR062",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "commit-to-corruption-red",
+    "name": "Commit to Corruption",
+    "pitch": 1,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action",
+    "image": "IAR060",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "commit-to-corruption-yellow",
+    "name": "Commit to Corruption",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action",
+    "image": "IAR061",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "consuming-appetite-yellow",
+    "name": "Consuming Appetite",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR008",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "consuming-lash-yellow",
+    "name": "Consuming Lash",
+    "pitch": 2,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR009",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "consuming-strength-yellow",
+    "name": "Consuming Strength",
+    "pitch": 2,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR010",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "corporeal-chasm-blue",
+    "name": "Corporeal Chasm",
+    "pitch": 3,
+    "cost": 3,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR187",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "corporeal-chasm-red",
+    "name": "Corporeal Chasm",
+    "pitch": 1,
+    "cost": 3,
+    "power": 7,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR185",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "corporeal-chasm-yellow",
+    "name": "Corporeal Chasm",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR186",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "corrupt-and-conquer-red",
+    "name": "Corrupt and Conquer",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR164",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "countdown-to-extinction-blue",
+    "name": "Countdown to Extinction",
+    "pitch": 3,
+    "cost": 3,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR169",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "countdown-to-extinction-red",
+    "name": "Countdown to Extinction",
+    "pitch": 1,
+    "cost": 3,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR167",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "countdown-to-extinction-yellow",
+    "name": "Countdown to Extinction",
+    "pitch": 2,
+    "cost": 3,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR168",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "cullingsong-gloomblade-red",
+    "name": "Cullingsong Gloomblade",
+    "pitch": 1,
+    "cost": 0,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR115",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "darkest-hour-blue",
+    "name": "Darkest Hour",
+    "pitch": 3,
+    "cost": 2,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR211",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "darkest-hour-red",
+    "name": "Darkest Hour",
+    "pitch": 1,
+    "cost": 2,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR209",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "darkest-hour-yellow",
+    "name": "Darkest Hour",
+    "pitch": 2,
+    "cost": 2,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR210",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "demonbound-gloomblade-blue",
+    "name": "Demonbound Gloomblade",
+    "pitch": 3,
+    "cost": 0,
+    "power": 1,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR128",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "demonbound-gloomblade-red",
+    "name": "Demonbound Gloomblade",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR126",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "demonbound-gloomblade-yellow",
+    "name": "Demonbound Gloomblade",
+    "pitch": 2,
+    "cost": 0,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR127",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "devouring-doomwake-red",
+    "name": "Devouring Doomwake",
+    "pitch": 1,
+    "cost": 6,
+    "power": 11,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR006",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "dimenxxional-ferryman-blue",
+    "name": "Dimenxxional Ferryman",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR179",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "embrace-sin-yellow",
+    "name": "Embrace Sin",
+    "pitch": 2,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR120",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "embrace-ursur-blue",
+    "name": "Embrace Ursur",
+    "pitch": 3,
+    "cost": 1,
+    "power": 1,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR131",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "embrace-ursur-red",
+    "name": "Embrace Ursur",
+    "pitch": 1,
+    "cost": 1,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR129",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "embrace-ursur-yellow",
+    "name": "Embrace Ursur",
+    "pitch": 2,
+    "cost": 1,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR130",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "exorcism-red",
+    "name": "Exorcism",
+    "pitch": 1,
+    "cost": 1,
+    "power": null,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action",
+    "image": "IAR229",
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "forbidden-harvest-yellow",
+    "name": "Forbidden Harvest",
+    "pitch": 2,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR121",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "forsaken-strike-yellow",
+    "name": "Forsaken Strike",
+    "pitch": 2,
+    "cost": 0,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR057",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "grasp-of-the-darknight",
+    "name": "Grasp of the Darknight",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Basic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Shadow Runeblade Equipment - Arms",
+    "image": "IAR109",
+    "legalHeroes": [
+      "Chane",
+      "Taylor",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "grille-of-repentance",
+    "name": "Grille of Repentance",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Shadow Equipment - Head",
+    "image": "IAR161",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Taylor",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "harbinger-of-destruction-red",
+    "name": "Harbinger of Destruction",
+    "pitch": 1,
+    "cost": 8,
+    "power": 13,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR170",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "headstrong-stampede-blue",
+    "name": "Headstrong Stampede",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action - Attack",
+    "image": "IAR049",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "headstrong-stampede-red",
+    "name": "Headstrong Stampede",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action - Attack",
+    "image": "IAR047",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "headstrong-stampede-yellow",
+    "name": "Headstrong Stampede",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action - Attack",
+    "image": "IAR048",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "hell-hammer",
+    "name": "Hell Hammer",
+    "pitch": null,
+    "cost": null,
+    "power": 6,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Weapon"
+    ],
+    "typeText": "Shadow Brute Weapon - Hammer (2H)",
+    "image": "IAR003",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "hellbound-assault-blue",
+    "name": "Hellbound Assault",
+    "pitch": 3,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR013",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "hellbound-assault-red",
+    "name": "Hellbound Assault",
+    "pitch": 1,
+    "cost": 2,
+    "power": 7,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR011",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "hellbound-assault-yellow",
+    "name": "Hellbound Assault",
+    "pitch": 2,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR012",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "hex-gauntlet",
+    "name": "Hex Gauntlet",
+    "pitch": null,
+    "cost": null,
+    "power": 6,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Shadow Brute Equipment - Arms",
+    "image": "IAR004",
+    "legalHeroes": [
+      "Levia",
+      "Taylor"
+    ]
+  },
+  {
+    "id": "ingest-the-unknown-yellow",
+    "name": "Ingest the Unknown",
+    "pitch": 2,
+    "cost": 1,
+    "power": 0,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR007",
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "levia",
+    "name": "Levia",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Hero"
+    ],
+    "typeText": "Shadow Brute Hero - Young",
+    "image": "IAR002",
+    "legalHeroes": [
+      "Levia"
+    ],
+    "hero": "Levia",
+    "young": true
+  },
+  {
+    "id": "malice",
+    "name": "Malice",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Hero"
+    ],
+    "typeText": "Shadow Necromancer Hero - Young",
+    "image": "IAR054",
+    "legalHeroes": [
+      "Malice"
+    ],
+    "hero": "Malice",
+    "young": true
+  },
+  {
+    "id": "malignant-migration-blue",
+    "name": "Malignant Migration",
+    "pitch": 3,
+    "cost": 0,
+    "power": 1,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR077",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "malignant-migration-red",
+    "name": "Malignant Migration",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR075",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "malignant-migration-yellow",
+    "name": "Malignant Migration",
+    "pitch": 2,
+    "cost": 0,
+    "power": 2,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR076",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "mark-of-neverest-blue",
+    "name": "Mark of Neverest",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Shadow Necromancer Instant - Aura",
+    "image": "IAR066",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "mark-of-pathstone-blue",
+    "name": "Mark of Pathstone",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Shadow Necromancer Instant - Aura",
+    "image": "IAR067",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "mark-of-ushering-blue",
+    "name": "Mark of Ushering",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Shadow Necromancer Instant - Aura",
+    "image": "IAR068",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "murmuring-gloomblade-blue",
+    "name": "Murmuring Gloomblade",
+    "pitch": 3,
+    "cost": 2,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR134",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "murmuring-gloomblade-red",
+    "name": "Murmuring Gloomblade",
+    "pitch": 1,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR132",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "murmuring-gloomblade-yellow",
+    "name": "Murmuring Gloomblade",
+    "pitch": 2,
+    "cost": 2,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR133",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "ominous-toll-blue",
+    "name": "Ominous Toll",
+    "pitch": 3,
+    "cost": 0,
+    "power": 1,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR080",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "ominous-toll-red",
+    "name": "Ominous Toll",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR078",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "ominous-toll-yellow",
+    "name": "Ominous Toll",
+    "pitch": 2,
+    "cost": 0,
+    "power": 2,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Attack",
+    "image": "IAR079",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "open-the-gate-to-iarathael-red",
+    "name": "Open the Gate to i'Arathael",
+    "pitch": 1,
+    "cost": 0,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR166",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "otherworldly-sins-blue",
+    "name": "Otherworldly Sins",
+    "pitch": 3,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR143",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "otherworldly-sins-red",
+    "name": "Otherworldly Sins",
+    "pitch": 1,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR141",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "otherworldly-sins-yellow",
+    "name": "Otherworldly Sins",
+    "pitch": 2,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR142",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "path-of-repentance",
+    "name": "Path of Repentance",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Shadow Equipment - Legs",
+    "image": "IAR163",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Taylor",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "peak-power-blue",
+    "name": "Peak Power",
+    "pitch": 3,
+    "cost": 3,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action - Attack",
+    "image": "IAR043",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "peak-power-red",
+    "name": "Peak Power",
+    "pitch": 1,
+    "cost": 3,
+    "power": 7,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action - Attack",
+    "image": "IAR041",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "peak-power-yellow",
+    "name": "Peak Power",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action - Attack",
+    "image": "IAR042",
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "planar-chaos-red",
+    "name": "Planar Chaos",
+    "pitch": 1,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR180",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "plundersong-gloomblade-red",
+    "name": "Plundersong Gloomblade",
+    "pitch": 1,
+    "cost": 0,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR116",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "pull-from-beyond-blue",
+    "name": "Pull from Beyond",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR214",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "pull-from-beyond-red",
+    "name": "Pull from Beyond",
+    "pitch": 1,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR212",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "pull-from-beyond-yellow",
+    "name": "Pull from Beyond",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR213",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "restless-cleric-red",
+    "name": "Restless Cleric",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR084",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-corporal-red",
+    "name": "Restless Corporal",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR085",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-looter-red",
+    "name": "Restless Looter",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR063",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-magister-red",
+    "name": "Restless Magister",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR064",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-outlaw-red",
+    "name": "Restless Outlaw",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR086",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-quartermaster-red",
+    "name": "Restless Quartermaster",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR065",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-steed-red",
+    "name": "Restless Steed",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR089",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-templar-red",
+    "name": "Restless Templar",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Majestic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR059",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "rites-of-nightfall-blue",
+    "name": "Rites of Nightfall",
+    "pitch": 3,
+    "cost": 1,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR181",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "robe-of-repentance",
+    "name": "Robe of Repentance",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Shadow Equipment - Chest",
+    "image": "IAR162",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Taylor",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runechant-of-envy-yellow",
+    "name": "Runechant of Envy",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Runeblade Instant - Aura",
+    "image": "IAR152",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runechant-of-gluttony-yellow",
+    "name": "Runechant of Gluttony",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Runeblade Instant - Aura",
+    "image": "IAR153",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runechant-of-greed-yellow",
+    "name": "Runechant of Greed",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Majestic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Runeblade Instant - Aura",
+    "image": "IAR145",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runechant-of-lust-yellow",
+    "name": "Runechant of Lust",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Runeblade Instant - Aura",
+    "image": "IAR154",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runechant-of-pride-yellow",
+    "name": "Runechant of Pride",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Runeblade Instant - Aura",
+    "image": "IAR155",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runechant-of-sloth-yellow",
+    "name": "Runechant of Sloth",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Runeblade Instant - Aura",
+    "image": "IAR156",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runechant-of-wrath-yellow",
+    "name": "Runechant of Wrath",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Instant"
+    ],
+    "typeText": "Runeblade Instant - Aura",
+    "image": "IAR157",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runic-disposition-blue",
+    "name": "Runic Disposition",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Runeblade Action - Attack",
+    "image": "IAR148",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runic-disposition-red",
+    "name": "Runic Disposition",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Runeblade Action - Attack",
+    "image": "IAR146",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runic-disposition-yellow",
+    "name": "Runic Disposition",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Runeblade Action - Attack",
+    "image": "IAR147",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runic-reaving-blue",
+    "name": "Runic Reaving",
+    "pitch": 3,
+    "cost": 0,
+    "power": 2,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Runeblade Action - Attack",
+    "image": "IAR151",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runic-reaving-red",
+    "name": "Runic Reaving",
+    "pitch": 1,
+    "cost": 0,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Runeblade Action - Attack",
+    "image": "IAR149",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "runic-reaving-yellow",
+    "name": "Runic Reaving",
+    "pitch": 2,
+    "cost": 0,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Runeblade Action - Attack",
+    "image": "IAR150",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "seven-sin-nebula",
+    "name": "Seven Sin Nebula",
+    "pitch": null,
+    "cost": null,
+    "power": 3,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Weapon"
+    ],
+    "typeText": "Shadow Runeblade Weapon - Sword (2H)",
+    "image": "IAR108",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-bloodhound-blue",
+    "name": "Shadowrealm Bloodhound",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR196",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-bloodhound-red",
+    "name": "Shadowrealm Bloodhound",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR194",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-bloodhound-yellow",
+    "name": "Shadowrealm Bloodhound",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR195",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-harrower-blue",
+    "name": "Shadowrealm Harrower",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR174",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-harvester-red",
+    "name": "Shadowrealm Harvester",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR175",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-reaper-yellow",
+    "name": "Shadowrealm Reaper",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR176",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-ripper-blue",
+    "name": "Shadowrealm Ripper",
+    "pitch": 3,
+    "cost": 1,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR199",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-ripper-red",
+    "name": "Shadowrealm Ripper",
+    "pitch": 1,
+    "cost": 1,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR197",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-ripper-yellow",
+    "name": "Shadowrealm Ripper",
+    "pitch": 2,
+    "cost": 1,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR198",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-solace-blue",
+    "name": "Shadowrealm Solace",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action",
+    "image": "IAR081",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "shadowrealm-strength-red",
+    "name": "Shadowrealm Strength",
+    "pitch": 1,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action",
+    "image": "IAR082",
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "shadowrealm-walker-blue",
+    "name": "Shadowrealm Walker",
+    "pitch": 3,
+    "cost": 0,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR202",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-walker-red",
+    "name": "Shadowrealm Walker",
+    "pitch": 1,
+    "cost": 0,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR200",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowrealm-walker-yellow",
+    "name": "Shadowrealm Walker",
+    "pitch": 2,
+    "cost": 0,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR201",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "sinspeaker-gloomblade-red",
+    "name": "Sinspeaker Gloomblade",
+    "pitch": 1,
+    "cost": 0,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR112",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "skeletal-puppetry-blue",
+    "name": "Skeletal Puppetry",
+    "pitch": 3,
+    "cost": 2,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action",
+    "image": "IAR096",
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "skeletal-puppetry-red",
+    "name": "Skeletal Puppetry",
+    "pitch": 1,
+    "cost": 2,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action",
+    "image": "IAR094",
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "skeletal-puppetry-yellow",
+    "name": "Skeletal Puppetry",
+    "pitch": 2,
+    "cost": 2,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action",
+    "image": "IAR095",
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "sonata-dystopia-blue",
+    "name": "Sonata Dystopia",
+    "pitch": 3,
+    "cost": null,
+    "power": null,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Runeblade Action",
+    "image": "IAR144",
+    "legalHeroes": [
+      "Aurora",
+      "Aurora2",
+      "Briar",
+      "Chane",
+      "Florian",
+      "Viserai",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "tome-of-necrosis-red",
+    "name": "Tome of Necrosis",
+    "pitch": 1,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action",
+    "image": "IAR092",
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Librarian",
+      "Malice"
+    ]
+  },
+  {
+    "id": "tribute-to-greater-power-red",
+    "name": "Tribute to Greater Power",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR177",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "unbound-by-shadow-red",
+    "name": "Unbound by Shadow",
+    "pitch": 1,
+    "cost": 0,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR178",
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "vexing-gloomblade-blue",
+    "name": "Vexing Gloomblade",
+    "pitch": 3,
+    "cost": 3,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR119",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "vexing-gloomblade-red",
+    "name": "Vexing Gloomblade",
+    "pitch": 1,
+    "cost": 3,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR117",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "vexing-gloomblade-yellow",
+    "name": "Vexing Gloomblade",
+    "pitch": 2,
+    "cost": 3,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR118",
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "violent-gusto-red",
+    "name": "Violent Gusto",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Majestic",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR228",
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "viserai-between-worlds",
+    "name": "Viserai, Between Worlds",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Hero"
+    ],
+    "typeText": "Shadow Runeblade Hero - Young",
+    "image": "IAR107",
+    "legalHeroes": [
+      "Viserai2"
+    ],
+    "hero": "Viserai2",
+    "young": true
+  },
+  {
+    "id": "vox-necropolis",
+    "name": "Vox Necropolis",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Weapon"
+    ],
+    "typeText": "Shadow Necromancer Weapon - Staff (2H)",
+    "image": "IAR055",
+    "legalHeroes": [
+      "Malice"
+    ]
+  }
+]
