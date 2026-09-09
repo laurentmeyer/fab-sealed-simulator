@@ -7,10 +7,11 @@ import {
   generatePack,
   isDrawable,
   isEquipment,
-  isSingleton,
+  isWeapon,
   splitClassCommons,
   type Rng,
 } from './packGenerator'
+import { heroKitFor, youngHeroes } from './heroes'
 import type { PoolCard } from './types'
 
 const pool = cardsJson as PoolCard[]
@@ -51,11 +52,20 @@ describe('pack composition', () => {
     }
   })
 
-  it('never draws a Basic card inside a pack except in the equipment slot', () => {
+  it('never draws a Basic card: those come with the hero, not from a pack', () => {
     for (let i = 0; i < 50; i++) {
-      const basics = cardsOf(generatePack(pool)).filter(isSingleton)
-      expect(basics.every(isEquipment)).toBe(true)
+      expect(cardsOf(generatePack(pool)).some((c) => c.rarity === 'Basic')).toBe(false)
     }
+  })
+
+  it('only ever draws the generic Head, Chest and Legs equipment', () => {
+    const slots = new Set<string>()
+    for (let i = 0; i < 80; i++) {
+      for (const card of cardsOf(generatePack(pool)).filter(isEquipment)) {
+        slots.add(card.typeText.split(' - ').pop()!)
+      }
+    }
+    expect([...slots].sort()).toEqual(['Chest', 'Head', 'Legs'])
   })
 })
 
@@ -77,21 +87,17 @@ describe('rarity fallback', () => {
 })
 
 describe('event pool', () => {
-  it('holds one of each Basic card and no pack-drawn duplicates of them', () => {
+  it('holds only pack cards, all unselected, and nothing at Basic rarity', () => {
     const instances = generateEventPool(pool)
     const cards = cardsOf(instances)
-    const singletons = pool.filter((c) => isSingleton(c) && isDrawable(c))
 
-    for (const basic of singletons) {
-      expect(cards.filter((c) => c.id === basic.id)).toHaveLength(1)
-    }
     expect(instances.every((i) => !i.selected)).toBe(true)
+    expect(cards.every(isDrawable)).toBe(true)
+    expect(cards.some((c) => c.rarity === 'Basic')).toBe(false)
 
-    // 8 packs of 14, minus the Basic equipment draws that merged, plus the singletons.
-    const nonBasic = cards.filter((c) => !isSingleton(c)).length
-    expect(nonBasic).toBeGreaterThan(PACKS_PER_EVENT * 14 - PACKS_PER_EVENT - 1)
-    expect(nonBasic).toBeLessThanOrEqual(PACKS_PER_EVENT * 14)
-    expect(cards).toHaveLength(nonBasic + singletons.length)
+    // 8 packs of 14, less the duplicate equipment that was dropped.
+    expect(cards.length).toBeLessThanOrEqual(PACKS_PER_EVENT * 14)
+    expect(cards.length).toBeGreaterThan(PACKS_PER_EVENT * 14 - PACKS_PER_EVENT)
   })
 
   it('never holds two copies of the same equipment, whatever the packs gave', () => {
@@ -102,14 +108,18 @@ describe('event pool', () => {
     }
   })
 
-  it('merges a Basic equipment draw instead of adding a second copy', () => {
-    // Force every equipment slot onto the first equipment card, which is Basic.
-    const equipment = pool.filter(isEquipment)
-    const first = [...equipment].sort((a, b) => a.id.localeCompare(b.id))[0]
-    expect(first.rarity).toBe('Basic')
-
-    const cards = cardsOf(generateEventPool(pool, scriptedRng([])))
-    expect(cards.filter((c) => c.id === first.id).length).toBeLessThanOrEqual(1)
+  it('gives each hero a kit of exactly one weapon and one Arms, outside the pool', () => {
+    const cards = cardsOf(generateEventPool(pool))
+    for (const hero of youngHeroes(pool)) {
+      const kit = heroKitFor(hero, pool)
+      expect(kit.filter(isWeapon)).toHaveLength(1)
+      expect(kit.filter(isEquipment)).toHaveLength(1)
+      expect(kit.filter(isEquipment)[0].typeText).toContain('Arms')
+      // None of it is ever opened.
+      for (const item of [hero, ...kit]) {
+        expect(cards.some((c) => c.id === item.id)).toBe(false)
+      }
+    }
   })
 })
 

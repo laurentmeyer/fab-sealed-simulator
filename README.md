@@ -47,23 +47,26 @@ opened. So each simulated pack is the 14 cards that matter:
 | 1 | The foil slot — a Rare 1.75% of the time, otherwise a Common |
 | 10 | Commons: 6–7 class cards split evenly across Necromancer, Brute and Runeblade, and 3–4 generic cards |
 
-On top of the 8 packs you always get one copy of every Basic class equipment, because you need
-it to field a deck. Basics are singletons: if the equipment slot rolls one, it merges into the
-copy you already have, so a pool ends up a little short of 8 × 14 cards.
+**Everything at Basic rarity comes with your hero, not from a pack.** Each young hero arrives
+with its weapon and its class Arms equipment, the way a pre-release kit hands them to you:
 
-Equipment is deduplicated: you can only ever wear one copy, so a pack that opens a second
-Path of Repentance adds nothing and it is dropped. A pool therefore holds at most one of each
-piece of equipment.
+| Hero | Weapon | Arms |
+| --- | --- | --- |
+| Levia | Hell Hammer | Hex Gauntlet |
+| Malice | Vox Necropolis | Appalling Bearers |
+| Viserai, Between Worlds | Seven Sin Nebula | Grasp of the Darknight |
 
-Heroes and weapons are not in the pool at all. You pick a young hero, and its signature weapon
-comes with it — Levia brings Hell Hammer, Malice brings Vox Necropolis, and Viserai brings
-Seven Sin Nebula.
+That leaves packs supplying only the generic Repentance equipment, which covers the other
+three slots — Grille (Head), Robe (Chest) and Path (Legs) — so you end up with exactly one
+piece per slot and never have to choose between two. Equipment is deduplicated as well: a
+second copy can never be worn, so a pack that opens another Path of Repentance drops it. A
+pool is therefore a little short of 8 × 14 cards, around 107.
 
 Cards that are *created* during play never appear at all: Blasmophet, Gate to i'Arathael and
 Corrupted Corpse are made by other cards, not opened in a pack. They are dropped at snapshot
 time, spotted by their presence in another card's `createdExtras`.
 
-Weapons and equipment are not part of the deck, so they do not count toward the "X / 30", and
+Heroes, weapons and equipment are not part of the deck, so they do not count toward the "X / 30", and
 neither do cards your hero cannot play. **30 is a minimum, not a maximum** — you start each
 game with 30 and anything above that is a sideboard you can swap from between games. Nothing
 is enforced either way: the warning sign in the menu bar lists whatever is still missing, and

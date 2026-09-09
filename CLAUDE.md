@@ -15,7 +15,7 @@ not. UI work in particular needs a human eye, since you cannot see the rendered 
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 40 tests
+npm test             # vitest, 41 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```

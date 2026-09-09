@@ -7,11 +7,9 @@ Everything nobody has decided yet. The README describes what the app does today.
 The pack layout came from the set's product description, but some numbers are our best
 guess. Each entry says what we assumed and where it lives.
 
-- [ ] **Basic vs Common equipment in the equipment slot.** We draw uniformly across all
-      sealed-legal equipment, so a Basic class equipment (Hex Gauntlet, Appalling Bearers,
-      Grasp of the Darknight) is exactly as likely as a Common one from the Repentance
-      cycle. The real print ratio is unknown, and Basic equipment may not even share the
-      slot. Tunable via `BASIC_EQUIPMENT_WEIGHT` in [`src/packConfig.ts`](../src/packConfig.ts).
+- [x] ~~**Basic vs Common equipment in the equipment slot.**~~ Resolved: Basic rarity is the
+      pre-release kit, not pack content. Each hero comes with its weapon and its class Arms,
+      and packs only ever supply the generic Head/Chest/Legs equipment.
 - [ ] **Is Baalghor, Omen of the End a legal sealed hero?** The set has a fourth young hero,
       [Baalghor](https://fabrary.net/cards/baalghor-omen-of-the-end), but the card data does
       not mark it sealed-legal, so the hero selector offers only Levia, Malice and Viserai.
@@ -35,14 +33,14 @@ analytics at a game store. Items are ordered by value.
       reshuffle the other 109. The grid currently reflows on every click, which has no
       physical counterpart and is jarring when adding several cards in a row.
 - [ ] **Set aside the cards the hero cannot play.** IRL that is the first thing you do —
-      push them out of the play area. They are about half the pool (~52 of 110), so
+      push them out of the play area. They are about half the pool (~50 of 107), so
       collapsing that group by default matches what actually happens.
 - [ ] **A build timer.** Sealed events give you a fixed deckbuilding window, and building in
       20 minutes is a different exercise from building at leisure. Probably the highest
       fidelity win available.
-- [ ] **Equipment slots.** `typeText` already gives Head / Chest / Arms / Legs. Wearing two
-      Arms is currently allowed and is illegal in a real game; this fits the existing
-      advisory-warning model. Note today's rule is one copy per *card*, not per slot.
+- [x] ~~**Equipment slots.**~~ Resolved by the hero-kit model: Arms comes with the hero and
+      packs only supply Head, Chest and Legs, so you get exactly one per slot and two pieces
+      can never conflict.
 - [ ] **Open the packs pack by pack.** The app hands you a finished pool, but the stated
       goal is simulating opening 8 packs — and that is the part players enjoy.
 - [ ] **A "maybe" pile.** Everyone builds with three piles physically, not two.
@@ -63,7 +61,7 @@ analytics at a game store. Items are ordered by value.
 
 ## Housekeeping
 
-- [ ] **Read the test suite** (`src/*.test.ts`, 40 tests) — not yet reviewed by the owner.
+- [ ] **Read the test suite** (`src/*.test.ts`, 41 tests) — not yet reviewed by the owner.
 - [ ] Add the README screenshot (`docs/screenshot.png`); the link is a TODO comment.
 - [ ] Confirm the copyright holder named in [`LICENSE`](../LICENSE).
 - [ ] Refresh the card data as the set is revealed: `npm update @flesh-and-blood/cards

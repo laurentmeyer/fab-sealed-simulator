@@ -1,5 +1,4 @@
 import {
-  BASIC_EQUIPMENT_WEIGHT,
   CLASS_COMMON_CLASSES,
   CLASS_COMMONS_OPTIONS,
   COMMONS_PER_PACK,
@@ -16,20 +15,16 @@ export type Rng = () => number
 export const isEquipment = (card: PoolCard) => card.types.includes('Equipment')
 export const isHero = (card: PoolCard) => card.types.includes('Hero')
 export const isWeapon = (card: PoolCard) => card.types.includes('Weapon')
-/**
- * Equipment lives in the arena, not in the 30-card deck. (Heroes and weapons never reach the
- * pool at all — they come with the hero you pick — and tokens are dropped at snapshot time.)
- */
-export const countsTowardDeck = (card: PoolCard) => !isEquipment(card) && card.rarity !== 'Basic'
+/** Heroes, weapons and equipment live in the arena, not in the 30-card deck. */
+export const countsTowardDeck = (card: PoolCard) =>
+  !isEquipment(card) && !isHero(card) && !isWeapon(card)
 
 /**
- * Heroes and their signature weapons are chosen with the hero selector rather than opened,
- * so they are not part of anyone's card pool.
+ * Basic rarity is the pre-release kit rather than pack content: each hero comes with itself,
+ * its weapon and its class Arms equipment. None of it is ever opened, so none of it is in
+ * anyone's pool — see heroKitFor in heroes.ts. (Tokens are dropped at snapshot time.)
  */
-export const isDrawable = (card: PoolCard) => !isHero(card) && !isWeapon(card)
-
-/** Basic cards are singletons: one of each is handed to the player, packs never add more. */
-export const isSingleton = (card: PoolCard) => card.rarity === 'Basic'
+export const isDrawable = (card: PoolCard) => card.rarity !== 'Basic'
 
 const GENERIC_CLASS_SET = new Set<string>(GENERIC_CLASSES)
 /** Generic and NotClassed cards, which every hero can play. Shown as "No class". */
@@ -49,16 +44,6 @@ const instanceOf = (card: PoolCard): CardInstance => ({
 
 const pick = <T,>(items: readonly T[], rng: Rng): T => items[Math.floor(rng() * items.length)]
 
-const pickWeighted = <T,>(items: readonly T[], weight: (item: T) => number, rng: Rng): T => {
-  const total = items.reduce((sum, item) => sum + weight(item), 0)
-  let roll = rng() * total
-  for (const item of items) {
-    roll -= weight(item)
-    if (roll < 0) return item
-  }
-  return items[items.length - 1]
-}
-
 /**
  * Draws a card of the rolled rarity, stepping down the ladder when that rarity has no cards
  * in the snapshot. Fabled and Legendary are empty today (the data does not flag them
@@ -66,7 +51,7 @@ const pickWeighted = <T,>(items: readonly T[], weight: (item: T) => number, rng:
  */
 const pickOfRarity = (pool: PoolCard[], rarity: Rarity, rng: Rng): PoolCard | null => {
   for (const step of RARITY_LADDER.slice(RARITY_LADDER.indexOf(rarity))) {
-    const candidates = pool.filter((c) => c.rarity === step && !isEquipment(c) && !isSingleton(c))
+    const candidates = pool.filter((c) => c.rarity === step && !isEquipment(c))
     if (candidates.length) return pick(candidates, rng)
   }
   return null
@@ -108,9 +93,7 @@ export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): Card
   const drawn: PoolCard[] = []
 
   const equipment = pool.filter(isEquipment)
-  if (equipment.length) {
-    drawn.push(pickWeighted(equipment, (c) => (c.rarity === 'Basic' ? BASIC_EQUIPMENT_WEIGHT : 1), rng))
-  }
+  if (equipment.length) drawn.push(pick(equipment, rng))
 
   const rare = pickOfRarity(pool, 'Rare', rng)
   if (rare) drawn.push(rare)
@@ -138,29 +121,26 @@ export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): Card
 }
 
 /**
- * A full sealed pool: 8 packs, plus one copy of every Basic card left once heroes and weapons
- * are set aside — the class equipment. A Basic drawn from a pack merges into its singleton, so
- * the pool holds slightly fewer than 8 x 14 cards.
+ * A full sealed pool: the 8 packs. Everything at Basic rarity comes with the hero instead, and
+ * equipment is deduplicated, so a pool is slightly short of 8 x 14 cards.
  */
 export const generateEventPool = (fullPool: PoolCard[], rng: Rng = Math.random): CardInstance[] => {
   const pool = fullPool.filter(isDrawable)
   const byId = new Map(pool.map((c) => [c.id, c]))
 
-  const fromPacks: CardInstance[] = []
+  const cards: CardInstance[] = []
   const equipmentSeen = new Set<string>()
   for (let i = 0; i < PACKS_PER_EVENT; i++) {
     for (const instance of generatePack(pool, rng)) {
       const card = byId.get(instance.cardId)
-      if (!card || isSingleton(card)) continue // Basics are handed out below instead
+      if (!card) continue
       // You can only ever wear one of a given equipment, so a second copy is dead weight.
       if (isEquipment(card)) {
         if (equipmentSeen.has(card.id)) continue
         equipmentSeen.add(card.id)
       }
-      fromPacks.push(instance)
+      cards.push(instance)
     }
   }
-
-  const singletons = pool.filter(isSingleton).map(instanceOf)
-  return [...fromPacks, ...singletons]
+  return cards
 }

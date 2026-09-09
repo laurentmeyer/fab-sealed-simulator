@@ -23,7 +23,7 @@ describe('exportDeck', () => {
     const red = pool.find(
       (c) => c.rarity === 'Common' && c.pitch === 1 && c.legalHeroes.includes(viserai.hero!),
     )!
-    const instances = select(byName('Grasp of the Darknight'), red, red)
+    const instances = select(byName('Path of Repentance'), red, red)
 
     expect(exportDeck('My sealed deck', instances, byId, viserai)).toBe(
       [
@@ -33,6 +33,7 @@ describe('exportDeck', () => {
         '',
         'Arena cards',
         '1x Grasp of the Darknight',
+        '1x Path of Repentance',
         '1x Seven Sin Nebula',
         '',
         'Deck cards',
@@ -47,9 +48,11 @@ describe('exportDeck', () => {
     expect(text).toContain('Hero: Malice')
   })
 
-  it('omits the Hero line and the weapon when no hero is picked', () => {
-    const text = exportDeck('Event 1', named('Hex Gauntlet'), byId, null)
-    expect(text).toBe(['Name: Event 1', 'Format: Sealed', '', 'Arena cards', '1x Hex Gauntlet'].join('\n'))
+  it('omits the Hero line and the whole kit when no hero is picked', () => {
+    const text = exportDeck('Event 1', named('Path of Repentance'), byId, null)
+    expect(text).toBe(
+      ['Name: Event 1', 'Format: Sealed', '', 'Arena cards', '1x Path of Repentance'].join('\n'),
+    )
   })
 
   it('leaves out cards the hero cannot play', () => {
@@ -95,8 +98,8 @@ describe('exportDeck', () => {
   })
 
   it('adds no pitch suffix to cards without a pitch value', () => {
-    const text = exportDeck('Event 1', named('Hex Gauntlet'), byId, null)
-    expect(text).toContain('1x Hex Gauntlet')
-    expect(text).not.toMatch(/Hex Gauntlet \(/)
+    const text = exportDeck('Event 1', named('Path of Repentance'), byId, null)
+    expect(text).toContain('1x Path of Repentance')
+    expect(text).not.toMatch(/Path of Repentance \(/)
   })
 })
