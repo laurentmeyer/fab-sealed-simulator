@@ -1,3 +1,7 @@
+> **Historical.** This is the original brief, kept unedited for the record. Several details
+> changed during the build — see the [README](../README.md) for what the app actually does,
+> and [docs/TODO.md](../docs/TODO.md) for what is still open.
+
 # Goal
 We are going to create a tool to prepare for the sealed events for the flesh and blood TCG. A sealed event is simple: open 8 booster packs, build a 30 cards deck, play against opponents.
 

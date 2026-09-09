@@ -84,9 +84,11 @@ equipment, none of which are part of the deck; **Deck** holds the cards that are
 the only count in the app — "28 / 30", green once you are there. Your hero and weapon sit
 outlined, since they come with the hero rather than the pool and cannot be clicked away.
 
-**Export for Fabrary** doubles as the legality sign: a green tick when the deck is ready, an
-amber ⚠ when it is not. Hover it to see every reason at once — no hero chosen, too few cards,
-cards your hero cannot play. It exports either way.
+**Export for Fabrary** copies a list you can paste straight into Fabrary's importer: a header
+with the event name and your hero, then the arena cards and the deck cards. It doubles as the
+legality sign — a green tick when the deck is ready, an amber ⚠ when it is not, with every
+reason on hover: no hero chosen, too few cards, cards your hero cannot play. It exports either
+way.
 
 The **Group by** dropdown sits above the pool and affects the pool only — by rarity, class or
 pitch, rarity by default. The deck side stays a plain list.
@@ -99,43 +101,17 @@ is hidden or blocked, so you can still click them, but they stop counting toward
 are left out of the export — which makes it obvious when a card already in your deck is
 off-hero.
 
-Legality is checked against each card's `legalHeroes` list rather than its class. The two
-agree in this set, since it has one hero per class, but FaB has cards specialized to a single
-hero and the hero list is the rule that stays correct.
+Legality is checked against each card's `legalHeroes` list rather than its class, so
+hero-specialized cards stay correct even though the two agree in this set.
 
-The two grid buttons switch card size for both panes. Rather than a fixed pixel width — which
-made the toggle do nothing on a narrow window, since both sizes fit the same number of columns
-— each size sets a floor that is the smaller of a target width and a share of the pane. The
-share guarantees at least 4 cards per row on small and 3 on large however narrow the window
-gets, the target adds columns as it widens, and a cap keeps a card from growing past the size
-of the hover preview.
+The two grid buttons switch card size for both panes, guaranteeing at least 4 cards per row on
+small and 3 on large however narrow the window gets.
 
-**Export for Fabrary** copies a list you can paste into Fabrary's importer: a header with the
-event name and your hero, then the arena cards and the deck cards.
+## Open questions
 
-## Open questions — to verify with FaB specialists
-
-The pack layout came from the set's product description, but some of the numbers are our best
-guess. If you know better, these are the places to correct:
-
-1. **Basic vs Common equipment in the equipment slot.** We draw uniformly across all
-   sealed-legal equipment, so a Basic class equipment (Hex Gauntlet, Appalling Bearers, Grasp
-   of the Darknight) is exactly as likely as a Common one from the Repentance cycle. The real
-   print ratio is unknown, and Basic equipment may not even share the slot. Tunable via
-   `BASIC_EQUIPMENT_WEIGHT` in [`src/packConfig.ts`](src/packConfig.ts). Note this changes
-   pool *size* as well as odds, because a Basic draw merges into the singleton you already
-   have.
-2. **Is Baalghor, Omen of the End a legal sealed hero?** The set has a fourth young hero,
-   [Baalghor](https://fabrary.net/cards/baalghor-omen-of-the-end), but the card data does not
-   mark it sealed-legal, so the hero selector offers only Levia, Malice and Viserai. If
-   Baalghor turns out to be legal it will need adding, along with whatever weapon it plays —
-   and being `NotClassed`, it is exactly the case where matching on class instead of
-   `legalHeroes` would fall apart.
-3. **The 6–7 / 3–4 common split** is a straight coin flip, and the class commons are split as
-   evenly as possible. The true distribution may be weighted.
-4. **The foil slot's rarity odds** (Rare 1.75%, otherwise Common) are back-derived from the
-   per-pack averages we were given (1.75 rares and ~11 commons per pack), not from published
-   pull rates.
+Some of the pack numbers are our best guess, and there is a backlog of things the app does
+not do yet. Both live in **[docs/TODO.md](docs/TODO.md)** — corrections from people who know
+the game are very welcome.
 
 ## Acknowledgments
 
