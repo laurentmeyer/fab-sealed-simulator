@@ -67,9 +67,25 @@ input {
 
 /* ---- main screen ---- */
 
+/*
+ * Fill the viewport so the footer sits at the bottom rather than halfway up the screen when
+ * there are only a couple of events. The content column grows to take up the slack.
+ */
+.main-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-page .main-screen {
+  flex: 1;
+}
+
 /* Set art runs the full width and dissolves into the page rather than sitting in a box. */
 .banner {
   position: relative;
+  /* flex:none so a long event list cannot squash the art. */
+  flex: none;
   height: clamp(180px, 32vw, 340px);
   overflow: hidden;
 }
@@ -157,6 +173,13 @@ input {
   font-size: 16px;
   padding: 12px 28px;
   border-radius: 10px;
+}
+
+.list-heading {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
 }
 
 .event-list {

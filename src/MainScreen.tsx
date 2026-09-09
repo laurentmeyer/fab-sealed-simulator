@@ -1,5 +1,4 @@
 import { Footer } from './Footer'
-import { deckCount } from './grouping'
 import type { PoolCard, SealedEvent } from './types'
 
 const SET_IMAGE = 'https://content.fabrary.net/sets/usurp-the-shadow-throne.webp'
@@ -52,34 +51,36 @@ export function MainScreen({
         {sorted.length === 0 ? (
           <p className="empty">No events yet. Crack some packs.</p>
         ) : (
-          <ul className="event-list">
-            {sorted.map((event) => {
-              const hero = heroOf(event)
-              return (
-                <li key={event.id}>
-                  <button type="button" className="event-open" onClick={() => onOpen(event.id)}>
-                    <span className="event-name">
-                      {event.name}
-                      {hero && <span className="event-hero"> &ndash; {hero.name}</span>}
-                    </span>
-                    <span className="event-meta">
-                      {deckCount(event.cards, byId, hero?.hero ?? null)} / 30 &middot;{' '}
-                      {new Date(event.createdAt).toLocaleDateString()}
-                    </span>
-                  </button>
-                  <button
-                    type="button"
-                    className="event-delete"
-                    title={`Delete ${event.name}`}
-                    aria-label={`Delete ${event.name}`}
-                    onClick={() => remove(event)}
-                  >
-                    <TrashIcon />
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
+          <>
+            <h2 className="list-heading">Past sealed events:</h2>
+            <ul className="event-list">
+              {sorted.map((event) => {
+                const hero = heroOf(event)
+                return (
+                  <li key={event.id}>
+                    <button type="button" className="event-open" onClick={() => onOpen(event.id)}>
+                      <span className="event-name">
+                        {event.name}
+                        {hero && <span className="event-hero"> &ndash; {hero.name}</span>}
+                      </span>
+                      <span className="event-meta">
+                        {new Date(event.createdAt).toLocaleDateString()}
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      className="event-delete"
+                      title={`Delete ${event.name}`}
+                      aria-label={`Delete ${event.name}`}
+                      onClick={() => remove(event)}
+                    >
+                      <TrashIcon />
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+          </>
         )}
       </div>
 
