@@ -67,9 +67,25 @@ input {
 
 /* ---- main screen ---- */
 
+/*
+ * Fill the viewport so the footer sits at the bottom rather than halfway up the screen when
+ * there are only a couple of events. The content column grows to take up the slack.
+ */
+.main-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-page .main-screen {
+  flex: 1;
+}
+
 /* Set art runs the full width and dissolves into the page rather than sitting in a box. */
 .banner {
   position: relative;
+  /* flex:none so a long event list cannot squash the art. */
+  flex: none;
   height: clamp(180px, 32vw, 340px);
   overflow: hidden;
 }
@@ -92,7 +108,41 @@ input {
   position: relative;
   max-width: 760px;
   margin: -48px auto 0;
-  padding: 0 24px 64px;
+  padding: 0 24px 48px;
+}
+
+/* ---- footer ---- */
+
+/*
+ * On the event screen this sits after .panes, which is flex:1, so it simply takes its own
+ * height out of the panes rather than pushing the 100vh layout into a page scroll.
+ */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 8px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.site-footer a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.site-footer a:hover {
+  color: var(--text);
+}
+
+.footer-sep {
+  opacity: 0.5;
 }
 
 .intro {
@@ -123,6 +173,13 @@ input {
   font-size: 16px;
   padding: 12px 28px;
   border-radius: 10px;
+}
+
+.list-heading {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
 }
 
 .event-list {

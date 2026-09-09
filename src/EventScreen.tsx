@@ -3,6 +3,7 @@ import { CardPreview } from './CardPreview'
 import { CARD_SIZE_CLASS, CardSizeToggle, type CardSize } from './CardSizeToggle'
 import { CardStackView } from './CardStackView'
 import { exportDeck } from './deckExport'
+import { Footer } from './Footer'
 import {
   canAdd,
   deckIssues,
@@ -369,6 +370,8 @@ export function EventScreen({
           emptyText="Click cards on the left to add them."
         />
       </div>
+
+      <Footer />
 
       {hovered && <CardPreview card={hovered.card} x={hovered.x} y={hovered.y} />}
       {copied && <div className="toast" role="status">List copied to clipboard</div>}
