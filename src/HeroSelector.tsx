@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { heroImageUrl, signatureWeaponFor } from './heroes'
+import { heroImageUrl, heroKitFor } from './heroes'
 import type { PoolCard } from './types'
 
 function HeroPortrait({ hero }: { hero: PoolCard }) {
@@ -33,7 +33,7 @@ export function HeroSelector({
   return (
     <span className="hero-selector" role="group" aria-label="Hero">
       {heroes.map((hero) => {
-        const weapon = signatureWeaponFor(hero, cards)
+        const kit = heroKitFor(hero, cards)
         const active = hero.id === selectedId
         return (
           <button
@@ -44,7 +44,7 @@ export function HeroSelector({
             title={
               active
                 ? `${hero.name} — click to unpick`
-                : `Play ${hero.name}${weapon ? ` with ${weapon.name}` : ''}`
+                : `Play ${hero.name}${kit.length ? ` with ${kit.map((c) => c.name).join(' and ')}` : ''}`
             }
             onClick={() => onSelect(active ? null : hero.id)}
           >

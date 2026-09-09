@@ -1,5 +1,5 @@
-import { isPlayableBy, signatureWeaponFor } from './heroes'
-import { countsTowardDeck, isEquipment } from './packGenerator'
+import { heroKitFor, isPlayableBy } from './heroes'
+import { countsTowardDeck, isDrawable, isEquipment } from './packGenerator'
 import type { CardInstance, PoolCard } from './types'
 
 const PITCH_NAMES: Record<number, string> = { 1: 'red', 2: 'yellow', 3: 'blue' }
@@ -38,10 +38,12 @@ export const exportDeck = (
   const selected = instances
     .filter((i) => i.selected)
     .map((i) => byId.get(i.cardId))
-    .filter((c): c is PoolCard => Boolean(c) && isPlayableBy(c!, heroKey))
+    // isDrawable drops Basic cards, which come with the hero: events saved before that
+    // change can still hold them, and they must not be listed twice.
+    .filter((c): c is PoolCard => Boolean(c) && isDrawable(c!) && isPlayableBy(c!, heroKey))
 
-  const weapon = hero ? signatureWeaponFor(hero, [...byId.values()]) : null
-  const arena = [...(weapon ? [weapon] : []), ...selected.filter(isEquipment)]
+  const kit = hero ? heroKitFor(hero, [...byId.values()]) : []
+  const arena = [...kit, ...selected.filter(isEquipment)]
   const deck = selected.filter(countsTowardDeck)
 
   const blocks: string[] = []

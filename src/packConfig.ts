@@ -34,9 +34,3 @@ export const FOIL_SLOT_RARE_CHANCE = 0.0175
 export const COMMONS_PER_PACK = 10
 /** How many of the 10 commons are class cards; the rest are generic. 50/50 between them. */
 export const CLASS_COMMONS_OPTIONS = [6, 7] as const
-
-/**
- * Relative likelihood of a Basic equipment against a Common one in the equipment slot.
- * 1 means uniform across all equipment. The true print ratio is unknown — see the README.
- */
-export const BASIC_EQUIPMENT_WEIGHT = 1

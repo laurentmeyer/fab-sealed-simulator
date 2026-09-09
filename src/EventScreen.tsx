@@ -17,9 +17,9 @@ import {
   type CardGroup,
 } from './grouping'
 import { HeroSelector } from './HeroSelector'
-import { signatureWeaponFor, youngHeroes } from './heroes'
+import { heroKitFor, youngHeroes } from './heroes'
 import { DECK_SIZE } from './packConfig'
-import { countsTowardDeck, isEquipment } from './packGenerator'
+import { countsTowardDeck, isDrawable, isEquipment } from './packGenerator'
 import type { CardInstance, Grouping, PoolCard, SealedEvent } from './types'
 
 const GROUPINGS: { value: Grouping; label: string }[] = [
@@ -156,13 +156,20 @@ export function EventScreen({
   const [copied, setCopied] = useState(false)
   const [hoveredPitch, setHoveredPitch] = useState<number | null>(null)
 
-  const known = useMemo(() => event.cards.filter((c) => byId.has(c.cardId)), [event.cards, byId])
+  const inData = useMemo(() => event.cards.filter((c) => byId.has(c.cardId)), [event.cards, byId])
+  // Basic cards used to sit in the pool as singletons and now come with the hero, so events
+  // saved before that change can still hold them. Drop them rather than showing them twice.
+  const known = useMemo(
+    () => inData.filter((c) => isDrawable(byId.get(c.cardId)!)),
+    [inData, byId],
+  )
 
   const allCards = useMemo(() => [...byId.values()], [byId])
   const heroes = useMemo(() => youngHeroes(allCards), [allCards])
   const hero = event.heroId ? (byId.get(event.heroId) ?? null) : null
   const heroKey = hero?.hero ?? null
-  const weapon = hero ? signatureWeaponFor(hero, allCards) : null
+  // The hero's weapon and class Arms equipment, which come with it rather than from a pack.
+  const heroKit = useMemo(() => (hero ? heroKitFor(hero, allCards) : []), [hero, allCards])
 
   /** You can only equip one of a given piece of equipment, so extra copies stay in the pool. */
   const equippedIds = useMemo(() => equippedCardIds(known, byId), [known, byId])
@@ -187,8 +194,7 @@ export function EventScreen({
     const { playable, unplayable } = partitionByHero(known.filter((c) => c.selected), byId, heroKey)
 
     const arenaStacks = [
-      ...(hero ? [fixedStack(hero)] : []),
-      ...(weapon ? [fixedStack(weapon)] : []),
+      ...(hero ? [fixedStack(hero), ...heroKit.map(fixedStack)] : []),
       ...toStacks(playable.filter((i) => isEquipment(byId.get(i.cardId)!)), byId),
     ]
     const deckInstances = playable.filter((i) => countsTowardDeck(byId.get(i.cardId)!))
@@ -214,7 +220,7 @@ export function EventScreen({
       },
       ...unplayableGroup(unplayable, byId, hero?.name ?? ''),
     ]
-  }, [known, byId, heroKey, hero, weapon])
+  }, [known, byId, heroKey, hero, heroKit])
 
   const split = pitchSplit(event.cards, byId, heroKey)
   const splitTotal = split.reduce((sum, s) => sum + s.count, 0)
@@ -250,9 +256,9 @@ export function EventScreen({
           <button type="button" onClick={onBack} title="Back to all events">
             &larr; Events
           </button>
-          {known.length < event.cards.length && (
+          {inData.length < event.cards.length && (
             <span className="warning" title="They are no longer part of the card pool.">
-              {event.cards.length - known.length} cards no longer in the card data
+              {event.cards.length - inData.length} cards no longer in the card data
             </span>
           )}
         </div>
