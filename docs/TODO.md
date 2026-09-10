@@ -1,6 +1,7 @@
 # Open questions and backlog
 
-Everything nobody has decided yet. The README describes what the app does today.
+What is still open, and the things we decided *not* to do so they do not come back around.
+Anything already built is described in the README instead of here.
 
 ## Rules to confirm with FaB players
 
@@ -28,27 +29,13 @@ guess. Each entry says what we assumed and where it lives.
 The goal is to **simulate** an IRL sealed session, not to help you win one — you have no
 analytics at a game store. Items are ordered by value.
 
-- [x] ~~**Table deckbuilding UI**~~ — the big one, built to the spec in
-      [notes/mtga-ui.md](../notes/mtga-ui.md) following [table-view-plan.md](table-view-plan.md):
-      the pool is one row, the deck is columns of overlapping cards you drag around between
-      and across both sections, and clicking sorts cards into single-colour piles in colour
-      order until you take over by hand. Piles are unnamed for now — naming them is the
-      obvious next step.
 - [ ] **Export straight to Talishar**, the gameplay simulator, alongside the Fabrary copy —
       build the deck here, then jump into a game with friends.
 - [ ] **First-time onboarding.** Explain in one screen what this is: open 8 packs at once,
       build a deck, play with friends — a simulation of real-life sealed deckbuilding.
-- [x] ~~**Keep the layout stable when a card moves.**~~ Resolved by the table: a card lands
-      in a pile you chose and stays there, and the pool row only loses the card you took.
-- [x] ~~**Set aside the cards the hero cannot play.**~~ Resolved by the filter: they go grey at
-      the end of the pool row, and are not drawn in the deck at all — one tile counts them and
-      offers to clear them out.
 - [ ] **A build timer.** Sealed events give you a fixed deckbuilding window, and building in
       20 minutes is a different exercise from building at leisure. Probably the highest
       fidelity win available.
-- [x] ~~**Equipment slots.**~~ Resolved by the hero-kit model: Arms comes with the hero and
-      packs only supply Head, Chest and Legs, so you get exactly one per slot and two pieces
-      can never conflict.
 - [ ] **Open the packs pack by pack.** The app hands you a finished pool, but the stated
       goal is simulating opening 8 packs — and that is the part players enjoy.
 - [ ] **A "maybe" pile.** Everyone builds with three piles physically, not two.
@@ -59,27 +46,31 @@ analytics at a game store. Items are ordered by value.
 
 ### Interface quality
 
-- [ ] Persist the sort mode — it resets every time an event is opened.
+- [x] ~~Persist the sort mode.~~ Decided against: starting every event on the default sort is
+      simpler, and a fresh pool deserves a fresh look at it.
 - [ ] The card size is fixed at 220px, which is generous on a laptop: the pool row and one
       full column barely fit together. A zoom control may have to come back.
-- [ ] Name the columns. The piles are the point; the rail above each one is already the right
-      place to write "banish enablers" and read the table at a glance.
+- [ ] **Name the columns.** The piles are the point; the rail above each one is already the
+      right place to write "banish enablers" and read the table at a glance.
 - [ ] Bring back "add all" / "remove all", which went with the old grouped panes. Some bulk
       way of clearing the off-hero cards out of the deck row would earn its place.
-- [ ] Consolidate the two ways to clear a hero (toggle the portrait, or the "clear" link).
+- [x] ~~Consolidate the two ways to clear a hero.~~ Decided against: clicking the active
+      portrait and the toolbar's "clear" link can both stay.
 - [ ] The deck row can get very wide, one column per card, before you start piling. A
       "tidy up" that merges singles by rarity or class might be a kinder starting point.
 - [ ] Reduce hover-only interactions: the pitch tooltips and the issues popup are mouse-only.
-- [x] ~~No way to read a stacked card's full text.~~ Resolved: a long press opens any card
-      full size over the table. Unlike the old hover preview it works on touch, and it only
-      shows up when asked for.
-- [ ] Main screen: show the hero portrait on each event row, and allow duplicating an event
-      to try a different build from the same pool.
 
 ## Housekeeping
 
-- [ ] **Read the test suite** (`src/*.test.ts`, 76 tests) — not yet reviewed by the owner.
+- [ ] **Read the test suite** (`src/*.test.ts`, 81 tests) — not yet reviewed by the owner.
 - [ ] Add the README screenshot (`docs/screenshot.png`); the link is a TODO comment.
 - [ ] Confirm the copyright holder named in [`LICENSE`](../LICENSE).
 - [ ] Refresh the card data as the set is revealed: `npm update @flesh-and-blood/cards
       @flesh-and-blood/types && npm run fetch-cards`, then commit `src/data/cards.json`.
+- [ ] **Do that refresh on a schedule.** A weekly GitHub Action running those two commands and
+      opening a PR when `cards.json` changes would keep the snapshot current on its own; Vercel
+      redeploys on merge. Considered and rejected the alternative of reading the card package
+      at app load: it is 1 MB gzipped against the snapshot's 5 KB, every card in the game
+      rather than this set's 104, and it would make the app depend on a third-party CDN at
+      runtime. A PR also keeps the diff reviewable, which matters — the snapshot is what every
+      saved event's card ids point at.

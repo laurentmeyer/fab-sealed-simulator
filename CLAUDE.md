@@ -24,7 +24,7 @@ and stop; if the answer is to implement, expect a switch to Opus (`/model opus`)
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 76 tests
+npm test             # vitest, 81 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```

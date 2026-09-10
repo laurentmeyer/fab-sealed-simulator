@@ -4,7 +4,7 @@ import { EventScreen } from './EventScreen'
 import { MainScreen } from './MainScreen'
 import { LegacyEventScreen } from './LegacyEventScreen'
 import { generateEventPool, tally } from './packGenerator'
-import { loadEvents, nextEventName, saveEvents } from './storage'
+import { copyEventName, loadEvents, nextEventName, saveEvents } from './storage'
 import { isLegacyEvent, type PoolCard, type SealedEvent, type StoredEvent } from './types'
 
 const pool = cardsJson as PoolCard[]
@@ -54,6 +54,25 @@ export default function App() {
     navigate(`#/event/${event.id}`)
   }
 
+  /**
+   * The same event again, build and all: somewhere to try a variant without losing what you
+   * have. The columns are copied rather than shared, so the two events cannot alias.
+   */
+  const duplicateEvent = (id: string) => {
+    const source = events.find((e) => e.id === id)
+    if (!source || isLegacyEvent(source)) return
+    const event: SealedEvent = {
+      ...source,
+      id: newId(),
+      name: copyEventName(source.name, events),
+      createdAt: new Date().toISOString(),
+      pool: { ...source.pool },
+      columns: source.columns.map((column) => ({ ...column, cards: column.cards.map((c) => ({ ...c })) })),
+    }
+    persist([...events, event])
+    navigate(`#/event/${event.id}`)
+  }
+
   const openEventId = eventIdFromHash(hash)
   const openEvent = openEventId ? events.find((e) => e.id === openEventId) : undefined
 
@@ -79,6 +98,11 @@ export default function App() {
         byId={byId}
         onChange={(updated) => persist(events.map((e) => (e.id === updated.id ? updated : e)))}
         onBack={() => navigate('')}
+        onDuplicate={() => duplicateEvent(openEvent.id)}
+        onDelete={() => {
+          remove(openEvent.id)
+          navigate('')
+        }}
       />
     )
   }
