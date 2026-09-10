@@ -16,6 +16,7 @@ import type React from 'react'
 import { useState } from 'react'
 import { CARD } from './cardMetrics'
 import { CardArt } from './CardArt'
+import { useShowPreview } from './CardOverlay'
 import { addCardAt, columnOf, mergeColumns, moveColumn, moveGroup, removeCards } from './columns'
 import { DeckArea } from './DeckArea'
 import { matches, type Filter } from './filters'
@@ -115,6 +116,7 @@ export function Table({
   onSelect: (cardId: string) => void
   onDeselect: (cardId: string) => void
 }) {
+  const showPreview = useShowPreview()
   const [dragged, setDragged] = useState<{ card: PoolCard; count: number; pile?: number } | null>(
     null,
   )
@@ -134,6 +136,8 @@ export function Table({
   const illegal = illegalCards.reduce((sum, entry) => sum + entry.count, 0)
 
   const start = ({ active }: DragStartEvent) => {
+    // Holding still long enough to open a card and then dragging it is one gesture, not two.
+    showPreview(null)
     const data = active.data.current as DragData | undefined
     if (data?.type === 'column') {
       const column = columns.find((c) => c.id === data.columnId)

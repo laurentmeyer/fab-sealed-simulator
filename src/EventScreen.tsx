@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { CardOverlay, PreviewContext } from './CardOverlay'
 import { deselectCard, remainingPool, selectCard, selectedEntries } from './columns'
 import { deckCount, deckIssues, legalPoolCount, pitchSplit } from './deck'
 import { exportDeck } from './deckExport'
@@ -62,6 +63,7 @@ export function EventScreen({
   onBack: () => void
 }) {
   const [sort, setSort] = useState<SortMode>('rarity')
+  const [preview, setPreview] = useState<PoolCard | null>(null)
   const [draftName, setDraftName] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [hoveredPitch, setHoveredPitch] = useState<number | null>(null)
@@ -195,22 +197,25 @@ export function EventScreen({
         onClearHero={() => onChange({ ...event, heroId: null })}
       />
 
-      <Table
-        columns={event.columns}
-        pool={event.pool}
-        remaining={remaining}
-        byId={byId}
-        filter={filter}
-        sort={sort}
-        hero={hero}
-        kit={kit}
-        onColumnsChange={setColumns}
-        onSelect={select}
-        onDeselect={deselect}
-      />
+      <PreviewContext.Provider value={setPreview}>
+        <Table
+          columns={event.columns}
+          pool={event.pool}
+          remaining={remaining}
+          byId={byId}
+          filter={filter}
+          sort={sort}
+          hero={hero}
+          kit={kit}
+          onColumnsChange={setColumns}
+          onSelect={select}
+          onDeselect={deselect}
+        />
+      </PreviewContext.Provider>
 
       <Footer />
 
+      {preview && <CardOverlay card={preview} onClose={() => setPreview(null)} />}
       {copied && (
         <div className="toast" role="status">
           List copied to clipboard

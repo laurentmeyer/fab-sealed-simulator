@@ -787,9 +787,15 @@ select:hover {
   left: 0;
 }
 
+/*
+ * A card answers a long press, so the browser's own press behaviours have to get out of the
+ * way: the iOS callout, and the text selection a held pointer would otherwise start.
+ */
 .card-tile {
   position: relative;
   display: block;
+  -webkit-touch-callout: none;
+  user-select: none;
   width: 100%;
   padding: 0;
   border: none;
@@ -842,6 +848,31 @@ select:hover {
   font-weight: 600;
   line-height: 1.5;
   text-align: center;
+}
+
+/* A card at a size you can actually read, over everything else. */
+.card-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(10, 11, 15, 0.72);
+  backdrop-filter: blur(2px);
+  animation: overlay-in 0.12s ease;
+}
+
+.card-overlay-card {
+  width: min(90vw, calc((100vh - 48px) * 450 / 628));
+  line-height: 0;
+  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.7));
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
 }
 
 /* Says what a bare card riding the cursor actually is, when it is a whole pile. */

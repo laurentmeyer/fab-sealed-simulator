@@ -70,9 +70,9 @@ analytics at a game store. Items are ordered by value.
 - [ ] The deck row can get very wide, one column per card, before you start piling. A
       "tidy up" that merges singles by rarity or class might be a kinder starting point.
 - [ ] Reduce hover-only interactions: the pitch tooltips and the issues popup are mouse-only.
-- [ ] There is no way to read a card's full text beyond the art itself, now that the hover
-      preview is gone. Cards are large enough to read at rest, but a stacked card shows only
-      its header.
+- [x] ~~No way to read a stacked card's full text.~~ Resolved: a long press opens any card
+      full size over the table. Unlike the old hover preview it works on touch, and it only
+      shows up when asked for.
 - [ ] Main screen: show the hero portrait on each event row, and allow duplicating an event
       to try a different build from the same pool.
 

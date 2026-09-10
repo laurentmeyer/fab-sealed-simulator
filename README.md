@@ -133,6 +133,11 @@ the row, past the last insertion point, says "6 illegal cards for the selected h
 from the deck" and offers to **remove from deck**. They stay in the event until you do, so switching hero back
 brings them straight home.
 
+**Hold the pointer on any card** to open it full size over the table — the way to read a card
+that is buried in a pile and showing only its header. It works on kit cards too. Click
+anywhere or press Escape to put it down; starting a drag puts it down as well, so pressing and
+then dragging stays one gesture.
+
 The menu bar carries the deck count — **"28 / 30"**, green once you are there — the pitch
 split of the deck, and the export.
 
