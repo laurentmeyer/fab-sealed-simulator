@@ -83,6 +83,8 @@ function Pane({
   groups,
   controls,
   onToggle,
+  onMoveGroup,
+  moveLabel,
   onHover,
   onLeave,
   emptyText,
@@ -92,6 +94,8 @@ function Pane({
   groups: CardGroup[]
   controls?: React.ReactNode
   onToggle: (instance: CardInstance) => void
+  onMoveGroup: (group: CardGroup) => void
+  moveLabel: string
   onHover: (card: PoolCard, x: number, y: number) => void
   onLeave: () => void
   emptyText: string
@@ -107,7 +111,13 @@ function Pane({
       </div>
       <div className="pane-body">
         {isEmpty && <p className="empty">{emptyText}</p>}
-        {groups.map((group) => (
+        {groups.map((group) => {
+          // The arena holds only kit cards, which cannot be moved anywhere.
+          const movable = group.stacks.reduce(
+            (sum, stack) => sum + (stack.fixed ? 0 : stack.instances.length),
+            0,
+          )
+          return (
           <div key={group.key} className={group.dimmed ? 'group dimmed' : 'group'}>
             {group.label && (
               <div className="group-separator">
@@ -116,6 +126,16 @@ function Pane({
                   {group.countLabel ?? group.count}
                 </span>
                 <span className="group-rule" />
+                {movable > 0 && (
+                  <button
+                    type="button"
+                    className="link group-move"
+                    title={`${moveLabel} ${movable} card${movable > 1 ? 's' : ''}`}
+                    onClick={() => onMoveGroup(group)}
+                  >
+                    {moveLabel}
+                  </button>
+                )}
               </div>
             )}
             <div className="group-cards">
@@ -130,7 +150,8 @@ function Pane({
               ))}
             </div>
           </div>
-        ))}
+          )
+        })}
       </div>
     </section>
   )
@@ -216,6 +237,20 @@ export function EventScreen({
   const split = pitchSplit(event.cards, byId, heroKey)
   const splitTotal = split.reduce((sum, s) => sum + s.count, 0)
   const issues = deckIssues(event.cards, byId, hero)
+
+  /** Moves every card of a group at once: the whole of a rarity, a class, or the off-hero pile. */
+  const moveGroup = (group: CardGroup, selected: boolean) => {
+    const ids = new Set(
+      group.stacks
+        .filter((stack) => !stack.fixed)
+        .flatMap((stack) => stack.instances.map((i) => i.instanceId)),
+    )
+    if (!ids.size) return
+    onChange({
+      ...event,
+      cards: event.cards.map((c) => (ids.has(c.instanceId) ? { ...c, selected } : c)),
+    })
+  }
 
   const toggle = (instance: CardInstance) =>
     onChange({
@@ -322,6 +357,8 @@ export function EventScreen({
             </div>
           }
           onToggle={toggle}
+          onMoveGroup={(group) => moveGroup(group, true)}
+          moveLabel="add all"
           onHover={(card, x, y) => setHovered({ card, x, y })}
           onLeave={() => setHovered(null)}
           emptyText="Every card is in the deck."
@@ -359,6 +396,8 @@ export function EventScreen({
             </div>
           }
           onToggle={toggle}
+          onMoveGroup={(group) => moveGroup(group, false)}
+          moveLabel="remove all"
           onHover={(card, x, y) => setHovered({ card, x, y })}
           onLeave={() => setHovered(null)}
           emptyText="Click cards on the left to add them."

@@ -702,6 +702,19 @@ select:hover {
   background: var(--border);
 }
 
+/* Sits at the right end of a section: move that whole group across in one click. */
+.group-move {
+  flex: none;
+  font-size: 12px;
+  opacity: 0.5;
+  transition: opacity 0.1s ease;
+}
+
+.group:hover .group-move,
+.group-move:focus-visible {
+  opacity: 1;
+}
+
 /*
  * Card sizing.
  *
