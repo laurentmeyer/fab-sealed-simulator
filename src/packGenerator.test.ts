@@ -125,6 +125,30 @@ describe('event pool', () => {
   })
 })
 
+/**
+ * The kit predicate used to be "anything that is equipment", which held only while this set's
+ * equipment was all Shadow. A generic piece was spoiled later and every hero grew a second
+ * Legs slot, so the rule is now the set's own equipment — and this is the guard.
+ */
+describe('generic equipment is not kit material', () => {
+  const generic = pool.filter((c) => isEquipment(c) && c.talents.length === 0)
+
+  it('exists in the data and is playable well outside this set', () => {
+    expect(generic.length).toBeGreaterThan(0)
+    expect(generic.every((c) => c.legalHeroes.length > 50)).toBe(true)
+  })
+
+  it('never joins a hero kit, which would give it two pieces in one slot', () => {
+    for (const hero of youngHeroes(pool)) {
+      const kit = heroKitFor(hero, pool)
+      for (const piece of generic) expect(kit).not.toContain(piece)
+
+      const slots = kit.filter(isEquipment).map((c) => c.typeText.split(' - ').pop()!)
+      expect(new Set(slots).size).toBe(slots.length)
+    }
+  })
+})
+
 describe('countsTowardDeck', () => {
   it('excludes equipment, heroes and weapons, and includes ordinary cards', () => {
     const byName = (name: string) => pool.find((c) => c.name === name)!

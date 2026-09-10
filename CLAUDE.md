@@ -24,7 +24,7 @@ and stop; if the answer is to implement, expect a switch to Opus (`/model opus`)
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 81 tests
+npm test             # vitest, 96 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```
@@ -46,6 +46,8 @@ Run typecheck, build and tests before saying a change is done.
   `id`. Always key on `id`, never on `name`.
 - **Legality comes from `legalHeroes`**, not from matching classes. They agree in this set,
   but FaB has cards specialized to a single hero.
+- **The hero kit is this set's own equipment**, spotted by its talent — not "anything that is
+  equipment". A generic piece was spoiled mid-project and gave every hero two Legs slots.
 - **The card data is a committed snapshot.** The set is not fully revealed; regenerate it
   with `npm run fetch-cards` rather than hand-editing `src/data/cards.json`.
 - **Dim cards with `brightness`, not `opacity`.** Cards in a column overlap, so transparency

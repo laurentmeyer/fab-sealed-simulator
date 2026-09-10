@@ -14,16 +14,24 @@ export const youngHeroes = (cards: PoolCard[]): PoolCard[] =>
 export const isPromoHero = (hero: PoolCard): boolean => hero.rarity !== 'Basic'
 
 /**
+ * The cold-foil equipment the pre-release kit guarantees — Grille (Head), Robe (Chest) and
+ * Path (Legs). They are this set's own equipment, which is what the talent marks: equipment
+ * with no talent at all (Dark Arcanite Boots) is a generic piece playable in any deck in the
+ * game, and comes out of a pack rather than the kit.
+ */
+const isKitEquipment = (card: PoolCard): boolean =>
+  isEquipment(card) && card.talents.length > 0
+
+/**
  * What a hero brings with it, none of it opened from packs: its weapon and class Arms (the
- * kit's double-sided basics) plus the cold-foil all-heroes equipment the kit guarantees —
- * Grille (Head), Robe (Chest) and Path (Legs). Baalghor has no weapon or Arms of his own, so
- * his kit is just those three.
+ * kit's double-sided basics) plus the cold-foil pieces above. Baalghor has no weapon or Arms
+ * of his own, so his kit is just those three.
  */
 export const heroKitFor = (hero: PoolCard, cards: PoolCard[]): PoolCard[] =>
   cards
     .filter(
       (c) =>
-        (c.rarity === 'Basic' || isEquipment(c)) &&
+        (c.rarity === 'Basic' || isKitEquipment(c)) &&
         c.id !== hero.id &&
         Boolean(hero.hero) &&
         c.legalHeroes.includes(hero.hero!),

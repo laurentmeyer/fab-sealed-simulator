@@ -17,6 +17,15 @@ guess. Each entry says what we assumed and where it lives.
       using Shadow and Generic cards only. He is now the fourth (always-selectable) hero.
 - [ ] **The 6–7 / 3–4 common split** is a straight coin flip, and the class commons are
       split as evenly as possible. The true distribution may be weighted.
+- [ ] **The 20-minute build window** the clock's colour is calibrated against is the
+      pre-release figure as we understand it, not one we have confirmed. It lives in
+      `BUILD_SECONDS`, with the red point five minutes past it.
+- [ ] **Is there an equipment slot in a pack after all?** The 2026-09-10 data refresh added
+      **Dark Arcanite Boots**, a Common *Generic* Legs equipment — the first equipment in the
+      set that is not Shadow. We treat equipment as never opened (the kit supplies Head, Chest
+      and Legs), so the card is in the data but can never be dealt. Either packs do have an
+      equipment slot, or this is a card from outside the sealed pool. Until we know, it simply
+      never appears.
 - [ ] **The foil slot's rarity odds** (Rare 1.75%, otherwise Common) are back-derived from
       the per-pack averages we were given, not from published pull rates.
 - [x] ~~**Should the export separate the deck from the sideboard?**~~ Resolved by testing
@@ -33,9 +42,6 @@ analytics at a game store. Items are ordered by value.
       build the deck here, then jump into a game with friends.
 - [ ] **First-time onboarding.** Explain in one screen what this is: open 8 packs at once,
       build a deck, play with friends — a simulation of real-life sealed deckbuilding.
-- [ ] **A build timer.** Sealed events give you a fixed deckbuilding window, and building in
-      20 minutes is a different exercise from building at leisure. Probably the highest
-      fidelity win available.
 - [ ] **Open the packs pack by pack.** The app hands you a finished pool, but the stated
       goal is simulating opening 8 packs — and that is the part players enjoy.
 - [ ] **A "maybe" pile.** Everyone builds with three piles physically, not two.
@@ -62,7 +68,7 @@ analytics at a game store. Items are ordered by value.
 
 ## Housekeeping
 
-- [ ] **Read the test suite** (`src/*.test.ts`, 81 tests) — not yet reviewed by the owner.
+- [ ] **Read the test suite** (`src/*.test.ts`, 96 tests) — not yet reviewed by the owner.
 - [ ] Add the README screenshot (`docs/screenshot.png`); the link is a TODO comment.
 - [ ] Confirm the copyright holder named in [`LICENSE`](../LICENSE).
 - [ ] Refresh the card data as the set is revealed: `npm update @flesh-and-blood/cards
