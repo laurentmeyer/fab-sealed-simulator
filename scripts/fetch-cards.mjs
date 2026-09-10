@@ -60,7 +60,14 @@ const createdCardIds = new Set(cards.flatMap((c) => c.createdExtras ?? []))
 const isCreated = (c) => createdCardIds.has(c.cardIdentifier) || (c.types ?? []).includes(Type.Token)
 
 const inSet = cards.filter((c) => c.sets?.includes(SET))
-const sealed = inSet.filter((c) => c.legalFormats?.includes(Format.Sealed))
+/**
+ * Young heroes are kept even without the Sealed flag: Baalghor is the rainbow-foil promo of
+ * the pre-release kit and is playable if you get him, but the upstream data does not mark
+ * him sealed-legal (https://afabjourney.substack.com/p/flesh-and-blood-usurp-the-shadow).
+ */
+const sealed = inSet.filter(
+  (c) => c.legalFormats?.includes(Format.Sealed) || (c.types?.includes(Type.Hero) && c.young),
+)
 
 const excludedByClass = sealed.filter((c) => !(c.classes ?? []).every((k) => SUPPORTED_CLASSES.has(k)))
 const excludedByRarity = sealed.filter((c) => !KEPT_RARITIES.has(c.rarity))
@@ -85,6 +92,8 @@ const pool = kept
     types: c.types ?? [],
     typeText: c.typeText ?? '',
     image: imageId(c),
+    // Shadow in this set. Distinguishes talent cards from truly Generic ones.
+    talents: c.talents ?? [],
     // Which heroes may play this card. Authoritative, and finer than matching on class.
     legalHeroes: c.legalHeroes ?? [],
     // Hero cards only: the key other cards refer to in legalHeroes (Viserai2, not Viserai).

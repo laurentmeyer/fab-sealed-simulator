@@ -5,9 +5,7 @@ import { CardStackView } from './CardStackView'
 import { exportDeck } from './deckExport'
 import { Footer } from './Footer'
 import {
-  canAdd,
   deckIssues,
-  equippedCardIds,
   fixedStack,
   groupCards,
   partitionByHero,
@@ -19,7 +17,7 @@ import {
 import { HeroSelector } from './HeroSelector'
 import { heroKitFor, youngHeroes } from './heroes'
 import { DECK_SIZE } from './packConfig'
-import { countsTowardDeck, isDrawable, isEquipment } from './packGenerator'
+import { countsTowardDeck, isDrawable } from './packGenerator'
 import type { CardInstance, Grouping, PoolCard, SealedEvent } from './types'
 
 const GROUPINGS: { value: Grouping; label: string }[] = [
@@ -171,14 +169,9 @@ export function EventScreen({
   // The hero's weapon and class Arms equipment, which come with it rather than from a pack.
   const heroKit = useMemo(() => (hero ? heroKitFor(hero, allCards) : []), [hero, allCards])
 
-  /** You can only equip one of a given piece of equipment, so extra copies stay in the pool. */
-  const equippedIds = useMemo(() => equippedCardIds(known, byId), [known, byId])
-
   const poolGroups = useMemo(() => {
     const { playable, unplayable } = partitionByHero(
-      // Pools saved before equipment was deduplicated can still hold spare copies; a card you
-      // are already wearing has no business showing up in the pool as well.
-      known.filter((c) => !c.selected && !equippedIds.has(c.cardId)),
+      known.filter((c) => !c.selected),
       byId,
       heroKey,
     )
@@ -186,17 +179,15 @@ export function EventScreen({
       ...groupCards(playable, byId, grouping),
       ...unplayableGroup(unplayable, byId, hero?.name ?? ''),
     ]
-  }, [known, byId, heroKey, hero, grouping, equippedIds])
+  }, [known, byId, heroKey, hero, grouping])
 
   // The right pane splits what you have chosen into what sits in the arena and what is
   // actually the deck, so the deck section carries the only count that matters.
   const selectedGroups = useMemo(() => {
     const { playable, unplayable } = partitionByHero(known.filter((c) => c.selected), byId, heroKey)
 
-    const arenaStacks = [
-      ...(hero ? [fixedStack(hero), ...heroKit.map(fixedStack)] : []),
-      ...toStacks(playable.filter((i) => isEquipment(byId.get(i.cardId)!)), byId),
-    ]
+    // Everything in the arena comes with the kit; nothing there is opened or clicked.
+    const arenaStacks = hero ? [fixedStack(hero), ...heroKit.map(fixedStack)] : []
     const deckInstances = playable.filter((i) => countsTowardDeck(byId.get(i.cardId)!))
 
     return [
@@ -226,16 +217,13 @@ export function EventScreen({
   const splitTotal = split.reduce((sum, s) => sum + s.count, 0)
   const issues = deckIssues(event.cards, byId, hero)
 
-  const toggle = (instance: CardInstance) => {
-    const card = byId.get(instance.cardId)
-    if (!instance.selected && card && !canAdd(card, equippedIds)) return
+  const toggle = (instance: CardInstance) =>
     onChange({
       ...event,
       cards: event.cards.map((c) =>
         c.instanceId === instance.instanceId ? { ...c, selected: !c.selected } : c,
       ),
     })
-  }
 
   const commitName = () => {
     const name = (draftName ?? '').trim()

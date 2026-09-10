@@ -1,14 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import cardsJson from './data/cards.json'
-import {
-  canAdd,
-  deckIssues,
-  equippedCardIds,
-  groupCards,
-  partitionByHero,
-  unplayableGroup,
-} from './grouping'
-import { countsTowardDeck } from './packGenerator'
+import { deckIssues, groupCards, partitionByHero, unplayableGroup } from './grouping'
+import { countsTowardDeck, isDrawable } from './packGenerator'
 import type { CardInstance, PoolCard } from './types'
 
 const pool = cardsJson as PoolCard[]
@@ -36,10 +29,17 @@ describe('groupCards', () => {
     expect(groups.map((g) => g.label)).toEqual(['Red', 'Yellow', 'Blue', 'No pitch'])
   })
 
-  it('calls the generic group "No class"', () => {
+  it('splits classless cards into the talent group and the truly Generic one', () => {
     const groups = groupCards(instancesOf(...pool), byId, 'class')
-    expect(groups.map((g) => g.label)).toContain('No class')
-    expect(groups.map((g) => g.label)).not.toContain('Generic')
+    const labels = groups.map((g) => g.label)
+    expect(labels).toEqual(['Brute', 'Necromancer', 'Runeblade', 'Shadow', 'Generic'])
+
+    const shadow = groups.find((g) => g.label === 'Shadow')!
+    const generic = groups.find((g) => g.label === 'Generic')!
+    // Shadow cards are for Shadow heroes only; Generic cards are for (almost) everyone.
+    expect(shadow.stacks.every((s) => s.card.talents.includes('Shadow'))).toBe(true)
+    expect(shadow.stacks.every((s) => s.card.legalHeroes.length <= 10)).toBe(true)
+    expect(generic.stacks.every((s) => s.card.legalHeroes.length > 50)).toBe(true)
   })
 
   it('collects copies of a card into one stack', () => {
@@ -79,6 +79,8 @@ describe('partitionByHero', () => {
    * rule is the correct one and only this expectation needs dropping.
    */
   it('agrees with the class mapping while there is one hero per class', () => {
+    // Only pool cards: the kit and hero cards are not subject to the class heuristic.
+    const all = instancesOf(...pool.filter(isDrawable))
     const generic = (c: PoolCard) => c.classes.some((k) => k === 'Generic' || k === 'NotClassed')
     for (const [heroKey, className] of [
       ['Levia', 'Brute'],
@@ -123,35 +125,6 @@ describe('deckIssues', () => {
     const offHero = pool.find((c) => !c.legalHeroes.includes('Malice'))!
     const cards = [...deckOf(30), { instanceId: 'x', cardId: offHero.id, selected: true }]
     expect(deckIssues(cards, byId, malice)).toEqual(['1 selected card Malice cannot play'])
-  })
-})
-
-describe('equipment is a singleton', () => {
-  const equipment = pool.filter((c) => c.types.includes('Equipment'))
-  const other = find((c) => c.rarity === 'Common' && !c.types.includes('Equipment'))
-
-  it('refuses a second copy of an equipment already worn', () => {
-    const [first, second] = [equipment[0], equipment[1]]
-    const worn = equippedCardIds(
-      [{ instanceId: 'a', cardId: first.id, selected: true }],
-      byId,
-    )
-    expect(canAdd(first, worn)).toBe(false)
-    expect(canAdd(second, worn)).toBe(true)
-  })
-
-  it('never limits ordinary cards', () => {
-    const worn = equippedCardIds([{ instanceId: 'a', cardId: other.id, selected: true }], byId)
-    expect(worn.size).toBe(0)
-    expect(canAdd(other, worn)).toBe(true)
-  })
-
-  it('ignores equipment that is still in the pool', () => {
-    const worn = equippedCardIds(
-      [{ instanceId: 'a', cardId: equipment[0].id, selected: false }],
-      byId,
-    )
-    expect(canAdd(equipment[0], worn)).toBe(true)
   })
 })
 

@@ -19,11 +19,11 @@ const viserai = byName('Viserai, Between Worlds')
 const malice = byName('Malice')
 
 describe('exportDeck', () => {
-  it('writes the header, the arena cards and the deck cards', () => {
+  it('writes the header, the whole kit as arena cards, and the deck cards', () => {
     const red = pool.find(
       (c) => c.rarity === 'Common' && c.pitch === 1 && c.legalHeroes.includes(viserai.hero!),
     )!
-    const instances = select(byName('Path of Repentance'), red, red)
+    const instances = select(red, red)
 
     expect(exportDeck('My sealed deck', instances, byId, viserai)).toBe(
       [
@@ -33,7 +33,9 @@ describe('exportDeck', () => {
         '',
         'Arena cards',
         '1x Grasp of the Darknight',
+        '1x Grille of Repentance',
         '1x Path of Repentance',
+        '1x Robe of Repentance',
         '1x Seven Sin Nebula',
         '',
         'Deck cards',
@@ -48,11 +50,24 @@ describe('exportDeck', () => {
     expect(text).toContain('Hero: Malice')
   })
 
-  it('omits the Hero line and the whole kit when no hero is picked', () => {
-    const text = exportDeck('Event 1', named('Path of Repentance'), byId, null)
+  it('gives Baalghor an arena of just the three cold-foil pieces', () => {
+    const text = exportDeck('Event 1', [], byId, byName('Baalghor, Omen of the End'))
     expect(text).toBe(
-      ['Name: Event 1', 'Format: Sealed', '', 'Arena cards', '1x Path of Repentance'].join('\n'),
+      [
+        'Name: Event 1',
+        'Hero: Baalghor, Omen of the End',
+        'Format: Sealed',
+        '',
+        'Arena cards',
+        '1x Grille of Repentance',
+        '1x Path of Repentance',
+        '1x Robe of Repentance',
+      ].join('\n'),
     )
+  })
+
+  it('omits the Hero line and the whole kit when no hero is picked', () => {
+    expect(exportDeck('Event 1', [], byId, null)).toBe('Name: Event 1\nFormat: Sealed')
   })
 
   it('leaves out cards the hero cannot play', () => {
@@ -98,8 +113,11 @@ describe('exportDeck', () => {
   })
 
   it('adds no pitch suffix to cards without a pitch value', () => {
-    const text = exportDeck('Event 1', named('Path of Repentance'), byId, null)
-    expect(text).toContain('1x Path of Repentance')
-    expect(text).not.toMatch(/Path of Repentance \(/)
+    // Blood Harvest (Levia-only) is the pool's one pitchless card; kit weapons are too.
+    const text = exportDeck('Event 1', named('Blood Harvest'), byId, byName('Levia'))
+    expect(text).toContain('1x Blood Harvest')
+    expect(text).not.toMatch(/Blood Harvest \(/)
+    expect(text).toContain('1x Hell Hammer')
+    expect(text).not.toMatch(/Hell Hammer \(/)
   })
 })

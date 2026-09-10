@@ -35,32 +35,39 @@ if any of them are no longer in the data.
 
 ## How a pack is simulated
 
-A physical booster holds 16 cards, but two of them are bonus cards for other classes or
-collectibles that nobody plays in limited, and they are set aside as soon as the packs are
-opened. So each simulated pack is the 14 cards that matter:
+A physical booster holds 16 cards, but the last two — the basic slot and the expansion slot
+(cards for classes outside the set) — are set aside as soon as the packs are opened, and the
+equipment is covered by the kit below. So each simulated pack is the 13 cards that matter for
+the deck, giving a pool of exactly 104:
 
 | Slot | Contents |
 | --- | --- |
-| 1 | Equipment |
 | 1 | Rare, any class |
 | 1 | Rare or better (Majestic 1 in 4, Legendary 1 in 80, Fabled 1 in 200) |
 | 1 | The foil slot — a Rare 1.75% of the time, otherwise a Common |
-| 10 | Commons: 6–7 class cards split evenly across Necromancer, Brute and Runeblade, and 3–4 generic cards |
+| 10 | Commons: 6–7 class cards split evenly across Necromancer, Brute and Runeblade, and 3–4 Shadow or Generic cards |
 
-**Everything at Basic rarity comes with your hero, not from a pack.** Each young hero arrives
-with its weapon and its class Arms equipment, the way a pre-release kit hands them to you:
+**Nothing you play in the arena is opened; it all comes with the
+[pre-release kit](https://afabjourney.substack.com/p/flesh-and-blood-usurp-the-shadow).**
+Each young hero arrives with its weapon and class Arms, and every kit carries the cold-foil
+equipment any hero can wear — Grille (Head), Robe (Chest) and Path (Legs) — so everyone has
+exactly one piece per slot:
 
 | Hero | Weapon | Arms |
 | --- | --- | --- |
 | Levia | Hell Hammer | Hex Gauntlet |
 | Malice | Vox Necropolis | Appalling Bearers |
 | Viserai, Between Worlds | Seven Sin Nebula | Grasp of the Darknight |
+| Baalghor, Omen of the End | — | — |
 
-That leaves packs supplying only the generic Repentance equipment, which covers the other
-three slots — Grille (Head), Robe (Chest) and Path (Legs) — so you end up with exactly one
-piece per slot and never have to choose between two. Equipment is deduplicated as well: a
-second copy can never be worn, so a pack that opens another Path of Repentance drops it. A
-pool is therefore a little short of 8 × 14 cards, around 107.
+**Baalghor** is the kit's rainbow-foil promo — at a real pre-release most kits hold a
+Corrupted Corpse instead, so getting him is luck. Here he is always selectable, marked with a
+★. He has no weapon or Arms of his own and can only play Shadow and Generic cards, which
+makes him the hard mode of the set.
+
+Cards without a class come in two kinds, and the app groups them separately: **Shadow** cards
+carry the set's talent and are only legal for Shadow heroes, while truly **Generic** cards
+(five in the set) are legal for almost every hero in the game.
 
 Cards that are *created* during play never appear at all: Blasmophet, Gate to i'Arathael and
 Corrupted Corpse are made by other cards, not opened in a pack. They are dropped at snapshot

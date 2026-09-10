@@ -10,12 +10,10 @@ guess. Each entry says what we assumed and where it lives.
 - [x] ~~**Basic vs Common equipment in the equipment slot.**~~ Resolved: Basic rarity is the
       pre-release kit, not pack content. Each hero comes with its weapon and its class Arms,
       and packs only ever supply the generic Head/Chest/Legs equipment.
-- [ ] **Is Baalghor, Omen of the End a legal sealed hero?** The set has a fourth young hero,
-      [Baalghor](https://fabrary.net/cards/baalghor-omen-of-the-end), but the card data does
-      not mark it sealed-legal, so the hero selector offers only Levia, Malice and Viserai.
-      If it is legal it needs adding, along with whatever weapon it plays. Being
-      `NotClassed`, it is also the case where matching on class instead of `legalHeroes`
-      would fall apart.
+- [x] ~~**Is Baalghor, Omen of the End a legal sealed hero?**~~ Resolved by
+      [this prerelease guide](https://afabjourney.substack.com/p/flesh-and-blood-usurp-the-shadow):
+      he is the kit's rainbow-foil promo and playable if you get him, with no weapon or Arms,
+      using Shadow and Generic cards only. He is now the fourth (always-selectable) hero.
 - [ ] **The 6–7 / 3–4 common split** is a straight coin flip, and the class commons are
       split as evenly as possible. The true distribution may be weighted.
 - [ ] **The foil slot's rarity odds** (Rare 1.75%, otherwise Common) are back-derived from
@@ -33,7 +31,7 @@ analytics at a game store. Items are ordered by value.
       reshuffle the other 109. The grid currently reflows on every click, which has no
       physical counterpart and is jarring when adding several cards in a row.
 - [ ] **Set aside the cards the hero cannot play.** IRL that is the first thing you do —
-      push them out of the play area. They are about half the pool (~50 of 107), so
+      push them out of the play area. They are a third to two thirds of the pool, so
       collapsing that group by default matches what actually happens.
 - [ ] **A build timer.** Sealed events give you a fixed deckbuilding window, and building in
       20 minutes is a different exercise from building at leisure. Probably the highest

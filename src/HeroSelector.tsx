@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { heroImageUrl, heroKitFor } from './heroes'
+import { heroImageUrl, heroKitFor, isPromoHero } from './heroes'
 import type { PoolCard } from './types'
 
 function HeroPortrait({ hero }: { hero: PoolCard }) {
@@ -35,20 +35,28 @@ export function HeroSelector({
       {heroes.map((hero) => {
         const kit = heroKitFor(hero, cards)
         const active = hero.id === selectedId
+        const promo = isPromoHero(hero)
         return (
           <button
             type="button"
             key={hero.id}
-            className={active ? 'hero active' : 'hero'}
+            className={['hero', active && 'active', promo && 'promo'].filter(Boolean).join(' ')}
             aria-pressed={active}
             title={
               active
                 ? `${hero.name} — click to unpick`
-                : `Play ${hero.name}${kit.length ? ` with ${kit.map((c) => c.name).join(' and ')}` : ''}`
+                : promo
+                  ? `Play ${hero.name} — the kit's lucky rainbow-foil promo, no weapon of his own`
+                  : `Play ${hero.name} with ${kit.map((c) => c.name).join(', ')}`
             }
             onClick={() => onSelect(active ? null : hero.id)}
           >
             <HeroPortrait hero={hero} />
+            {promo && (
+              <span className="hero-promo-badge" aria-hidden>
+                ★
+              </span>
+            )}
           </button>
         )
       })}

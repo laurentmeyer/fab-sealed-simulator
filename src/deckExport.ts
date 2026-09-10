@@ -1,5 +1,5 @@
 import { heroKitFor, isPlayableBy } from './heroes'
-import { countsTowardDeck, isDrawable, isEquipment } from './packGenerator'
+import { countsTowardDeck, isDrawable } from './packGenerator'
 import type { CardInstance, PoolCard } from './types'
 
 const PITCH_NAMES: Record<number, string> = { 1: 'red', 2: 'yellow', 3: 'blue' }
@@ -42,8 +42,8 @@ export const exportDeck = (
     // change can still hold them, and they must not be listed twice.
     .filter((c): c is PoolCard => Boolean(c) && isDrawable(c!) && isPlayableBy(c!, heroKey))
 
-  const kit = hero ? heroKitFor(hero, [...byId.values()]) : []
-  const arena = [...kit, ...selected.filter(isEquipment)]
+  // The arena is entirely the kit: hero gear is never opened, and the pool holds no equipment.
+  const arena = hero ? heroKitFor(hero, [...byId.values()]) : []
   const deck = selected.filter(countsTowardDeck)
 
   const blocks: string[] = []
