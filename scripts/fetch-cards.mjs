@@ -31,14 +31,12 @@ const SUPPORTED_CLASSES = new Set([
 ])
 
 /** Marvel is a treatment, not a real rarity, so it is not part of our ladder. */
-const KEPT_RARITIES = new Set([
-  Rarity.Basic,
-  Rarity.Common,
-  Rarity.Rare,
-  Rarity.Majestic,
-  Rarity.Legendary,
-  Rarity.Fabled,
-])
+/**
+ * Marvel is a treatment, not a real rarity. Legendary and Fabled are dropped on purpose: the
+ * simulation models them as impossible (see the README), so a card of either rarity appearing
+ * in the data should not silently start showing up in pools.
+ */
+const KEPT_RARITIES = new Set([Rarity.Basic, Rarity.Common, Rarity.Rare, Rarity.Majestic])
 
 const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null)
 

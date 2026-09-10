@@ -1,5 +1,5 @@
 import { HeroPortrait } from './HeroPortrait'
-import { heroKitFor, isPromoHero } from './heroes'
+import { isPromoHero, signatureWeaponFor } from './heroes'
 import type { PoolCard } from './types'
 
 /**
@@ -20,7 +20,7 @@ export function HeroSelector({
   return (
     <span className="hero-selector" role="group" aria-label="Hero">
       {heroes.map((hero) => {
-        const kit = heroKitFor(hero, cards)
+        const weapon = signatureWeaponFor(hero, cards)
         const active = hero.id === selectedId
         const promo = isPromoHero(hero)
         return (
@@ -34,7 +34,7 @@ export function HeroSelector({
                 ? `${hero.name} — click to unpick`
                 : promo
                   ? `Play ${hero.name} — the kit's lucky rainbow-foil promo, no weapon of his own`
-                  : `Play ${hero.name} with ${kit.map((c) => c.name).join(', ')}`
+                  : `Play ${hero.name} with ${weapon?.name ?? 'no weapon'}`
             }
             onClick={() => onSelect(active ? null : hero.id)}
           >

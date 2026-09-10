@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import cardsJson from './data/cards.json'
-import { deckCount, deckIssues, legalPoolCount, pitchSplit } from './deck'
+import { deckCount, deckIssues, legalPoolCount, openedPool, pitchSplit } from './deck'
+import { kitEquipment } from './heroes'
+import { compareBy } from './sorting'
+import { isEquipment } from './packGenerator'
 import { matches, partition, type Filter } from './filters'
 import { countsTowardDeck, isDrawable } from './packGenerator'
 import type { CardCount, PoolCard } from './types'
@@ -126,5 +129,56 @@ describe('deckIssues', () => {
     const offHero = pool.find((c) => !c.legalHeroes.includes('Malice'))!
     const entries = [...deckOf(30), { cardId: offHero.id, count: 2 }]
     expect(deckIssues(entries, byId, malice)).toEqual(['2 selected cards Malice cannot play'])
+  })
+})
+
+describe('openedPool', () => {
+  const kit = kitEquipment(pool)
+
+  it('adds the equipment the kit guarantees to whatever the packs dealt', () => {
+    const merged = openedPool({ [playable[0].id]: 2 }, pool)
+    expect(merged[playable[0].id]).toBe(2)
+    for (const piece of kit) expect(merged[piece.id]).toBe(1)
+  })
+
+  /** You can wear one per slot, so a second copy would be a lie however it got there. */
+  it('holds one of each piece, even if a pack somehow dealt more', () => {
+    const merged = openedPool({ [kit[0].id]: 3 }, pool)
+    expect(merged[kit[0].id]).toBe(1)
+  })
+
+  /**
+   * The guarantee is derived at render rather than stored, so events saved before equipment
+   * was selectable gain it without a migration.
+   */
+  it('gives an event that never stored equipment the full kit anyway', () => {
+    const merged = openedPool({}, pool)
+    expect(Object.keys(merged).sort()).toEqual(kit.map((c) => c.id).sort())
+  })
+})
+
+describe('sorting equipment', () => {
+  const piece = pool.find((c) => isEquipment(c) && c.rarity === 'Common')!
+  const red = pool.find((c) => c.pitch === 1 && c.rarity === 'Common')!
+  const majestic = pool.find((c) => c.rarity === 'Majestic')!
+
+  /** Equipment counts as the colour before red — and as nothing more than that. */
+  it('sorts ahead of the reds when pitch decides the order', () => {
+    expect(compareBy('pitch')(piece, red)).toBeLessThan(0)
+    expect(compareBy('pitch')(red, piece)).toBeGreaterThan(0)
+  })
+
+  it('still loses to a better rarity when rarity decides the order', () => {
+    expect(compareBy('rarity')(majestic, piece)).toBeLessThan(0)
+    expect(compareBy('rarity')(piece, majestic)).toBeGreaterThan(0)
+  })
+
+  it('leads its own rarity band, ahead of the reds in it', () => {
+    expect(compareBy('rarity')(piece, red)).toBeLessThan(0)
+  })
+
+  it('is ordered by name like anything else when the sort is by name', () => {
+    const [first, second] = ['Zebra', 'Aardvark'].map((name) => ({ ...piece, name }))
+    expect(compareBy('name')(first, second)).toBeGreaterThan(0)
   })
 })

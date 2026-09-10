@@ -1,4 +1,4 @@
-import { heroKitFor, isPlayableBy } from './heroes'
+import { isPlayableBy, signatureWeaponFor } from './heroes'
 import { countsTowardDeck, isDrawable } from './packGenerator'
 import type { CardCount, PoolCard } from './types'
 
@@ -24,11 +24,14 @@ const section = (lines: Line[]): string[] =>
 
 /**
  * The deck list in Fabrary's import format. The hero and its signature weapon come from the
- * hero selector rather than the pool, and cards the hero cannot play are left out.
+ * hero selector rather than the pool; equipment is whatever you put in the arena; and cards
+ * the hero cannot play are left out of both.
  */
 export const exportDeck = (
   eventName: string,
   entries: CardCount[],
+  /** Card ids of the equipment you chose to wear. */
+  arena: string[],
   byId: Map<string, PoolCard>,
   hero: PoolCard | null,
 ): string => {
@@ -38,10 +41,16 @@ export const exportDeck = (
     // isDrawable drops Basic cards, which come with the hero rather than the pool.
     .filter(({ card }) => card && isDrawable(card) && isPlayableBy(card, heroKey))
 
-  // The arena is entirely the kit: hero gear is never opened, and the pool holds no equipment.
-  const arena = hero
-    ? heroKitFor(hero, [...byId.values()]).map((card) => ({ card, count: 1 }))
-    : []
+  /*
+   * The arena is the weapon you were given plus the equipment you chose. Equipment the hero
+   * cannot play is left out, exactly as an off-hero deck card is.
+   */
+  const weapon = hero ? signatureWeaponFor(hero, [...byId.values()]) : null
+  const worn = arena
+    .map((cardId) => byId.get(cardId)!)
+    .filter((card) => card && isPlayableBy(card, heroKey))
+  const arenaLines = [...(weapon ? [weapon] : []), ...worn].map((card) => ({ card, count: 1 }))
+
   const deck = selected.filter(({ card }) => countsTowardDeck(card))
 
   const blocks: string[] = []
@@ -51,7 +60,7 @@ export const exportDeck = (
   header.push('Format: Sealed')
   blocks.push(header.join('\n'))
 
-  if (arena.length) blocks.push(['Arena cards', ...section(arena)].join('\n'))
+  if (arenaLines.length) blocks.push(['Arena cards', ...section(arenaLines)].join('\n'))
   if (deck.length) blocks.push(['Deck cards', ...section(deck)].join('\n'))
 
   return blocks.join('\n\n')

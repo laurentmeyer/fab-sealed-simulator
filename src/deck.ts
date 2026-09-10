@@ -1,7 +1,23 @@
 import { matches, type Filter } from './filters'
+import { kitEquipment } from './heroes'
 import { DECK_SIZE } from './packConfig'
 import { countsTowardDeck } from './packGenerator'
 import type { CardCount, PoolCard } from './types'
+
+/**
+ * The pool you actually build from: what the eight packs gave you, plus the equipment the
+ * pre-release kit guarantees. The kit half is derived rather than stored, so events saved
+ * before equipment was selectable gain it without a migration.
+ */
+export const openedPool = (
+  pool: Record<string, number>,
+  cards: PoolCard[],
+): Record<string, number> => {
+  const merged = { ...pool }
+  // One of each: a second copy of a piece you already own is worth nothing.
+  for (const card of kitEquipment(cards)) merged[card.id] = 1
+  return merged
+}
 
 export const PITCH_LABELS: Record<number, string> = { 1: 'Red', 2: 'Yellow', 3: 'Blue' }
 

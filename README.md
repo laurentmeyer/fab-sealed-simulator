@@ -38,23 +38,66 @@ if any of them are no longer in the data.
 
 ## How a pack is simulated
 
-A physical booster holds 16 cards, but the last two — the basic slot and the expansion slot
-(cards for classes outside the set) — are set aside as soon as the packs are opened, and the
-equipment is covered by the kit below. So each simulated pack is the 13 cards that matter for
-the deck, giving a pool of exactly 104:
+> **Read this section critically.** It is the contract the code is written against, and some
+> of its numbers are guesses. The table at the end says which is which — if you know the game
+> and see something wrong, [please say so](docs/TODO.md). Every tunable number lives in
+> [`src/packConfig.ts`](src/packConfig.ts) with its derivation next to it, and the odds below
+> are enforced by tests over thousands of simulated packs.
+
+A physical booster holds 16 cards. Two of them — the basic slot and the expansion slot (cards
+for classes outside the set) — are set aside as soon as the packs are opened, so they are not
+simulated. Everything else is:
 
 | Slot | Contents |
 | --- | --- |
 | 1 | Rare, any class |
-| 1 | Rare or better (Majestic 1 in 4, Legendary 1 in 80, Fabled 1 in 200) |
+| 1 | Rare or better: Majestic 1 in 4, otherwise Rare |
 | 1 | The foil slot — a Rare 1.75% of the time, otherwise a Common |
-| 10 | Commons: 6–7 class cards split evenly across Necromancer, Brute and Runeblade, and 3–4 Shadow or Generic cards |
+| 1 | Equipment — at Common odds, with Basic equipment as likely as Common; rarer equipment, once the set has any, rolls at its own rarity's odds |
+| 10 | Commons: 6–7 class cards split evenly across Necromancer, Brute and Runeblade (coin flip between 6 and 7, remainder to a random class), and the rest Shadow or Generic |
 
-**Nothing you play in the arena is opened; it all comes with the
-[pre-release kit](https://afabjourney.substack.com/p/flesh-and-blood-usurp-the-shadow).**
-Each young hero arrives with its weapon and class Arms, and every kit carries the cold-foil
-equipment any hero can wear — Grille (Head), Robe (Chest) and Path (Legs) — so everyone has
-exactly one piece per slot:
+**Legendary and Fabled do not exist in this model.** None are sealed-legal in the card data,
+and the real pull rates are on the order of one Legendary in ~96 packs — a sealed pool almost
+never sees one. Rather than carry odds for cards that essentially never arrive, the simulation
+pretends the two rarities are not there at all.
+
+The arithmetic that falls out of those slots, which is what the pull-rate tests check:
+
+- **Rares: ~1.77 per pack.** The guaranteed rare, plus the second slot falling through to Rare
+  (1 − 1/4 = 0.75), plus the foil slot's 0.0175. We were told the true average is 1.75; the
+  missing 0.02 is the Legendary/Fabled odds we dropped, and we accept the difference for the
+  simpler model.
+- **Commons: ~10.98 per pack.** The ten common slots plus the foil slot's 0.9825.
+- **Majestics: 1 in 4 packs.**
+
+**The equipment slot works differently from the others.** Duplicates of an equipment are
+worthless — you can only wear one per slot — so the pool keeps **at most one copy** of each
+distinct equipment, however many the eight packs roll. And most rolls are invisible anyway:
+anything the pre-release kit already guarantees (next section) adds nothing new. Today every
+equipment in the set is Basic or Common, so the slot is uniform over all seven, and the only
+roll that changes your pool is **Dark Arcanite Boots** at 1/7 per pack — about **71%** of
+events hold one (1 − (6/7)^8). A Rare or Majestic equipment, once spoiled, would roll at its
+own rarity's odds instead; a test pins the current set so such a card forces that decision
+rather than sliding in silently.
+
+## What the pre-release kit provides
+
+Everything else comes with the
+[pre-release kit](https://afabjourney.substack.com/p/flesh-and-blood-usurp-the-shadow), never
+from a pack — but only the hero and its weapon are put into play for you. **All other
+equipment has to be selected from the pool**, exactly like deck cards: the kit hands you the
+cards, wearing them is your decision.
+
+| Guaranteed by the kit | In play automatically? |
+| --- | --- |
+| Your hero | Yes — locked in the arena |
+| Its signature weapon | Yes — no hero in this set has a legal alternative weapon |
+| Its class Arms (Basic) | No — a selectable singleton in your pool |
+| The cold-foil trio: Grille (Head), Robe (Chest), Path (Legs) | No — selectable singletons in your pool |
+
+The guaranteed set is derived from the card data rather than hard-coded — Basic equipment plus
+the set's Shadow-talented equipment — and pinned by a test, so a data refresh that would
+silently change what the kit guarantees fails loudly instead.
 
 | Hero | Weapon | Arms |
 | --- | --- | --- |
@@ -68,124 +111,49 @@ Corrupted Corpse instead, so getting him is luck. Here he is always selectable, 
 ★. He has no weapon or Arms of his own and can only play Shadow and Generic cards, which
 makes him the hard mode of the set.
 
-Cards without a class come in two kinds, and the app groups them separately: **Shadow** cards
-carry the set's talent and are only legal for Shadow heroes, while truly **Generic** cards
-(five in the set) are legal for almost every hero in the game.
+## The smaller rules
 
-Cards that are *created* during play never appear at all: Blasmophet, Gate to i'Arathael and
-Corrupted Corpse are made by other cards, not opened in a pack. They are dropped at snapshot
-time, spotted by their presence in another card's `createdExtras`.
+- **Shadow is not Generic.** Cards without a class come in two kinds: **Shadow** cards carry
+  the set's talent and are only legal for Shadow heroes, while truly **Generic** cards are
+  legal for almost every hero in the game. Legality always comes from each card's
+  `legalHeroes` list, never from matching classes — the two agree in this set, but FaB has
+  cards specialized to a single hero.
+- **Created cards never appear.** Blasmophet, Gate to i'Arathael and Corrupted Corpse are made
+  by other cards during play, not opened in a pack; they are dropped at snapshot time.
+- **Only Necromancer, Brute, Runeblade and generic cards can appear** — the "any class" slots
+  never roll a Guardian or a Ninja.
+- **Heroes, weapons and equipment are not deck cards.** They never count toward the "X / 30",
+  and neither do cards your hero cannot play.
+- **30 is a minimum, not a maximum.** You start each game with 30 and anything above that is a
+  sideboard to swap from between games. Nothing is enforced either way: the menu lists
+  whatever is still missing, and you can always export. The export makes no deck/sideboard
+  distinction because Fabrary neither exports nor imports sideboard cards.
 
-Heroes, weapons and equipment are not part of the deck, so they do not count toward the "X / 30", and
-neither do cards your hero cannot play. **30 is a minimum, not a maximum** — you start each
-game with 30 and anything above that is a sideboard you can swap from between games. Nothing
-is enforced either way: the warning sign in the menu bar lists whatever is still missing, and
-you can always export the list. The export makes no distinction between deck and sideboard,
-because Fabrary neither exports nor imports sideboard cards.
+## What is sourced, and what is a guess
 
-Only Necromancer, Brute, Runeblade and generic cards can appear; the "any class" slots never
-roll a Guardian or a Ninja. Every tunable number lives in
-[`src/packConfig.ts`](src/packConfig.ts).
+The honesty table. "Sourced" means we can point at something; "assumed" means we made it up
+from the averages we were given and would love a correction.
+
+| Claim | Status |
+| --- | --- |
+| Pack structure: 16 cards; basic + expansion slots set aside | Sourced — the set's product description |
+| The kit: hero, weapon, Arms per hero; cold-foil Grille/Robe/Path in every kit; Baalghor as the promo | Sourced — [the prerelease guide](https://afabjourney.substack.com/p/flesh-and-blood-usurp-the-shadow) |
+| Rare and Majestic averages (1.75 and 1/4 per pack) | Sourced — per-pack averages from the original brief ([notes/context.md](notes/context.md)) |
+| Legendary and Fabled treated as nonexistent (~1.77 rares/pack instead of 1.75) | **Assumed** simplification — roughly one Legendary in 96 packs in reality, so we model P = 0 |
+| Second-slot and foil-slot odds back-derived from those averages | **Assumed** — chosen to reproduce the averages, not from published pull rates |
+| The 6–7 class-common split as a fair coin flip, split as evenly as possible | **Assumed** — the true distribution may be weighted |
+| The equipment slot rolls at Common odds, with Basic equipment as likely as Common | **Assumed** — the owner's guess, explicitly open to expert challenge |
+| No hero has a legal alternative weapon (why weapons auto-select) | **Assumed** — checked against current data, could change as the set is revealed |
 
 ## Building a deck
 
-The build screen is a table. The **pool** is the row along the top — every card you opened,
-one per distinct card, with an `xN` badge for the copies you have left. Below it is the
-**deck**: the piles you are building, side by side. Both rows scroll sideways.
+The build screen aims to work like a table at a game store: your pool along the top, the deck
+as piles of overlapping cards below, and click and drag doing what you would expect. The one
+thing you would not find on your own: **hold the pointer on any card** (long-press on touch)
+to see it full size — that is how you read a card buried in a pile.
 
-**Clicking a pool card puts one copy in the deck**, and the deck sorts itself by pitch until
-you take over. The row is scanned from the head: the card joins the pile of its own colour,
-and failing that opens a new pile **in colour order** — reds first, then yellows, then blues,
-then the handful of cards with no pitch. The scan stops at the first pile you mixed by hand
-and inserts in front of it: past that point the row is yours, so the tidy colour piles stay at
-the head and the piles you built stay where you put them. Clicking a card in the deck sends
-one copy back.
-
-**Drag to build your own piles.** Drop a card group in the middle of a column to add it to
-that pile, or near a column's edge to open a new pile there — a thin vertical bar shows where
-it would go, and a target column lights up. With no piles yet the whole empty row is the
-target.
-
-**Whole piles move the same way.** Every column carries a rail above its top card: grab it and
-the pile follows the cursor, and it obeys exactly the rule a single card does — dropped in the
-middle of another pile the two merge, dropped near an edge it moves between piles. Cards
-inside a column are always in the order the **Sort by** selector says (rarity, name or pitch);
-there is no hand ordering inside a pile.
-
-Piling cards up is the point: on a table you sort a strategy's pillars into heaps — Malice
-wants zombies, banish enablers, graveyard recursion — and each heap's height tells you
-whether that pillar is actually supported.
-
-**Cards can be dragged between the pool and the deck too.** A pool card dragged down lands
-wherever you drop it, which is how you put a card straight into a pile instead of letting the
-pitch rule choose. Copies of a card never split up, though: if the card is already in the
-deck, that pile is the only possible destination — it scrolls into view and lights up
-whatever you aim at. Dragging a group from the deck onto the pool takes every copy back out,
-and the whole pool lights up to say there is no choice of spot within it.
-
-Your **hero, its weapon and your equipment** are fixed at the head of the deck row, stacked
-like any other pile with the hero shown in full and its gear peeking out above it. They come
-with the pre-release kit rather than the pool, so they cannot be moved or clicked away, and
-they never count toward the 30.
-
-**Picking a hero also filters.** The toolbar says how big a pool you are really building from
-— "61 legal cards for Malice", counting every copy that hero may play whether it is in the
-deck or not. In the pool, cards that hero cannot play go grey and drop to the end of the row. In the deck they are not drawn at all — a single tile at the very end of
-the row, past the last insertion point, says "6 illegal cards for the selected hero, hidden
-from the deck" and offers to **remove from deck**. They stay in the event until you do, so switching hero back
-brings them straight home.
-
-**Hold the pointer on any card** to open it full size over the table — the way to read a card
-that is buried in a pile and showing only its header. It works on kit cards too. Click
-anywhere or press Escape to put it down; starting a drag puts it down as well, so pressing and
-then dragging stays one gesture.
-
-The menu bar carries the deck count — **"28 / 30"**, green once you are there — the pitch
-split of the deck, and the menu.
-
-## The build clock
-
-A sealed event gives you a fixed window to build in, and building in twenty minutes is a
-different exercise from building at leisure — which is most of what there is to simulate once
-the packs are open. So the clock is always there, at the head of the menu bar beside the deck
-count: **how long you have taken, and how far you have got**, the two things worth half an eye
-while you sort cards.
-
-It counts up from zero, starting the moment the event does. Its colour is the whole of the
-pressure: green at the start, running through yellow and orange, red once you are five minutes
-past the twenty-minute window and red from then on. Nothing else happens — this simulates a
-sealed event, it does not referee one. You can keep building, and the point is knowing you
-went over.
-
-Click it to stop the clock and again to carry on, the way you would put the cards down at a
-real event. It only runs while the event is open, so time on the event list or in another tab
-is not time spent building; the total is banked as you go, so closing the tab keeps it. **Reset
-the build timer** in the menu puts it back to zero.
-
-Twenty minutes is the pre-release window as we understand it, and lives with the other tunable
-numbers in [`src/packConfig.ts`](src/packConfig.ts).
-
-The **menu at the right of the menu bar** holds everything you do to the event rather than to
-its cards. It opens with the deck's legality — a green tick when the deck is ready, or an
-amber ⚠ and the list of what is missing: no hero chosen, too few cards, cards your hero cannot
-play. A red dot on the button says so before you even open it. Below that:
-
-- **Copy the deck list for Fabrary** — the list in Fabrary's import format, ready to paste: a
-  header with the event name and your hero, then the arena cards and the deck cards. It copies
-  whether the deck is legal or not.
-- **Duplicate this event** — the same pool, hero and piles again under "… (Copy)", numbered
-  "(Copy 2)", "(Copy 3)" as those names fill up. Somewhere to try a variant without losing the
-  build you have.
-- **Delete this event**, which asks first.
-
-The **hero portraits** under the event name pick who you are playing — one at a time, click
-the chosen one again to put it back, or use the "clear" link in the toolbar. Legality is
-checked against each card's `legalHeroes` list rather than its class, so hero-specialized
-cards stay correct even though the two agree in this set.
-
-Events saved before the table view stored one entry per physical copy and no column layout.
-They cannot be opened any more: the event list marks them **outdated**, and opening one
-offers to delete it.
+How and why the screen behaves the way it does is recorded in [docs/ui.md](docs/ui.md); it is
+a design log, not a manual.
 
 ## Open questions
 

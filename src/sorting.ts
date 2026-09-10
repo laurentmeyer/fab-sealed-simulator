@@ -1,11 +1,18 @@
+import { isEquipment } from './packGenerator'
 import { RARITY_LADDER } from './packConfig'
 import type { PoolCard, SortMode } from './types'
 
 /** Best rarity first, the way a player fans out what they opened. */
 const rarityRank = (card: PoolCard) => RARITY_LADDER.indexOf(card.rarity)
 
-/** Cards without a pitch (weapons, equipment) sort last. */
-const pitchRank = (card: PoolCard) => card.pitch ?? Number.MAX_SAFE_INTEGER
+/**
+ * Equipment counts as pitch 0: ahead of the reds wherever pitch decides the order, and no more
+ * than that. It has no pitch of its own, but it is not deck material either, so treating it as
+ * the colour before red puts it at the head of the shelf without letting it jump a rarity.
+ * Cards that genuinely have no pitch — none in this set's deck cards — sort last.
+ */
+const pitchRank = (card: PoolCard) =>
+  isEquipment(card) ? 0 : (card.pitch ?? Number.MAX_SAFE_INTEGER)
 
 /**
  * One order for the pool row and for the inside of every column. Each mode falls through to

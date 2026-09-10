@@ -41,6 +41,8 @@ const inside = (rect: ClientRect, x: number, y: number) =>
  * deck. Where a drop lands depends on what is being dragged:
  *
  *   - over the pool, a deck group means "take this out"; nothing else can be dropped there;
+ *   - equipment only ever goes to the arena, which is the one target lit while it is dragged:
+ *     it is not deck material and never forms a pile;
  *   - a pool card whose copies are already in the deck can only go to that pile, since copies
  *     never split up — the pile is forced and highlighted whatever the pointer is over;
  *   - otherwise the middle of a column drops onto it and its edges mean "new column here",
@@ -54,6 +56,7 @@ const collisionFor = (locked: string | null): CollisionDetection => (args) => {
   const gaps = new Map<number, UniqueIdentifier>()
   const columns: { index: number; id: UniqueIdentifier; rect: ClientRect }[] = []
   let pool: { id: UniqueIdentifier; rect: ClientRect } | null = null
+  let arena: UniqueIdentifier | null = null
   for (const container of droppableContainers) {
     const data = container.data.current as DragData | undefined
     const rect = container.rect.current
@@ -61,6 +64,7 @@ const collisionFor = (locked: string | null): CollisionDetection => (args) => {
     else if (data?.type === 'column' && rect) {
       columns.push({ index: data.index!, id: container.id, rect })
     } else if (data?.type === 'pool' && rect) pool = { id: container.id, rect }
+    else if (data?.type === 'arena') arena = container.id
   }
   columns.sort((a, b) => a.rect.left - b.rect.left)
 
@@ -68,6 +72,9 @@ const collisionFor = (locked: string | null): CollisionDetection => (args) => {
   if (pool && inside(pool.rect, x, y)) {
     return activeType === 'group' ? [{ id: pool.id }] : []
   }
+
+  // Equipment has exactly one destination, so it is lit wherever you happen to be aiming.
+  if (activeType === 'equipment') return arena === null ? [] : [{ id: arena }]
 
   if (locked) {
     const target = columns.find((c) => c.id === `col:${locked}`)
@@ -95,26 +102,34 @@ export function Table({
   columns,
   pool,
   remaining,
+  arena,
   byId,
   filter,
   sort,
   hero,
-  kit,
+  weapon,
+  worn,
   onColumnsChange,
+  onArenaChange,
   onSelect,
   onDeselect,
+  onUnwear,
 }: {
   columns: DeckColumn[]
   pool: Record<string, number>
   remaining: CardCount[]
+  arena: string[]
   byId: Map<string, PoolCard>
   filter: Filter
   sort: SortMode
   hero: PoolCard | null
-  kit: PoolCard[]
+  weapon: PoolCard | null
+  worn: PoolCard[]
   onColumnsChange: (columns: DeckColumn[]) => void
+  onArenaChange: (arena: string[]) => void
   onSelect: (cardId: string) => void
   onDeselect: (cardId: string) => void
+  onUnwear: (cardId: string) => void
 }) {
   const showPreview = useShowPreview()
   const [dragged, setDragged] = useState<{ card: PoolCard; count: number; pile?: number } | null>(
@@ -133,7 +148,13 @@ export function Table({
       const card = byId.get(entry.cardId)
       return card && !matches(card, filter)
     })
-  const illegal = illegalCards.reduce((sum, entry) => sum + entry.count, 0)
+  // Equipment for another hero's class is just as illegal, and just as hidden.
+  const illegalWorn = arena.filter((cardId) => {
+    const card = byId.get(cardId)
+    return card && !matches(card, filter)
+  })
+  const illegal =
+    illegalCards.reduce((sum, entry) => sum + entry.count, 0) + illegalWorn.length
 
   const start = ({ active }: DragStartEvent) => {
     // Holding still long enough to open a card and then dragging it is one gesture, not two.
@@ -179,6 +200,11 @@ export function Table({
     const from = active.data.current as DragData | undefined
     const to = over?.data.current as DragData | undefined
     if (!from || !to) return
+
+    if (from.type === 'equipment' && to.type === 'arena' && from.cardId) {
+      if (!arena.includes(from.cardId)) onArenaChange([...arena, from.cardId])
+      return
+    }
 
     if (from.type === 'group' && to.type === 'pool') {
       onColumnsChange(removeCards(columns, [from.cardId!]))
@@ -245,12 +271,17 @@ export function Table({
           filter={filter}
           sort={sort}
           hero={hero}
-          kit={kit}
+          weapon={weapon}
+          worn={worn}
           illegal={illegal}
           onDeselect={onDeselect}
-          onRemoveIllegal={() =>
+          onRemoveArena={onUnwear}
+          onRemoveIllegal={() => {
             onColumnsChange(removeCards(columns, illegalCards.map((e) => e.cardId)))
-          }
+            if (illegalWorn.length) {
+              onArenaChange(arena.filter((cardId) => !illegalWorn.includes(cardId)))
+            }
+          }}
         />
       </div>
 

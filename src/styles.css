@@ -746,10 +746,36 @@ select:hover {
   min-height: 100%;
 }
 
-.kit-stack {
+/*
+ * The arena: hero and weapon locked in, and the equipment you chose sitting above them. It is
+ * a drop target of its own, and the only one equipment can land on.
+ */
+.arena-stack {
   position: relative;
   flex: none;
   margin-right: 4px;
+  border-radius: 10px;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+  transition: outline-color 0.1s ease, background 0.1s ease;
+}
+
+.arena-stack.landing {
+  outline-color: var(--accent);
+  background: rgba(166, 120, 240, 0.1);
+}
+
+.arena-stack.empty {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  text-align: center;
+  padding: 12px;
+}
+
+.arena-stack.empty p {
+  margin: 0;
 }
 
 /*
@@ -914,7 +940,7 @@ select:hover {
 }
 
 .deck-column .card-group,
-.kit-stack .card-group {
+.arena-stack .card-group {
   position: absolute;
   left: 0;
 }

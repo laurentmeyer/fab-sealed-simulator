@@ -2,6 +2,7 @@ import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CARD } from './cardMetrics'
 import { CardGroupView } from './CardGroupView'
 import { matches, partition, type Filter } from './filters'
+import { isEquipment } from './packGenerator'
 import { compareBy } from './sorting'
 import type { CardCount, PoolCard, SortMode } from './types'
 
@@ -16,9 +17,10 @@ function PoolCardView({
   playable: boolean
   onSelect: () => void
 }) {
+  // Equipment answers to different rules on the way down: it can only land in the arena.
   const { setNodeRef, listeners, attributes, isDragging } = useDraggable({
     id: `pool:${card.id}`,
-    data: { type: 'poolCard', cardId: card.id },
+    data: { type: isEquipment(card) ? 'equipment' : 'poolCard', cardId: card.id },
   })
 
   return (
