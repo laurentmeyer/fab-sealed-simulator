@@ -1,14 +1,10 @@
 # FaB Sealed Simulator
 
-Practice sealed deckbuilding for **Flesh and Blood: Usurp the Shadow Throne** without opening
-real product. The app cracks 8 booster packs, drops the pool in front of you, and lets you
-build a 30-card deck by piling cards into columns on a table — then hands you a list you can
-paste straight into Fabrary.
+Practice sealed deckbuilding for **Flesh and Blood: Usurp the Shadow Throne**.
+The app cracks 8 booster packs, drops the pool in front of you, and lets you build a 30-card deck by piling cards into piles on a table — then hands you a list you can paste straight into Fabrary.
 
 Everything runs in the browser. There is no backend and no account: events live in
 `localStorage`, so the build is a folder of static files you can host anywhere.
-
-The front page lists the events you have opened, each with the face of the hero you picked.
 
 <!-- TODO: add a screenshot of the event screen with a few cards selected:
      ![Screenshot of the event screen](docs/screenshot.png) -->
