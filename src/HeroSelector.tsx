@@ -1,19 +1,6 @@
-import { useState } from 'react'
-import { heroImageUrl, heroKitFor, isPromoHero } from './heroes'
+import { HeroPortrait } from './HeroPortrait'
+import { heroKitFor, isPromoHero } from './heroes'
 import type { PoolCard } from './types'
-
-function HeroPortrait({ hero }: { hero: PoolCard }) {
-  const [failed, setFailed] = useState(false)
-  if (failed) return <span className="hero-initials">{hero.name.slice(0, 2)}</span>
-  return (
-    <img
-      src={heroImageUrl(hero)}
-      alt={hero.name}
-      draggable={false}
-      onError={() => setFailed(true)}
-    />
-  )
-}
 
 /**
  * Picking a hero is part of building the deck: it brings the signature weapon and decides

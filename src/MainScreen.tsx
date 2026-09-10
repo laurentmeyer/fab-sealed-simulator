@@ -1,16 +1,9 @@
 import { Footer } from './Footer'
+import { HeroPortrait } from './HeroPortrait'
+import { TrashIcon } from './icons'
 import { isLegacyEvent, type PoolCard, type StoredEvent } from './types'
 
 const SET_IMAGE = 'https://content.fabrary.net/sets/usurp-the-shadow-throne.webp'
-
-const TrashIcon = () => (
-  <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden focusable="false">
-    <path
-      fill="currentColor"
-      d="M6.5 1a.5.5 0 0 0-.5.5V2H3.5a.5.5 0 0 0 0 1H4v9.5A1.5 1.5 0 0 0 5.5 14h5a1.5 1.5 0 0 0 1.5-1.5V3h.5a.5.5 0 0 0 0-1H10v-.5a.5.5 0 0 0-.5-.5h-3ZM7 2h2v.5H7V2ZM5 3h6v9.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5V3Zm1.5 1.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Zm3 0a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
-    />
-  </svg>
-)
 
 export function MainScreen({
   events,
@@ -60,6 +53,12 @@ export function MainScreen({
                 return (
                   <li key={event.id} className={outdated ? 'outdated' : undefined}>
                     <button type="button" className="event-open" onClick={() => onOpen(event.id)}>
+                      <span
+                        className={hero ? 'event-portrait' : 'event-portrait none'}
+                        aria-hidden={!hero}
+                      >
+                        {hero && <HeroPortrait hero={hero} />}
+                      </span>
                       <span className="event-name">
                         {event.name}
                         {hero && <span className="event-hero"> &ndash; {hero.name}</span>}

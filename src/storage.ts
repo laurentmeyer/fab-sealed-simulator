@@ -19,6 +19,23 @@ export const nextEventName = (events: StoredEvent[]): string => {
  * Events of every schema are kept, including the ones this version cannot open: deleting
  * somebody's saved pool behind their back would be worse than telling them it is outdated.
  */
+/** A trailing "(Copy)" or "(Copy 3)", so copying a copy does not stack the suffixes up. */
+const COPY_SUFFIX = /\s*\(Copy(?: \d+)?\)$/i
+
+/**
+ * The name for a duplicate: "Sealed event 1 (Copy)", then "(Copy 2)", "(Copy 3)" as those are
+ * taken. Renaming a copy frees its name again, which is the point of going by what is in use
+ * rather than by a stored counter.
+ */
+export const copyEventName = (name: string, events: StoredEvent[]): string => {
+  const taken = new Set(events.map((event) => event.name.trim()))
+  const base = name.trim().replace(COPY_SUFFIX, '')
+  for (let n = 1; ; n++) {
+    const candidate = n === 1 ? `${base} (Copy)` : `${base} (Copy ${n})`
+    if (!taken.has(candidate)) return candidate
+  }
+}
+
 export const loadEvents = (): StoredEvent[] => {
   try {
     const raw = localStorage.getItem(KEY)

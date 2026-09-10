@@ -235,6 +235,32 @@ input {
   font-weight: 400;
 }
 
+/* Who you played, at a glance: the row's own face rather than just a name. */
+.event-portrait {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.event-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* No hero picked yet: the space is still held, so the names stay in one column. */
+.event-portrait.none {
+  border-style: dashed;
+  background: transparent;
+}
+
 .event-delete {
   display: grid;
   place-items: center;
@@ -243,6 +269,7 @@ input {
   color: var(--muted);
 }
 
+
 .event-delete:hover {
   color: var(--danger);
   border-color: var(--danger);
@@ -250,6 +277,8 @@ input {
 
 .event-name {
   font-weight: 600;
+  /* Takes the slack so the date stays pinned right whatever the name's length. */
+  flex: 1;
 }
 
 .event-meta {
@@ -315,59 +344,14 @@ input {
   min-width: 240px;
 }
 
-/* Export doubles as the legality sign: it says whether the deck is ready and why not. */
-.export-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
 
-.export-button.has-issues {
-  border-color: var(--danger);
-}
 
-.export-status {
-  font-size: 14px;
-  line-height: 1;
-}
 
-.export-status.ok {
-  color: var(--ok);
-}
 
-.export-status.warn {
-  color: var(--danger);
-}
 
-.issue-popup {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: calc(100% + 6px);
-  z-index: 20;
-  width: max-content;
-  max-width: 320px;
-  flex-direction: column;
-  gap: 6px;
-  padding: 10px 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--danger);
-  border-radius: 8px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 400;
-  text-align: left;
-  /* Clicks belong to the button underneath, not the popup. */
-  pointer-events: none;
-}
 
-.issue-title {
-  color: var(--muted);
-  font-size: 12px;
-}
 
+/* The reasons a deck is not legal yet, under the menu's status line. */
 .issue-list {
   margin: 0;
   padding-left: 18px;
@@ -378,11 +362,6 @@ input {
 
 .issue-list li {
   list-style: disc;
-}
-
-.export-button.has-issues:hover .issue-popup,
-.export-button.has-issues:focus-visible .issue-popup {
-  display: flex;
 }
 
 /* Copy confirmation, floated over the page so it is hard to miss. */
@@ -506,6 +485,108 @@ select:hover {
 
 
 
+
+/* ---- event menu ---- */
+
+/*
+ * Everything you do to the event rather than to its cards. It leads with the deck's legality,
+ * which used to be a popup hanging off the export button — a list of things to fix deserves
+ * somewhere you can actually read it.
+ */
+.event-menu {
+  position: relative;
+}
+
+.menu-toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 7px 10px;
+  color: var(--muted);
+  line-height: 0;
+}
+
+.menu-toggle:hover,
+.menu-toggle.open {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* An illegal deck says so before you open anything. */
+.menu-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--danger);
+}
+
+.menu-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 30;
+  min-width: 280px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+.menu-status {
+  padding: 10px 12px 12px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.menu-status-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.menu-status.ok .menu-status-line {
+  color: var(--ok);
+}
+
+.menu-status.warn .menu-status-line {
+  color: var(--danger);
+}
+
+.menu-panel button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.menu-panel button:hover {
+  background: var(--surface-2);
+  color: var(--accent);
+}
+
+.menu-panel button.danger:hover {
+  color: var(--danger);
+}
+
+.menu-panel button svg,
+.menu-panel button .icon-img {
+  flex: none;
+  display: block;
+}
 
 /* ---- toolbar and table ---- */
 

@@ -8,6 +8,8 @@ paste straight into Fabrary.
 Everything runs in the browser. There is no backend and no account: events live in
 `localStorage`, so the build is a folder of static files you can host anywhere.
 
+The front page lists the events you have opened, each with the face of the hero you picked.
+
 <!-- TODO: add a screenshot of the event screen with a few cards selected:
      ![Screenshot of the event screen](docs/screenshot.png) -->
 
@@ -141,11 +143,18 @@ then dragging stays one gesture.
 The menu bar carries the deck count — **"28 / 30"**, green once you are there — the pitch
 split of the deck, and the export.
 
-**Export for Fabrary** copies a list you can paste straight into Fabrary's importer: a header
-with the event name and your hero, then the arena cards and the deck cards. It doubles as the
-legality sign — a green tick when the deck is ready, an amber ⚠ when it is not, with every
-reason on hover: no hero chosen, too few cards, cards your hero cannot play. It exports either
-way.
+The **menu at the right of the menu bar** holds everything you do to the event rather than to
+its cards. It opens with the deck's legality — a green tick when the deck is ready, or an
+amber ⚠ and the list of what is missing: no hero chosen, too few cards, cards your hero cannot
+play. A red dot on the button says so before you even open it. Below that:
+
+- **Copy the deck list for Fabrary** — the list in Fabrary's import format, ready to paste: a
+  header with the event name and your hero, then the arena cards and the deck cards. It copies
+  whether the deck is legal or not.
+- **Duplicate this event** — the same pool, hero and piles again under "… (Copy)", numbered
+  "(Copy 2)", "(Copy 3)" as those names fill up. Somewhere to try a variant without losing the
+  build you have.
+- **Delete this event**, which asks first.
 
 The **hero portraits** under the event name pick who you are playing — one at a time, click
 the chosen one again to put it back, or use the "clear" link in the toolbar. Legality is

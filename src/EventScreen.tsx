@@ -3,6 +3,7 @@ import { CardOverlay, PreviewContext } from './CardOverlay'
 import { deselectCard, remainingPool, selectCard, selectedEntries } from './columns'
 import { deckCount, deckIssues, legalPoolCount, pitchSplit } from './deck'
 import { exportDeck } from './deckExport'
+import { EventMenu } from './EventMenu'
 import { type Filter } from './filters'
 import { Footer } from './Footer'
 import { HeroSelector } from './HeroSelector'
@@ -18,49 +19,20 @@ const PITCH_BAR = [
   { pitch: 3, className: 'bar-blue', label: 'blue' },
 ]
 
-/**
- * Exporting and deck legality share one control: the button says whether the deck is legal,
- * and names every reason it is not on hover. It always exports, legal or not.
- */
-function ExportButton({ issues, onClick }: { issues: string[]; onClick: () => void }) {
-  const legal = issues.length === 0
-  return (
-    <button
-      type="button"
-      className={legal ? 'export-button' : 'export-button has-issues'}
-      onClick={onClick}
-      title={legal ? 'Legal deck — copy the list in Fabrary import format' : undefined}
-    >
-      <span className={legal ? 'export-status ok' : 'export-status warn'} aria-hidden>
-        {legal ? '✓' : '⚠'}
-      </span>
-      Export for Fabrary
-      {!legal && (
-        <span className="issue-popup">
-          <span className="issue-title">
-            {issues.length} thing{issues.length > 1 ? 's' : ''} to fix before this deck is legal
-          </span>
-          <ul className="issue-list">
-            {issues.map((issue) => (
-              <li key={issue}>{issue}</li>
-            ))}
-          </ul>
-        </span>
-      )}
-    </button>
-  )
-}
-
 export function EventScreen({
   event,
   byId,
   onChange,
   onBack,
+  onDuplicate,
+  onDelete,
 }: {
   event: SealedEvent
   byId: Map<string, PoolCard>
   onChange: (event: SealedEvent) => void
   onBack: () => void
+  onDuplicate: () => void
+  onDelete: () => void
 }) {
   const [sort, setSort] = useState<SortMode>('rarity')
   const [preview, setPreview] = useState<PoolCard | null>(null)
@@ -185,7 +157,14 @@ export function EventScreen({
               </span>
             )}
           </span>
-          <ExportButton issues={issues} onClick={copy} />
+          <EventMenu
+            issues={issues}
+            onExport={copy}
+            onDuplicate={onDuplicate}
+            onDelete={() => {
+              if (window.confirm(`Delete "${event.name}"? This cannot be undone.`)) onDelete()
+            }}
+          />
         </div>
       </div>
 
