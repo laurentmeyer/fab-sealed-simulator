@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import cardsJson from './data/cards.json'
 import { exportDeck } from './deckExport'
 import { signatureWeaponFor } from './heroes'
-import type { CardInstance, PoolCard } from './types'
+import type { CardCount, PoolCard } from './types'
 
 const pool = cardsJson as PoolCard[]
 const byId = new Map(pool.map((c) => [c.id, c]))
@@ -10,8 +10,16 @@ const byId = new Map(pool.map((c) => [c.id, c]))
 /** Names are not unique in FaB: a card exists once per pitch value, each with its own id. */
 const byName = (name: string) => pool.find((c) => c.name === name)!
 
-const select = (...cards: PoolCard[]): CardInstance[] =>
-  cards.map((card, i) => ({ instanceId: `i${i}`, cardId: card.id, selected: true }))
+/** Copies merge into one entry with a count, the way the columns hold them. */
+const select = (...cards: PoolCard[]): CardCount[] => {
+  const entries: CardCount[] = []
+  for (const card of cards) {
+    const entry = entries.find((e) => e.cardId === card.id)
+    if (entry) entry.count++
+    else entries.push({ cardId: card.id, count: 1 })
+  }
+  return entries
+}
 
 const named = (...names: string[]) => select(...names.map(byName))
 
@@ -23,9 +31,7 @@ describe('exportDeck', () => {
     const red = pool.find(
       (c) => c.rarity === 'Common' && c.pitch === 1 && c.legalHeroes.includes(viserai.hero!),
     )!
-    const instances = select(red, red)
-
-    expect(exportDeck('My sealed deck', instances, byId, viserai)).toBe(
+    expect(exportDeck('My sealed deck', select(red, red), byId, viserai)).toBe(
       [
         'Name: My sealed deck',
         'Hero: Viserai, Between Worlds',
@@ -91,17 +97,17 @@ describe('exportDeck', () => {
     expect(text).not.toContain(`${twins.length}x`)
   })
 
-  it('ignores unselected cards and sorts each section by name', () => {
+  it('sorts each section by name', () => {
     const [a, b] = pool
       .filter((c) => c.rarity === 'Common' && c.types.includes('Action'))
       .filter((c, _i, all) => all.filter((o) => o.name === c.name).length === 1)
       .slice(0, 2)
-    const instances: CardInstance[] = [
-      { instanceId: '1', cardId: b.id, selected: true },
-      { instanceId: '2', cardId: a.id, selected: true },
-      { instanceId: '3', cardId: a.id, selected: false },
+    // Column order is arbitrary; the export always comes out sorted.
+    const entries: CardCount[] = [
+      { cardId: b.id, count: 1 },
+      { cardId: a.id, count: 1 },
     ]
-    const lines = exportDeck('Event 1', instances, byId, null).split('\n')
+    const lines = exportDeck('Event 1', entries, byId, null).split('\n')
     const deckLines = lines.slice(lines.indexOf('Deck cards') + 1)
     expect(deckLines).toHaveLength(2)
     expect(deckLines.every((l) => l.startsWith('1x'))).toBe(true)

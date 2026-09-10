@@ -10,6 +10,7 @@ import {
   isHero,
   isWeapon,
   splitClassCommons,
+  tally,
   type Rng,
 } from './packGenerator'
 import { heroKitFor, isPromoHero, youngHeroes } from './heroes'
@@ -17,7 +18,7 @@ import type { PoolCard } from './types'
 
 const pool = cardsJson as PoolCard[]
 const byId = new Map(pool.map((c) => [c.id, c]))
-const cardsOf = (instances: { cardId: string }[]) => instances.map((i) => byId.get(i.cardId)!)
+const cardsOf = (cardIds: string[]) => cardIds.map((id) => byId.get(id)!)
 
 /** Feeds a fixed sequence of rolls, then falls back to a midpoint so draws stay valid. */
 const scriptedRng = (rolls: number[]): Rng => {
@@ -80,13 +81,21 @@ describe('rarity fallback', () => {
 })
 
 describe('event pool', () => {
-  it('holds exactly 8 x 13 deck cards, all unselected', () => {
-    const instances = generateEventPool(pool)
-    const cards = cardsOf(instances)
+  it('holds exactly 8 x 13 deck cards', () => {
+    const cardIds = generateEventPool(pool)
+    const cards = cardsOf(cardIds)
 
-    expect(instances.every((i) => !i.selected)).toBe(true)
     expect(cards.every(isDrawable)).toBe(true)
     expect(cards).toHaveLength(PACKS_PER_EVENT * 13)
+  })
+
+  it('tallies into the cardId -> copies map an event stores', () => {
+    const cardIds = generateEventPool(pool)
+    const counts = tally(cardIds)
+
+    expect(Object.values(counts).reduce((a, b) => a + b, 0)).toBe(cardIds.length)
+    expect(Object.keys(counts)).toEqual([...new Set(cardIds)])
+    expect(Object.values(counts).every((n) => n >= 1)).toBe(true)
   })
 
   it('gives class heroes a kit of weapon, Arms and the three cold-foil pieces', () => {

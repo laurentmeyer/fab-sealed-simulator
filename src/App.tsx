@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import cardsJson from './data/cards.json'
 import { EventScreen } from './EventScreen'
 import { MainScreen } from './MainScreen'
-import { generateEventPool } from './packGenerator'
+import { LegacyEventScreen } from './LegacyEventScreen'
+import { generateEventPool, tally } from './packGenerator'
 import { loadEvents, nextEventName, saveEvents } from './storage'
-import type { PoolCard, SealedEvent } from './types'
+import { isLegacyEvent, type PoolCard, type SealedEvent, type StoredEvent } from './types'
 
 const pool = cardsJson as PoolCard[]
 
@@ -20,7 +21,7 @@ const newId = (): string =>
 
 export default function App() {
   const byId = useMemo(() => new Map(pool.map((c) => [c.id, c])), [])
-  const [events, setEvents] = useState<SealedEvent[]>(loadEvents)
+  const [events, setEvents] = useState<StoredEvent[]>(loadEvents)
   const [hash, setHash] = useState(window.location.hash)
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
-  const persist = (next: SealedEvent[]) => {
+  const persist = (next: StoredEvent[]) => {
     setEvents(next)
     saveEvents(next)
   }
@@ -41,10 +42,12 @@ export default function App() {
 
   const createEvent = () => {
     const event: SealedEvent = {
+      schemaVersion: 2,
       id: newId(),
       name: nextEventName(events),
       createdAt: new Date().toISOString(),
-      cards: generateEventPool(pool),
+      pool: tally(generateEventPool(pool)),
+      columns: [],
       heroId: null,
     }
     persist([...events, event])
@@ -53,6 +56,21 @@ export default function App() {
 
   const openEventId = eventIdFromHash(hash)
   const openEvent = openEventId ? events.find((e) => e.id === openEventId) : undefined
+
+  const remove = (id: string) => persist(events.filter((e) => e.id !== id))
+
+  if (openEvent && isLegacyEvent(openEvent)) {
+    return (
+      <LegacyEventScreen
+        event={openEvent}
+        onDelete={() => {
+          remove(openEvent.id)
+          navigate('')
+        }}
+        onBack={() => navigate('')}
+      />
+    )
+  }
 
   if (openEvent) {
     return (
@@ -71,7 +89,7 @@ export default function App() {
       byId={byId}
       onCreate={createEvent}
       onOpen={(id) => navigate(`#/event/${id}`)}
-      onDelete={(id) => persist(events.filter((e) => e.id !== id))}
+      onDelete={remove}
     />
   )
 }

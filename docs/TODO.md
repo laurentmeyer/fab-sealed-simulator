@@ -18,21 +18,31 @@ guess. Each entry says what we assumed and where it lives.
       split as evenly as possible. The true distribution may be weighted.
 - [ ] **The foil slot's rarity odds** (Rare 1.75%, otherwise Common) are back-derived from
       the per-pack averages we were given, not from published pull rates.
-- [ ] **Should the export separate the deck from the sideboard?** 30 cards is a minimum, so
-      a player may select 45. Today all of them are exported as one "Deck cards" list. At an
-      event you play 30 with the rest beside you, so splitting them may be more faithful.
+- [x] ~~**Should the export separate the deck from the sideboard?**~~ Resolved by testing
+      against Fabrary, which neither exports nor imports sideboard cards. Splitting them here
+      would only produce a list Fabrary discards, so everything selected stays one
+      "Deck cards" list.
 
 ## Product backlog
 
 The goal is to **simulate** an IRL sealed session, not to help you win one — you have no
 analytics at a game store. Items are ordered by value.
 
-- [ ] **Keep the layout stable when a card moves.** On a table, picking up one card does not
-      reshuffle the other 109. The grid currently reflows on every click, which has no
-      physical counterpart and is jarring when adding several cards in a row.
-- [ ] **Set aside the cards the hero cannot play.** IRL that is the first thing you do —
-      push them out of the play area. They are a third to two thirds of the pool, so
-      collapsing that group by default matches what actually happens.
+- [x] ~~**Table deckbuilding UI**~~ — the big one, built to the spec in
+      [notes/mtga-ui.md](../notes/mtga-ui.md) following [table-view-plan.md](table-view-plan.md):
+      the pool is one row, the deck is columns of overlapping cards you drag around between
+      and across both sections, and clicking sorts cards into single-colour piles in colour
+      order until you take over by hand. Piles are unnamed for now — naming them is the
+      obvious next step.
+- [ ] **Export straight to Talishar**, the gameplay simulator, alongside the Fabrary copy —
+      build the deck here, then jump into a game with friends.
+- [ ] **First-time onboarding.** Explain in one screen what this is: open 8 packs at once,
+      build a deck, play with friends — a simulation of real-life sealed deckbuilding.
+- [x] ~~**Keep the layout stable when a card moves.**~~ Resolved by the table: a card lands
+      in a pile you chose and stays there, and the pool row only loses the card you took.
+- [x] ~~**Set aside the cards the hero cannot play.**~~ Resolved by the filter: they go grey at
+      the end of the pool row, and are not drawn in the deck at all — one tile counts them and
+      offers to clear them out.
 - [ ] **A build timer.** Sealed events give you a fixed deckbuilding window, and building in
       20 minutes is a different exercise from building at leisure. Probably the highest
       fidelity win available.
@@ -43,23 +53,32 @@ analytics at a game store. Items are ordered by value.
       goal is simulating opening 8 packs — and that is the part players enjoy.
 - [ ] **A "maybe" pile.** Everyone builds with three piles physically, not two.
 - [ ] **Deck stats after the fact**, to critique a finished 30-card deck: pitch and cost
-      curve, block profile, attack vs non-attack. Deliberately *after* building, not during,
-      so it stays a review tool rather than a crutch.
+      curve, block profile, attack vs non-attack. Deliberately on-demand and tucked away,
+      never ambient during building, so it stays a review tool rather than a crutch — you
+      will not have it at a real event.
 
 ### Interface quality
 
-- [ ] Persist card size and grouping — both reset every time an event is opened.
-- [ ] Stack the two panes below ~900px; `1fr 1fr` is unusable on a narrow screen.
+- [ ] Persist the sort mode — it resets every time an event is opened.
+- [ ] The card size is fixed at 220px, which is generous on a laptop: the pool row and one
+      full column barely fit together. A zoom control may have to come back.
+- [ ] Name the columns. The piles are the point; the rail above each one is already the right
+      place to write "banish enablers" and read the table at a glance.
+- [ ] Bring back "add all" / "remove all", which went with the old grouped panes. Some bulk
+      way of clearing the off-hero cards out of the deck row would earn its place.
 - [ ] Consolidate the two ways to clear a hero (toggle the portrait, or the "clear" link).
-- [ ] Use the empty right-hand track of the menu bar.
-- [ ] Reduce hover-only interactions: the card preview, pitch tooltips and the issues popup
-      are all mouse-only. A click-to-pin preview would help keyboard and touch users.
+- [ ] The deck row can get very wide, one column per card, before you start piling. A
+      "tidy up" that merges singles by rarity or class might be a kinder starting point.
+- [ ] Reduce hover-only interactions: the pitch tooltips and the issues popup are mouse-only.
+- [x] ~~No way to read a stacked card's full text.~~ Resolved: a long press opens any card
+      full size over the table. Unlike the old hover preview it works on touch, and it only
+      shows up when asked for.
 - [ ] Main screen: show the hero portrait on each event row, and allow duplicating an event
       to try a different build from the same pool.
 
 ## Housekeeping
 
-- [ ] **Read the test suite** (`src/*.test.ts`, 41 tests) — not yet reviewed by the owner.
+- [ ] **Read the test suite** (`src/*.test.ts`, 76 tests) — not yet reviewed by the owner.
 - [ ] Add the README screenshot (`docs/screenshot.png`); the link is a TODO comment.
 - [ ] Confirm the copyright holder named in [`LICENSE`](../LICENSE).
 - [ ] Refresh the card data as the set is revealed: `npm update @flesh-and-blood/cards

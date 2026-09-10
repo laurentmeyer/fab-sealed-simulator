@@ -114,8 +114,8 @@ input {
 /* ---- footer ---- */
 
 /*
- * On the event screen this sits after .panes, which is flex:1, so it simply takes its own
- * height out of the panes rather than pushing the 100vh layout into a page scroll.
+ * On the event screen this sits after .table, which is flex:1, so it simply takes its own
+ * height out of the table rather than pushing the 100vh layout into a page scroll.
  */
 .site-footer {
   display: flex;
@@ -189,6 +189,28 @@ input {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.event-list li.outdated .event-open {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.event-tag {
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.legacy-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 .event-list li {
@@ -444,52 +466,6 @@ input {
   flex: 1;
 }
 
-/* ---- panes ---- */
-
-.panes {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
-}
-
-.pane {
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-/* Fixed height so the two pane headers line up across the divider. */
-.pane-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 52px;
-  padding: 0 16px;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.pane-title {
-  margin: 0;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.pane-subtitle {
-  font-size: 12px;
-  color: var(--muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 button.link {
   padding: 0;
   background: none;
@@ -502,14 +478,6 @@ button.link {
 button.link:hover {
   border: none;
   color: var(--text);
-}
-
-.pane-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-left: auto;
 }
 
 .control-label {
@@ -535,58 +503,400 @@ select:hover {
   border-color: var(--accent);
 }
 
-.size-toggle {
+
+
+
+
+/* ---- toolbar and table ---- */
+
+.toolbar {
   display: flex;
-  gap: 2px;
-  padding: 2px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 
-.size-toggle button {
-  display: grid;
-  place-items: center;
-  padding: 4px 7px;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 6px;
+.toolbar-spacer {
+  flex: 1;
+}
+
+.toolbar-note {
+  font-size: 12px;
   color: var(--muted);
-  line-height: 0;
+  white-space: nowrap;
 }
 
-.size-toggle button:hover {
-  color: var(--text);
-  border-color: transparent;
+.deck-count {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid currentColor;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.size-toggle button.active {
-  color: var(--accent);
-  border-color: var(--accent);
+.deck-count.ok {
+  color: var(--ok);
 }
 
-.pane-controls button {
-  padding: 4px 10px;
-  font-size: 13px;
+.deck-count.warn {
+  color: var(--danger);
 }
 
 /*
- * Cards the hero cannot play: still clickable, just clearly out of the deck. Dimming uses
- * brightness rather than opacity so every card in a stack stays solid — with opacity the
- * copies underneath show through the top one.
+ * The table: the pool along the top, the deck below it. Both scroll sideways on their own,
+ * which is what keeps a long pool from pushing the deck off the screen.
  */
-.group.dimmed .card-art,
-.group.dimmed .card-fallback {
-  filter: grayscale(1) brightness(0.5);
+.table {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.group.dimmed .card-tile:hover .card-art,
-.group.dimmed .card-tile:hover .card-fallback {
-  filter: grayscale(0.35) brightness(0.85);
+.pool-row {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: outline-color 0.1s ease, background 0.1s ease;
 }
 
-.group.dimmed .group-label {
+/* The pool is the way out of the deck, and there is no choice of spot within it. */
+.pool-row.returning {
+  outline-color: var(--danger);
+  background: rgba(224, 97, 107, 0.1);
+}
+
+.pool-hint {
+  position: sticky;
+  right: 0;
+  align-self: center;
+  margin: 0 0 0 auto;
+  /* It floats over the cards at the end of the row, so it needs its own ground. */
+  padding: 6px 12px;
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  background: var(--bg);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  color: var(--danger);
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.deck-area {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  /* Room above the row for the column rails, which sit outside their column's box. */
+  padding: 26px 16px 16px;
+}
+
+.deck-row {
+  display: flex;
+  align-items: flex-start;
+  /* The row is as wide as its columns; the scroller is what moves. It still fills the area
+     when there is little in it, so the empty row's drop target covers the whole width. */
+  width: max-content;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.kit-stack {
+  position: relative;
+  flex: none;
+  margin-right: 4px;
+}
+
+/*
+ * Cards the hero cannot play are held but never drawn: one tile stands in for the lot of
+ * them, so the table only ever shows the deck you could actually register.
+ */
+.illegal-card {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-left: 4px;
+  padding: 16px;
+  border: 1px dashed var(--danger);
+  border-radius: 8px;
+  background: rgba(224, 97, 107, 0.08);
+  text-align: center;
+}
+
+.illegal-count {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--danger);
+  line-height: 1;
+}
+
+.illegal-text {
+  margin: 0;
   color: var(--muted);
+  font-size: 13px;
+}
+
+.deck-column {
+  position: relative;
+  flex: none;
+  border-radius: 10px;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+  transition: outline-color 0.1s ease, background 0.1s ease;
+}
+
+/* Where the group being dragged would land. */
+.deck-column.over {
+  outline-color: var(--accent);
+  background: rgba(166, 120, 240, 0.08);
+}
+
+/*
+ * Cards the hero cannot play, in the pool. Dimming uses brightness rather than opacity so
+ * every card in a stack stays solid — with opacity the ones underneath would show through.
+ */
+.card-group.dimmed {
+  filter: brightness(0.45) saturate(0.5);
+}
+
+.card-group.dimmed:hover {
+  filter: brightness(0.75) saturate(0.8);
+}
+
+/*
+ * How a whole pile is picked up. It spans the column so it is a real target, and it is always
+ * there rather than appearing on hover: it is the only affordance for moving a pile, and a
+ * few pixels of background around a column would be a much worse one.
+ */
+.column-handle {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+  padding: 0;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  line-height: 12px;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  opacity: 0.5;
+  cursor: grab;
+  transition: opacity 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+}
+
+.deck-column:hover .column-handle,
+.column-handle:focus-visible,
+.column-handle.dragging {
+  opacity: 1;
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.column-handle.dragging {
+  cursor: grabbing;
+}
+
+/* The insertion point between two columns: a thin bar once the drop would land there. */
+.column-gap {
+  flex: none;
+  position: relative;
+  width: 14px;
+  min-height: 40px;
+}
+
+/*
+ * The empty row: a target you can actually see and aim at, rather than a 14px strip in the
+ * corner. It does not stretch — anything after it in the row (the illegal-cards tile) would
+ * otherwise be shoved to the far right whenever the deck happens to be empty. Dropping
+ * anywhere in the area still works: with no columns to aim at, every pointer position
+ * resolves to this gap.
+ */
+.column-gap.wide {
+  flex: none;
+  width: auto;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+}
+
+.column-gap.wide .empty {
+  padding: 0 24px;
+}
+
+/* The whole area is the target here, so the insertion bar has nothing to point at. */
+.column-gap.wide .gap-bar {
+  display: none;
+}
+
+.column-gap.wide.over {
+  border-radius: 10px;
+  background: rgba(166, 120, 240, 0.08);
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.gap-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: transparent;
+}
+
+.column-gap.over .gap-bar {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(166, 120, 240, 0.7);
+}
+
+/* ---- cards on the table ---- */
+
+/* In the pool the cards sit side by side; in a stack they overlap, so they are lifted out. */
+.card-group {
+  position: relative;
+  flex: none;
+  width: var(--card-w);
+}
+
+.deck-column .card-group,
+.kit-stack .card-group {
+  position: absolute;
+  left: 0;
+}
+
+/*
+ * A card answers a long press, so the browser's own press behaviours have to get out of the
+ * way: the iOS callout, and the text selection a held pointer would otherwise start.
+ */
+.card-tile {
+  position: relative;
+  display: block;
+  -webkit-touch-callout: none;
+  user-select: none;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  line-height: 0;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+
+.card-group:hover {
+  z-index: 2;
+}
+
+.card-tile:hover {
+  transform: translateY(-3px);
+}
+
+.card-group.locked .card-tile {
+  cursor: default;
+}
+
+.card-group.locked .card-tile:hover {
+  transform: none;
+}
+
+/* Outline only, no opacity: transparency would let the cards underneath show through. */
+.card-group.locked .card-art,
+.card-group.locked .card-fallback {
+  outline: 1px dashed var(--border);
+  outline-offset: -1px;
+}
+
+/* The original stays put and dimmed while its copy rides the cursor. */
+.card-group.dragging {
+  opacity: 0.35;
+}
+
+.copies {
+  position: absolute;
+  top: 10.5%;
+  right: 5%;
+  min-width: 22px;
+  padding: 1px 5px;
+  border-radius: 10px;
+  background: rgba(10, 11, 15, 0.88);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* A card at a size you can actually read, over everything else. */
+.card-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(10, 11, 15, 0.72);
+  backdrop-filter: blur(2px);
+  animation: overlay-in 0.12s ease;
+}
+
+.card-overlay-card {
+  width: min(90vw, calc((100vh - 48px) * 450 / 628));
+  line-height: 0;
+  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.7));
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Says what a bare card riding the cursor actually is, when it is a whole pile. */
+.pile-badge {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #14161c;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* What rides the cursor: the compact card, never the enlarged preview. */
+.drag-ghost {
+  position: relative;
+  line-height: 0;
+  cursor: grabbing;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.6));
 }
 
 /* ---- hero selector ---- */
@@ -653,197 +963,19 @@ select:hover {
   font-weight: 600;
 }
 
-.pane-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 8px 16px 32px;
-}
+/* ---- card art ---- */
 
-.group-separator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 18px 0 8px;
-}
-
-.group-label {
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-}
-
-.group-count {
-  color: var(--muted);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-}
-
-/* The deck section carries the only count that matters, so it is the one that is coloured. */
-.group-count.ok,
-.group-count.warn {
-  font-size: 13px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 6px;
-  border: 1px solid currentColor;
-}
-
-.group-count.ok {
-  color: var(--ok);
-}
-
-.group-count.warn {
-  color: var(--danger);
-}
-
-.group-rule {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* Sits at the right end of a section: move that whole group across in one click. */
-.group-move {
-  flex: none;
-  font-size: 12px;
-  opacity: 0.5;
-  transition: opacity 0.1s ease;
-}
-
-.group:hover .group-move,
-.group-move:focus-visible {
-  opacity: 1;
-}
-
-/*
- * Card sizing.
- *
- * `--card-floor` is the smallest a column may be, and auto-fill packs in as many as fit.
- * It is a min() of two things:
- *   - a target width, which decides the column count on a wide pane;
- *   - a share of the pane, which guarantees a column count on a narrow pane.
- * Without the second term a narrow pane fits the same number of columns at either setting
- * and the toggle looks broken. The share subtracts its portion of the gaps so the row does
- * not overflow into one fewer column.
- *
- * `--card-cap` then stops a card growing past the size of the hover preview on wide screens.
- */
-/*
- * The subtracted pixels are that column's share of the row's gaps (gap * (n-1) / n) plus 1px
- * of slack: without the slack the fit lands on exactly n columns and sub-pixel rounding can
- * drop it to n-1.
- */
-.panes.size-small {
-  --card-floor: min(165px, calc(25% - 8.5px)); /* at least 4 per row */
-  --card-cap: 230px;
-}
-
-.panes.size-large {
-  --card-floor: min(235px, calc(33.333% - 7.7px)); /* at least 3 per row */
-  --card-cap: 320px;
-}
-
-.group-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-floor, 165px), 1fr));
-  align-items: start;
-  justify-items: center;
-  gap: 10px;
-}
-
-/* ---- cards ---- */
-
-/* Duplicates fan downwards, so cqw below is a share of one card's width. */
-.stack {
-  width: 100%;
-  max-width: var(--card-cap, 320px);
-  container-type: inline-size;
-}
-
-.stack-inner {
-  position: relative;
-  padding-top: calc((var(--copies) - 1) * 13cqw);
-}
-
-.stack-layer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(var(--i) * 13cqw);
-  pointer-events: none;
-  line-height: 0;
-}
-
-.stack-count {
-  position: absolute;
-  right: 4px;
-  bottom: 4px;
-  min-width: 20px;
-  padding: 1px 5px;
-  border-radius: 10px;
-  background: rgba(10, 11, 15, 0.85);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.card-tile {
-  position: relative;
+.card-art,
+.card-fallback {
   display: block;
-  width: 100%;
-  padding: 0;
-  border: none;
-  background: none;
-  border-radius: 8px;
-  line-height: 0;
-  transition: transform 0.08s ease;
-}
-
-.card-tile:hover {
-  transform: translateY(-2px);
-}
-
-/* Cards that come with the hero, and spare copies of equipment already worn. */
-.card-tile.locked {
-  cursor: default;
-}
-
-.card-tile.locked:hover {
-  transform: none;
-}
-
-/* Outline only, no opacity: transparency would let stacked copies show through. */
-.card-tile.locked .card-art,
-.card-tile.locked .card-fallback {
-  outline: 1px dashed var(--border);
-  outline-offset: -1px;
-}
-
-.card-art {
-  display: block;
-  border-radius: 8px;
-}
-
-.card-art-tile {
   width: 100%;
   aspect-ratio: 450 / 628;
   object-fit: cover;
+  border-radius: 8px;
 }
 
-.card-art-preview {
-  width: 100%;
-  aspect-ratio: 450 / 628;
-  object-fit: cover;
-}
 
-.card-preview {
-  position: fixed;
-  z-index: 10;
-  pointer-events: none;
-  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.6));
-}
+
 
 /* text card, used whenever the art is not published yet */
 
@@ -910,19 +1042,6 @@ select:hover {
   color: var(--muted);
 }
 
-.card-art-preview.card-fallback {
-  padding: 16px;
-  gap: 10px;
-}
 
-.card-art-preview .card-fallback-name {
-  font-size: 18px;
-}
 
-.card-art-preview .card-fallback-type {
-  font-size: 13px;
-}
 
-.card-art-preview .card-fallback-stats {
-  font-size: 13px;
-}

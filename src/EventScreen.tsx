@@ -1,30 +1,16 @@
 import { useMemo, useState } from 'react'
-import { CardPreview } from './CardPreview'
-import { CARD_SIZE_CLASS, CardSizeToggle, type CardSize } from './CardSizeToggle'
-import { CardStackView } from './CardStackView'
+import { CardOverlay, PreviewContext } from './CardOverlay'
+import { deselectCard, remainingPool, selectCard, selectedEntries } from './columns'
+import { deckCount, deckIssues, legalPoolCount, pitchSplit } from './deck'
 import { exportDeck } from './deckExport'
+import { type Filter } from './filters'
 import { Footer } from './Footer'
-import {
-  deckIssues,
-  fixedStack,
-  groupCards,
-  partitionByHero,
-  pitchSplit,
-  toStacks,
-  unplayableGroup,
-  type CardGroup,
-} from './grouping'
 import { HeroSelector } from './HeroSelector'
 import { heroKitFor, youngHeroes } from './heroes'
 import { DECK_SIZE } from './packConfig'
-import { countsTowardDeck, isDrawable } from './packGenerator'
-import type { CardInstance, Grouping, PoolCard, SealedEvent } from './types'
-
-const GROUPINGS: { value: Grouping; label: string }[] = [
-  { value: 'rarity', label: 'Rarity' },
-  { value: 'class', label: 'Class' },
-  { value: 'pitch', label: 'Pitch' },
-]
+import { Table } from './Table'
+import { Toolbar } from './Toolbar'
+import type { DeckColumn, PoolCard, SealedEvent, SortMode } from './types'
 
 const PITCH_BAR = [
   { pitch: 1, className: 'bar-red', label: 'red' },
@@ -32,23 +18,11 @@ const PITCH_BAR = [
   { pitch: 3, className: 'bar-blue', label: 'blue' },
 ]
 
-interface Hovered {
-  card: PoolCard
-  x: number
-  y: number
-}
-
 /**
  * Exporting and deck legality share one control: the button says whether the deck is legal,
  * and names every reason it is not on hover. It always exports, legal or not.
  */
-function ExportButton({
-  issues,
-  onClick,
-}: {
-  issues: string[]
-  onClick: () => void
-}) {
+function ExportButton({ issues, onClick }: { issues: string[]; onClick: () => void }) {
   const legal = issues.length === 0
   return (
     <button
@@ -77,86 +51,6 @@ function ExportButton({
   )
 }
 
-function Pane({
-  title,
-  subtitle,
-  groups,
-  controls,
-  onToggle,
-  onMoveGroup,
-  moveLabel,
-  onHover,
-  onLeave,
-  emptyText,
-}: {
-  title: string
-  subtitle?: React.ReactNode
-  groups: CardGroup[]
-  controls?: React.ReactNode
-  onToggle: (instance: CardInstance) => void
-  onMoveGroup: (group: CardGroup) => void
-  moveLabel: string
-  onHover: (card: PoolCard, x: number, y: number) => void
-  onLeave: () => void
-  emptyText: string
-}) {
-  const isEmpty = groups.every((group) => group.count === 0)
-
-  return (
-    <section className="pane">
-      <div className="pane-header">
-        <h2 className="pane-title">{title}</h2>
-        {subtitle}
-        {controls}
-      </div>
-      <div className="pane-body">
-        {isEmpty && <p className="empty">{emptyText}</p>}
-        {groups.map((group) => {
-          // The arena holds only kit cards, which cannot be moved anywhere.
-          const movable = group.stacks.reduce(
-            (sum, stack) => sum + (stack.fixed ? 0 : stack.instances.length),
-            0,
-          )
-          return (
-          <div key={group.key} className={group.dimmed ? 'group dimmed' : 'group'}>
-            {group.label && (
-              <div className="group-separator">
-                <span className="group-label">{group.label}</span>
-                <span className={`group-count ${group.tone ?? ''}`}>
-                  {group.countLabel ?? group.count}
-                </span>
-                <span className="group-rule" />
-                {movable > 0 && (
-                  <button
-                    type="button"
-                    className="link group-move"
-                    title={`${moveLabel} ${movable} card${movable > 1 ? 's' : ''}`}
-                    onClick={() => onMoveGroup(group)}
-                  >
-                    {moveLabel}
-                  </button>
-                )}
-              </div>
-            )}
-            <div className="group-cards">
-              {group.stacks.map((stack) => (
-                <CardStackView
-                  key={stack.card.id}
-                  stack={stack}
-                  onClick={() => onToggle(stack.instances[0])}
-                  onHover={onHover}
-                  onLeave={onLeave}
-                />
-              ))}
-            </div>
-          </div>
-          )
-        })}
-      </div>
-    </section>
-  )
-}
-
 export function EventScreen({
   event,
   byId,
@@ -168,97 +62,37 @@ export function EventScreen({
   onChange: (event: SealedEvent) => void
   onBack: () => void
 }) {
-  const [grouping, setGrouping] = useState<Grouping>('rarity')
-  const [cardSize, setCardSize] = useState<CardSize>('small')
-  const [hovered, setHovered] = useState<Hovered | null>(null)
+  const [sort, setSort] = useState<SortMode>('rarity')
+  const [preview, setPreview] = useState<PoolCard | null>(null)
   const [draftName, setDraftName] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [hoveredPitch, setHoveredPitch] = useState<number | null>(null)
 
-  const inData = useMemo(() => event.cards.filter((c) => byId.has(c.cardId)), [event.cards, byId])
-  // Basic cards used to sit in the pool as singletons and now come with the hero, so events
-  // saved before that change can still hold them. Drop them rather than showing them twice.
-  const known = useMemo(
-    () => inData.filter((c) => isDrawable(byId.get(c.cardId)!)),
-    [inData, byId],
-  )
-
   const allCards = useMemo(() => [...byId.values()], [byId])
   const heroes = useMemo(() => youngHeroes(allCards), [allCards])
   const hero = event.heroId ? (byId.get(event.heroId) ?? null) : null
-  const heroKey = hero?.hero ?? null
-  // The hero's weapon and class Arms equipment, which come with it rather than from a pack.
-  const heroKit = useMemo(() => (hero ? heroKitFor(hero, allCards) : []), [hero, allCards])
+  // The hero's weapon and equipment, which come with it rather than from a pack.
+  const kit = useMemo(() => (hero ? heroKitFor(hero, allCards) : []), [hero, allCards])
 
-  const poolGroups = useMemo(() => {
-    const { playable, unplayable } = partitionByHero(
-      known.filter((c) => !c.selected),
-      byId,
-      heroKey,
-    )
-    return [
-      ...groupCards(playable, byId, grouping),
-      ...unplayableGroup(unplayable, byId, hero?.name ?? ''),
-    ]
-  }, [known, byId, heroKey, hero, grouping])
+  const filter: Filter = { heroKey: hero?.hero ?? null }
 
-  // The right pane splits what you have chosen into what sits in the arena and what is
-  // actually the deck, so the deck section carries the only count that matters.
-  const selectedGroups = useMemo(() => {
-    const { playable, unplayable } = partitionByHero(known.filter((c) => c.selected), byId, heroKey)
+  const entries = useMemo(() => selectedEntries(event.columns), [event.columns])
+  const remaining = useMemo(
+    () => remainingPool(event.pool, event.columns),
+    [event.pool, event.columns],
+  )
+  const missing = Object.keys(event.pool).filter((id) => !byId.has(id)).length
 
-    // Everything in the arena comes with the kit; nothing there is opened or clicked.
-    const arenaStacks = hero ? [fixedStack(hero), ...heroKit.map(fixedStack)] : []
-    const deckInstances = playable.filter((i) => countsTowardDeck(byId.get(i.cardId)!))
-
-    return [
-      ...(arenaStacks.length
-        ? [
-            {
-              key: 'arena',
-              label: 'Arena',
-              stacks: arenaStacks,
-              count: arenaStacks.reduce((sum, s) => sum + s.instances.length, 0),
-            },
-          ]
-        : []),
-      {
-        key: 'deck',
-        label: 'Deck',
-        stacks: toStacks(deckInstances, byId),
-        count: deckInstances.length,
-        countLabel: `${deckInstances.length} / ${DECK_SIZE}`,
-        tone: deckInstances.length >= DECK_SIZE ? ('ok' as const) : ('warn' as const),
-      },
-      ...unplayableGroup(unplayable, byId, hero?.name ?? ''),
-    ]
-  }, [known, byId, heroKey, hero, heroKit])
-
-  const split = pitchSplit(event.cards, byId, heroKey)
+  const count = deckCount(entries, byId, filter)
+  const split = pitchSplit(entries, byId, filter)
   const splitTotal = split.reduce((sum, s) => sum + s.count, 0)
-  const issues = deckIssues(event.cards, byId, hero)
+  const issues = deckIssues(entries, byId, hero)
 
-  /** Moves every card of a group at once: the whole of a rarity, a class, or the off-hero pile. */
-  const moveGroup = (group: CardGroup, selected: boolean) => {
-    const ids = new Set(
-      group.stacks
-        .filter((stack) => !stack.fixed)
-        .flatMap((stack) => stack.instances.map((i) => i.instanceId)),
-    )
-    if (!ids.size) return
-    onChange({
-      ...event,
-      cards: event.cards.map((c) => (ids.has(c.instanceId) ? { ...c, selected } : c)),
-    })
-  }
-
-  const toggle = (instance: CardInstance) =>
-    onChange({
-      ...event,
-      cards: event.cards.map((c) =>
-        c.instanceId === instance.instanceId ? { ...c, selected: !c.selected } : c,
-      ),
-    })
+  const setColumns = (columns: DeckColumn[]) => onChange({ ...event, columns })
+  const pitchOf = (cardId: string) => byId.get(cardId)?.pitch ?? null
+  const select = (cardId: string) =>
+    setColumns(selectCard(event.columns, cardId, pitchOf, { limit: event.pool[cardId] }))
+  const deselect = (cardId: string) => setColumns(deselectCard(event.columns, cardId))
 
   const commitName = () => {
     const name = (draftName ?? '').trim()
@@ -267,7 +101,7 @@ export function EventScreen({
   }
 
   const copy = async () => {
-    await navigator.clipboard.writeText(exportDeck(event.name, event.cards, byId, hero))
+    await navigator.clipboard.writeText(exportDeck(event.name, entries, byId, hero))
     setCopied(true)
     window.setTimeout(() => setCopied(false), 2000)
   }
@@ -279,9 +113,9 @@ export function EventScreen({
           <button type="button" onClick={onBack} title="Back to all events">
             &larr; Events
           </button>
-          {inData.length < event.cards.length && (
+          {missing > 0 && (
             <span className="warning" title="They are no longer part of the card pool.">
-              {event.cards.length - inData.length} cards no longer in the card data
+              {missing} cards no longer in the card data
             </span>
           )}
         </div>
@@ -320,94 +154,73 @@ export function EventScreen({
           />
         </div>
 
-        <div className="menu-right" />
+        <div className="menu-right">
+          <span
+            className={count >= DECK_SIZE ? 'deck-count ok' : 'deck-count warn'}
+            title="Cards in your deck; the hero, the arena and off-hero cards do not count"
+          >
+            {count} / {DECK_SIZE}
+          </span>
+          <span className="pitch-bar-wrap">
+            <span className="pitch-bar" aria-label="Pitch split of the deck">
+              {splitTotal === 0 ? (
+                <span className="bar-empty" />
+              ) : (
+                split.map((s) => (
+                  <span
+                    key={s.pitch}
+                    className={PITCH_BAR[s.pitch - 1].className}
+                    style={{ flexGrow: s.count }}
+                    onMouseEnter={() => setHoveredPitch(s.pitch)}
+                    onMouseLeave={() => setHoveredPitch(null)}
+                  />
+                ))
+              )}
+            </span>
+            {/* Outside the bar, which clips its own children to stay rounded. */}
+            {hoveredPitch !== null && (
+              <span className="bar-tip">
+                {split[hoveredPitch - 1].count} {PITCH_BAR[hoveredPitch - 1].label} deck card
+                {split[hoveredPitch - 1].count === 1 ? '' : 's'}
+              </span>
+            )}
+          </span>
+          <ExportButton issues={issues} onClick={copy} />
+        </div>
       </div>
 
-      <div className={`panes ${CARD_SIZE_CLASS[cardSize]}`}>
-        <Pane
-          title="Card pool"
-          subtitle={
-            hero && (
-              <span className="pane-subtitle">
-                legal cards for {hero.name} &mdash;{' '}
-                <button
-                  type="button"
-                  className="link"
-                  onClick={() => onChange({ ...event, heroId: null })}
-                >
-                  clear
-                </button>
-              </span>
-            )
-          }
-          groups={poolGroups}
-          controls={
-            <div className="pane-controls">
-              <label className="control-label">
-                Group by{' '}
-                <select value={grouping} onChange={(e) => setGrouping(e.target.value as Grouping)}>
-                  {GROUPINGS.map(({ value, label }) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <CardSizeToggle size={cardSize} onChange={setCardSize} />
-            </div>
-          }
-          onToggle={toggle}
-          onMoveGroup={(group) => moveGroup(group, true)}
-          moveLabel="add all"
-          onHover={(card, x, y) => setHovered({ card, x, y })}
-          onLeave={() => setHovered(null)}
-          emptyText="Every card is in the deck."
+      <Toolbar
+        sort={sort}
+        onSort={setSort}
+        hero={hero?.name ?? null}
+        legal={legalPoolCount(event.pool, byId, filter)}
+        onClearHero={() => onChange({ ...event, heroId: null })}
+      />
+
+      <PreviewContext.Provider value={setPreview}>
+        <Table
+          columns={event.columns}
+          pool={event.pool}
+          remaining={remaining}
+          byId={byId}
+          filter={filter}
+          sort={sort}
+          hero={hero}
+          kit={kit}
+          onColumnsChange={setColumns}
+          onSelect={select}
+          onDeselect={deselect}
         />
-        <Pane
-          title="Selected cards"
-          groups={selectedGroups}
-          controls={
-            <div className="pane-controls">
-              <span className="pitch-bar-wrap">
-                <span className="pitch-bar" aria-label="Pitch split of the deck">
-                  {splitTotal === 0 ? (
-                    <span className="bar-empty" />
-                  ) : (
-                    split.map((s) => (
-                      <span
-                        key={s.pitch}
-                        className={PITCH_BAR[s.pitch - 1].className}
-                        style={{ flexGrow: s.count }}
-                        onMouseEnter={() => setHoveredPitch(s.pitch)}
-                        onMouseLeave={() => setHoveredPitch(null)}
-                      />
-                    ))
-                  )}
-                </span>
-                {/* Outside the bar, which clips its own children to stay rounded. */}
-                {hoveredPitch !== null && (
-                  <span className="bar-tip">
-                    {split[hoveredPitch - 1].count} {PITCH_BAR[hoveredPitch - 1].label} deck card
-                    {split[hoveredPitch - 1].count === 1 ? '' : 's'}
-                  </span>
-                )}
-              </span>
-              <ExportButton issues={issues} onClick={copy} />
-            </div>
-          }
-          onToggle={toggle}
-          onMoveGroup={(group) => moveGroup(group, false)}
-          moveLabel="remove all"
-          onHover={(card, x, y) => setHovered({ card, x, y })}
-          onLeave={() => setHovered(null)}
-          emptyText="Click cards on the left to add them."
-        />
-      </div>
+      </PreviewContext.Provider>
 
       <Footer />
 
-      {hovered && <CardPreview card={hovered.card} x={hovered.x} y={hovered.y} />}
-      {copied && <div className="toast" role="status">List copied to clipboard</div>}
+      {preview && <CardOverlay card={preview} onClose={() => setPreview(null)} />}
+      {copied && (
+        <div className="toast" role="status">
+          List copied to clipboard
+        </div>
+      )}
     </div>
   )
 }

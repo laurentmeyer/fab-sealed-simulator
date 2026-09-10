@@ -8,7 +8,7 @@ import {
   RARE_OR_HIGHER_ODDS,
   RARITY_LADDER,
 } from './packConfig'
-import type { CardInstance, PoolCard, Rarity } from './types'
+import type { PoolCard, Rarity } from './types'
 
 export type Rng = () => number
 
@@ -31,18 +31,6 @@ export const isDrawable = (card: PoolCard) =>
 const GENERIC_CLASS_SET = new Set<string>(GENERIC_CLASSES)
 /** Generic and NotClassed cards, which every hero can play. Shown as "No class". */
 export const isGenericCard = (card: PoolCard) => card.classes.some((c) => GENERIC_CLASS_SET.has(c))
-
-const newInstanceId = (): string =>
-  // randomUUID needs a secure context; self-hosting over plain http would otherwise break.
-  typeof crypto !== 'undefined' && 'randomUUID' in crypto
-    ? crypto.randomUUID()
-    : `id-${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`
-
-const instanceOf = (card: PoolCard): CardInstance => ({
-  instanceId: newInstanceId(),
-  cardId: card.id,
-  selected: false,
-})
 
 const pick = <T,>(items: readonly T[], rng: Rng): T => items[Math.floor(rng() * items.length)]
 
@@ -91,7 +79,7 @@ export const splitClassCommons = (count: number, rng: Rng): Record<string, numbe
  * packs are opened, and the equipment is redundant with the kit's cold-foil set that every
  * player receives, so none of those three are generated.
  */
-export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): CardInstance[] => {
+export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): string[] => {
   const pool = fullPool.filter(isDrawable)
   const drawn: PoolCard[] = []
 
@@ -117,13 +105,24 @@ export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): Card
     drawn.push(pick(generics, rng))
   }
 
-  return drawn.map(instanceOf)
+  return drawn.map((card) => card.id)
 }
 
-/** A full sealed pool: the 8 packs. Heroes and every piece of gear come with the kit instead. */
-export const generateEventPool = (fullPool: PoolCard[], rng: Rng = Math.random): CardInstance[] => {
+/**
+ * A full sealed pool: the 8 packs, as card ids. Copies of a card have no identity of their
+ * own, so the caller tallies them into the event's `pool` counts.
+ * Heroes and every piece of gear come with the kit instead of being opened.
+ */
+export const generateEventPool = (fullPool: PoolCard[], rng: Rng = Math.random): string[] => {
   const pool = fullPool.filter(isDrawable)
-  const cards: CardInstance[] = []
+  const cards: string[] = []
   for (let i = 0; i < PACKS_PER_EVENT; i++) cards.push(...generatePack(pool, rng))
   return cards
+}
+
+/** The opened cards as `cardId -> copies`, which is how an event stores its pool. */
+export const tally = (cardIds: string[]): Record<string, number> => {
+  const counts: Record<string, number> = {}
+  for (const id of cardIds) counts[id] = (counts[id] ?? 0) + 1
+  return counts
 }

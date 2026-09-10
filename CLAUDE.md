@@ -24,7 +24,7 @@ and stop; if the answer is to implement, expect a switch to Opus (`/model opus`)
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 38 tests
+npm test             # vitest, 76 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```
@@ -36,6 +36,8 @@ Run typecheck, build and tests before saying a change is done.
 - **README.md** — what the app does today, and how a pack is simulated. Keep it current.
 - **docs/TODO.md** — open questions and backlog. New unknowns go here, not into code comments.
 - **notes/context.md** — the original brief, kept as history. Do not edit it to match reality.
+- **notes/mtga-ui.md** — the owner's spec for the table deckbuilding view. Same rule: it is
+  the brief, not a description of the code. `docs/table-view-plan.md` is how it was built.
 - **src/packConfig.ts** — every tunable number of the simulation, with its derivation.
 
 ## Things worth knowing before changing code
@@ -46,5 +48,18 @@ Run typecheck, build and tests before saying a change is done.
   but FaB has cards specialized to a single hero.
 - **The card data is a committed snapshot.** The set is not fully revealed; regenerate it
   with `npm run fetch-cards` rather than hand-editing `src/data/cards.json`.
-- **Dim cards with `brightness`, not `opacity`.** Copies of a card are stacked and overlap, so
-  transparency lets the ones underneath show through.
+- **Dim cards with `brightness`, not `opacity`.** Cards in a column overlap, so transparency
+  lets the ones underneath show through.
+- **The deck is columns of counts, not card instances.** Every rule about piles lives in
+  `src/columns.ts` as a pure function and is tested there; the components only render it.
+- **The table is laid out in pixels** (`src/cardMetrics.ts`), not in container-query units.
+  One card width for everything, published to CSS as `--card-w` by `Table.tsx`, and the
+  overlap offsets are computed in JS. `CARD.stepOverBadge` and the `.copies` rule in
+  styles.css are two halves of the same decision: change one and check the other.
+- **All the drag and drop is one `DndContext`** in `src/Table.tsx`, because cards cross
+  between the pool and the deck. What a drop means is decided by the custom collision
+  detection there, not by where the droppables happen to be.
+- **A card has three gestures on it**: click (select/deselect), drag, and press-and-hold
+  (open it full size). They share one pointer stream, so `CardGroupView` cancels the hold on
+  movement and `Table` closes the overlay when a drag starts. Change one and check the other
+  two still work.
