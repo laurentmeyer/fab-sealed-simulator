@@ -11,11 +11,20 @@ This applies to every git write: `git commit`, `git push`, `gh pr create`. Batch
 reviewed changes into one commit afterwards is fine; committing something I have not seen is
 not. UI work in particular needs a human eye, since you cannot see the rendered page.
 
+## Which model does what
+
+- **Fable** is for brainstorming, design discussion, and writing plans.
+- **Opus** is for implementation.
+
+When running as Fable, **do not start any implementation work without asking first** — even
+when the change seems obvious or the discussion points straight at it. Analyse, propose,
+and stop; if the answer is to implement, expect a switch to Opus (`/model opus`).
+
 ## Commands
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 41 tests
+npm test             # vitest, 38 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```

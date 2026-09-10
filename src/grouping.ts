@@ -1,6 +1,6 @@
 import { isPlayableBy } from './heroes'
 import { DECK_SIZE, RARITY_LADDER } from './packConfig'
-import { countsTowardDeck, isEquipment } from './packGenerator'
+import { countsTowardDeck } from './packGenerator'
 import type { CardInstance, Grouping, PoolCard } from './types'
 
 /** Every copy of one card, shown as a single stack. */
@@ -26,11 +26,14 @@ export interface CardGroup {
 
 export const PITCH_LABELS: Record<number, string> = { 1: 'Red', 2: 'Yellow', 3: 'Blue' }
 
-const CLASS_GROUPS = ['Brute', 'Necromancer', 'Runeblade', 'Generic'] as const
+const CLASS_GROUPS = ['Brute', 'Necromancer', 'Runeblade'] as const
 
+/**
+ * Cards without a class split by what makes them playable: talent cards (Shadow here) are
+ * only for heroes with the talent, while truly Generic cards are for everyone.
+ */
 const classGroupOf = (card: PoolCard): string =>
-  // Generic and NotClassed share one group.
-  CLASS_GROUPS.find((name) => card.classes.includes(name)) ?? 'Generic'
+  CLASS_GROUPS.find((name) => card.classes.includes(name)) ?? card.talents?.[0] ?? 'Generic'
 
 const groupKeyOf = (card: PoolCard, dimension: Grouping): string => {
   if (dimension === 'rarity') return card.rarity
@@ -40,13 +43,13 @@ const groupKeyOf = (card: PoolCard, dimension: Grouping): string => {
 
 const ORDER: Record<Grouping, string[]> = {
   rarity: RARITY_LADDER,
-  class: [...CLASS_GROUPS],
+  class: [...CLASS_GROUPS, 'Shadow', 'Generic'],
   pitch: ['1', '2', '3', 'none'],
 }
 
 const LABELS: Record<Grouping, (key: string) => string> = {
   rarity: (key) => key,
-  class: (key) => (key === 'Generic' ? 'No class' : key),
+  class: (key) => key,
   pitch: (key) => (key === 'none' ? 'No pitch' : PITCH_LABELS[Number(key)]),
 }
 
@@ -93,9 +96,11 @@ export const groupCards = (
     else buckets.set(key, [instance])
   }
 
+  const known = dimension ? ORDER[dimension].filter((key) => buckets.has(key)) : ['']
+  // A talent ORDER does not know about yet (a future set's) still deserves a group.
   const keys = dimension
-    ? ORDER[dimension].filter((key) => buckets.has(key))
-    : [...buckets.keys()]
+    ? [...known, ...[...buckets.keys()].filter((key) => !ORDER[dimension].includes(key)).sort()]
+    : known
 
   return keys.map((key) => ({
     key,
@@ -171,23 +176,6 @@ export const pitchSplit = (
   }
   return counts
 }
-
-/** Card ids of the equipment already worn — one copy of each is all you may have. */
-export const equippedCardIds = (
-  instances: CardInstance[],
-  byId: Map<string, PoolCard>,
-): Set<string> => {
-  const ids = new Set<string>()
-  for (const instance of instances) {
-    const card = byId.get(instance.cardId)
-    if (instance.selected && card && isEquipment(card)) ids.add(card.id)
-  }
-  return ids
-}
-
-/** A second copy of an equipment cannot be added; everything else always can. */
-export const canAdd = (card: PoolCard, equipped: Set<string>): boolean =>
-  !isEquipment(card) || !equipped.has(card.id)
 
 export const deckCount = (
   instances: CardInstance[],

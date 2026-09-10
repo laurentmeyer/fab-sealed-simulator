@@ -14,6 +14,8 @@ export interface PoolCard {
   types: string[]
   typeText: string
   image: string | null
+  /** e.g. ["Shadow"]. Cards with no class and no talent are truly Generic. */
+  talents: string[]
   /** Keys of the heroes allowed to play this card. */
   legalHeroes: string[]
   /** Hero cards only: the key other cards use in legalHeroes (e.g. "Viserai2"). */

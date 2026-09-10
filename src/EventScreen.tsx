@@ -5,9 +5,7 @@ import { CardStackView } from './CardStackView'
 import { exportDeck } from './deckExport'
 import { Footer } from './Footer'
 import {
-  canAdd,
   deckIssues,
-  equippedCardIds,
   fixedStack,
   groupCards,
   partitionByHero,
@@ -19,7 +17,7 @@ import {
 import { HeroSelector } from './HeroSelector'
 import { heroKitFor, youngHeroes } from './heroes'
 import { DECK_SIZE } from './packConfig'
-import { countsTowardDeck, isDrawable, isEquipment } from './packGenerator'
+import { countsTowardDeck, isDrawable } from './packGenerator'
 import type { CardInstance, Grouping, PoolCard, SealedEvent } from './types'
 
 const GROUPINGS: { value: Grouping; label: string }[] = [
@@ -85,6 +83,8 @@ function Pane({
   groups,
   controls,
   onToggle,
+  onMoveGroup,
+  moveLabel,
   onHover,
   onLeave,
   emptyText,
@@ -94,6 +94,8 @@ function Pane({
   groups: CardGroup[]
   controls?: React.ReactNode
   onToggle: (instance: CardInstance) => void
+  onMoveGroup: (group: CardGroup) => void
+  moveLabel: string
   onHover: (card: PoolCard, x: number, y: number) => void
   onLeave: () => void
   emptyText: string
@@ -109,7 +111,13 @@ function Pane({
       </div>
       <div className="pane-body">
         {isEmpty && <p className="empty">{emptyText}</p>}
-        {groups.map((group) => (
+        {groups.map((group) => {
+          // The arena holds only kit cards, which cannot be moved anywhere.
+          const movable = group.stacks.reduce(
+            (sum, stack) => sum + (stack.fixed ? 0 : stack.instances.length),
+            0,
+          )
+          return (
           <div key={group.key} className={group.dimmed ? 'group dimmed' : 'group'}>
             {group.label && (
               <div className="group-separator">
@@ -118,6 +126,16 @@ function Pane({
                   {group.countLabel ?? group.count}
                 </span>
                 <span className="group-rule" />
+                {movable > 0 && (
+                  <button
+                    type="button"
+                    className="link group-move"
+                    title={`${moveLabel} ${movable} card${movable > 1 ? 's' : ''}`}
+                    onClick={() => onMoveGroup(group)}
+                  >
+                    {moveLabel}
+                  </button>
+                )}
               </div>
             )}
             <div className="group-cards">
@@ -132,7 +150,8 @@ function Pane({
               ))}
             </div>
           </div>
-        ))}
+          )
+        })}
       </div>
     </section>
   )
@@ -171,14 +190,9 @@ export function EventScreen({
   // The hero's weapon and class Arms equipment, which come with it rather than from a pack.
   const heroKit = useMemo(() => (hero ? heroKitFor(hero, allCards) : []), [hero, allCards])
 
-  /** You can only equip one of a given piece of equipment, so extra copies stay in the pool. */
-  const equippedIds = useMemo(() => equippedCardIds(known, byId), [known, byId])
-
   const poolGroups = useMemo(() => {
     const { playable, unplayable } = partitionByHero(
-      // Pools saved before equipment was deduplicated can still hold spare copies; a card you
-      // are already wearing has no business showing up in the pool as well.
-      known.filter((c) => !c.selected && !equippedIds.has(c.cardId)),
+      known.filter((c) => !c.selected),
       byId,
       heroKey,
     )
@@ -186,17 +200,15 @@ export function EventScreen({
       ...groupCards(playable, byId, grouping),
       ...unplayableGroup(unplayable, byId, hero?.name ?? ''),
     ]
-  }, [known, byId, heroKey, hero, grouping, equippedIds])
+  }, [known, byId, heroKey, hero, grouping])
 
   // The right pane splits what you have chosen into what sits in the arena and what is
   // actually the deck, so the deck section carries the only count that matters.
   const selectedGroups = useMemo(() => {
     const { playable, unplayable } = partitionByHero(known.filter((c) => c.selected), byId, heroKey)
 
-    const arenaStacks = [
-      ...(hero ? [fixedStack(hero), ...heroKit.map(fixedStack)] : []),
-      ...toStacks(playable.filter((i) => isEquipment(byId.get(i.cardId)!)), byId),
-    ]
+    // Everything in the arena comes with the kit; nothing there is opened or clicked.
+    const arenaStacks = hero ? [fixedStack(hero), ...heroKit.map(fixedStack)] : []
     const deckInstances = playable.filter((i) => countsTowardDeck(byId.get(i.cardId)!))
 
     return [
@@ -226,16 +238,27 @@ export function EventScreen({
   const splitTotal = split.reduce((sum, s) => sum + s.count, 0)
   const issues = deckIssues(event.cards, byId, hero)
 
-  const toggle = (instance: CardInstance) => {
-    const card = byId.get(instance.cardId)
-    if (!instance.selected && card && !canAdd(card, equippedIds)) return
+  /** Moves every card of a group at once: the whole of a rarity, a class, or the off-hero pile. */
+  const moveGroup = (group: CardGroup, selected: boolean) => {
+    const ids = new Set(
+      group.stacks
+        .filter((stack) => !stack.fixed)
+        .flatMap((stack) => stack.instances.map((i) => i.instanceId)),
+    )
+    if (!ids.size) return
+    onChange({
+      ...event,
+      cards: event.cards.map((c) => (ids.has(c.instanceId) ? { ...c, selected } : c)),
+    })
+  }
+
+  const toggle = (instance: CardInstance) =>
     onChange({
       ...event,
       cards: event.cards.map((c) =>
         c.instanceId === instance.instanceId ? { ...c, selected: !c.selected } : c,
       ),
     })
-  }
 
   const commitName = () => {
     const name = (draftName ?? '').trim()
@@ -334,6 +357,8 @@ export function EventScreen({
             </div>
           }
           onToggle={toggle}
+          onMoveGroup={(group) => moveGroup(group, true)}
+          moveLabel="add all"
           onHover={(card, x, y) => setHovered({ card, x, y })}
           onLeave={() => setHovered(null)}
           emptyText="Every card is in the deck."
@@ -371,6 +396,8 @@ export function EventScreen({
             </div>
           }
           onToggle={toggle}
+          onMoveGroup={(group) => moveGroup(group, false)}
+          moveLabel="remove all"
           onHover={(card, x, y) => setHovered({ card, x, y })}
           onLeave={() => setHovered(null)}
           emptyText="Click cards on the left to add them."

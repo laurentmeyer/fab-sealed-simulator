@@ -7,11 +7,12 @@ import {
   generatePack,
   isDrawable,
   isEquipment,
+  isHero,
   isWeapon,
   splitClassCommons,
   type Rng,
 } from './packGenerator'
-import { heroKitFor, youngHeroes } from './heroes'
+import { heroKitFor, isPromoHero, youngHeroes } from './heroes'
 import type { PoolCard } from './types'
 
 const pool = cardsJson as PoolCard[]
@@ -25,11 +26,11 @@ const scriptedRng = (rolls: number[]): Rng => {
 }
 
 describe('pack composition', () => {
-  it('draws 14 cards with exactly one equipment', () => {
+  it('draws 13 deck cards and nothing else', () => {
     for (let i = 0; i < 50; i++) {
       const cards = cardsOf(generatePack(pool))
-      expect(cards).toHaveLength(14)
-      expect(cards.filter(isEquipment)).toHaveLength(1)
+      expect(cards).toHaveLength(13)
+      expect(cards.every(countsTowardDeck)).toBe(true)
     }
   })
 
@@ -52,20 +53,12 @@ describe('pack composition', () => {
     }
   })
 
-  it('never draws a Basic card: those come with the hero, not from a pack', () => {
+  it('never draws kit material: no Basic cards, heroes, weapons or equipment', () => {
     for (let i = 0; i < 50; i++) {
-      expect(cardsOf(generatePack(pool)).some((c) => c.rarity === 'Basic')).toBe(false)
+      const cards = cardsOf(generatePack(pool))
+      expect(cards.some((c) => c.rarity === 'Basic')).toBe(false)
+      expect(cards.some((c) => isHero(c) || isWeapon(c) || isEquipment(c))).toBe(false)
     }
-  })
-
-  it('only ever draws the generic Head, Chest and Legs equipment', () => {
-    const slots = new Set<string>()
-    for (let i = 0; i < 80; i++) {
-      for (const card of cardsOf(generatePack(pool)).filter(isEquipment)) {
-        slots.add(card.typeText.split(' - ').pop()!)
-      }
-    }
-    expect([...slots].sort()).toEqual(['Chest', 'Head', 'Legs'])
   })
 })
 
@@ -79,47 +72,47 @@ describe('splitClassCommons', () => {
 
 describe('rarity fallback', () => {
   it('steps down to Majestic when a Fabled is rolled but none exists in the pool', () => {
-    // First roll picks the equipment, second the rare, third rolls the rare-or-higher rarity.
-    const cards = cardsOf(generatePack(pool, scriptedRng([0, 0, 0.001])))
+    // First roll picks the rare, second rolls the rare-or-higher rarity.
+    const cards = cardsOf(generatePack(pool, scriptedRng([0, 0.001])))
     expect(pool.some((c) => c.rarity === 'Fabled')).toBe(false)
-    expect(cards[2].rarity).toBe('Majestic')
+    expect(cards[1].rarity).toBe('Majestic')
   })
 })
 
 describe('event pool', () => {
-  it('holds only pack cards, all unselected, and nothing at Basic rarity', () => {
+  it('holds exactly 8 x 13 deck cards, all unselected', () => {
     const instances = generateEventPool(pool)
     const cards = cardsOf(instances)
 
     expect(instances.every((i) => !i.selected)).toBe(true)
     expect(cards.every(isDrawable)).toBe(true)
-    expect(cards.some((c) => c.rarity === 'Basic')).toBe(false)
-
-    // 8 packs of 14, less the duplicate equipment that was dropped.
-    expect(cards.length).toBeLessThanOrEqual(PACKS_PER_EVENT * 14)
-    expect(cards.length).toBeGreaterThan(PACKS_PER_EVENT * 14 - PACKS_PER_EVENT)
+    expect(cards).toHaveLength(PACKS_PER_EVENT * 13)
   })
 
-  it('never holds two copies of the same equipment, whatever the packs gave', () => {
-    // Common equipment is drawable many times over 8 packs, but a second copy is unusable.
-    for (let run = 0; run < 30; run++) {
-      const equipment = cardsOf(generateEventPool(pool)).filter(isEquipment)
-      expect(new Set(equipment.map((c) => c.id)).size).toBe(equipment.length)
-    }
-  })
-
-  it('gives each hero a kit of exactly one weapon and one Arms, outside the pool', () => {
+  it('gives class heroes a kit of weapon, Arms and the three cold-foil pieces', () => {
     const cards = cardsOf(generateEventPool(pool))
-    for (const hero of youngHeroes(pool)) {
+    for (const hero of youngHeroes(pool).filter((h) => !isPromoHero(h))) {
       const kit = heroKitFor(hero, pool)
       expect(kit.filter(isWeapon)).toHaveLength(1)
-      expect(kit.filter(isEquipment)).toHaveLength(1)
-      expect(kit.filter(isEquipment)[0].typeText).toContain('Arms')
+      expect(kit.filter(isEquipment)).toHaveLength(4) // Arms + Head + Chest + Legs
+      const slots = kit.filter(isEquipment).map((c) => c.typeText.split(' - ').pop()!)
+      expect(slots.sort()).toEqual(['Arms', 'Chest', 'Head', 'Legs'])
       // None of it is ever opened.
       for (const item of [hero, ...kit]) {
         expect(cards.some((c) => c.id === item.id)).toBe(false)
       }
     }
+  })
+
+  it('gives Baalghor, the promo hero, no weapon and only the three cold-foil pieces', () => {
+    const baalghor = youngHeroes(pool).find(isPromoHero)!
+    expect(baalghor.name).toBe('Baalghor, Omen of the End')
+    const kit = heroKitFor(baalghor, pool)
+    expect(kit.filter(isWeapon)).toHaveLength(0)
+    const slots = kit.map((c) => c.typeText.split(' - ').pop()!)
+    expect(slots.sort()).toEqual(['Chest', 'Head', 'Legs'])
+    // The promo hero card itself is never a pool card either.
+    expect(cardsOf(generateEventPool(pool)).some((c) => c.id === baalghor.id)).toBe(false)
   })
 })
 

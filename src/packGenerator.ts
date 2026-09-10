@@ -20,11 +20,13 @@ export const countsTowardDeck = (card: PoolCard) =>
   !isEquipment(card) && !isHero(card) && !isWeapon(card)
 
 /**
- * Basic rarity is the pre-release kit rather than pack content: each hero comes with itself,
- * its weapon and its class Arms equipment. None of it is ever opened, so none of it is in
- * anyone's pool — see heroKitFor in heroes.ts. (Tokens are dropped at snapshot time.)
+ * The pool is deck cards only. Everything else arrives with the pre-release kit instead of
+ * being opened: the hero (Baalghor is a Rare promo, hence the explicit hero check), its
+ * weapon and Arms, and the cold-foil all-heroes equipment — see heroKitFor in heroes.ts.
+ * (Tokens are dropped at snapshot time.)
  */
-export const isDrawable = (card: PoolCard) => card.rarity !== 'Basic'
+export const isDrawable = (card: PoolCard) =>
+  card.rarity !== 'Basic' && !isHero(card) && !isWeapon(card) && !isEquipment(card)
 
 const GENERIC_CLASS_SET = new Set<string>(GENERIC_CLASSES)
 /** Generic and NotClassed cards, which every hero can play. Shown as "No class". */
@@ -51,7 +53,7 @@ const pick = <T,>(items: readonly T[], rng: Rng): T => items[Math.floor(rng() * 
  */
 const pickOfRarity = (pool: PoolCard[], rarity: Rarity, rng: Rng): PoolCard | null => {
   for (const step of RARITY_LADDER.slice(RARITY_LADDER.indexOf(rarity))) {
-    const candidates = pool.filter((c) => c.rarity === step && !isEquipment(c))
+    const candidates = pool.filter((c) => c.rarity === step)
     if (candidates.length) return pick(candidates, rng)
   }
   return null
@@ -83,17 +85,15 @@ export const splitClassCommons = (count: number, rng: Rng): Record<string, numbe
 }
 
 /**
- * One booster pack as it matters for sealed: 14 cards.
+ * One booster pack as it matters for deckbuilding: 13 cards.
  *
- * Physical packs hold 16, but two bonus cards (other classes, or collectibles not played in
- * limited) are always set aside when the packs are opened, so we never generate them.
+ * Physical packs hold 16. The basic slot and the expansion slot are set aside as soon as the
+ * packs are opened, and the equipment is redundant with the kit's cold-foil set that every
+ * player receives, so none of those three are generated.
  */
 export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): CardInstance[] => {
   const pool = fullPool.filter(isDrawable)
   const drawn: PoolCard[] = []
-
-  const equipment = pool.filter(isEquipment)
-  if (equipment.length) drawn.push(pick(equipment, rng))
 
   const rare = pickOfRarity(pool, 'Rare', rng)
   if (rare) drawn.push(rare)
@@ -105,7 +105,7 @@ export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): Card
   const foilSlot = pickOfRarity(pool, rng() < FOIL_SLOT_RARE_CHANCE ? 'Rare' : 'Common', rng)
   if (foilSlot) drawn.push(foilSlot)
 
-  const commons = pool.filter((c) => c.rarity === 'Common' && !isEquipment(c))
+  const commons = pool.filter((c) => c.rarity === 'Common')
   const classCount = pick(CLASS_COMMONS_OPTIONS, rng)
   const split = splitClassCommons(classCount, rng)
   for (const [className, count] of Object.entries(split)) {
@@ -120,27 +120,10 @@ export const generatePack = (fullPool: PoolCard[], rng: Rng = Math.random): Card
   return drawn.map(instanceOf)
 }
 
-/**
- * A full sealed pool: the 8 packs. Everything at Basic rarity comes with the hero instead, and
- * equipment is deduplicated, so a pool is slightly short of 8 x 14 cards.
- */
+/** A full sealed pool: the 8 packs. Heroes and every piece of gear come with the kit instead. */
 export const generateEventPool = (fullPool: PoolCard[], rng: Rng = Math.random): CardInstance[] => {
   const pool = fullPool.filter(isDrawable)
-  const byId = new Map(pool.map((c) => [c.id, c]))
-
   const cards: CardInstance[] = []
-  const equipmentSeen = new Set<string>()
-  for (let i = 0; i < PACKS_PER_EVENT; i++) {
-    for (const instance of generatePack(pool, rng)) {
-      const card = byId.get(instance.cardId)
-      if (!card) continue
-      // You can only ever wear one of a given equipment, so a second copy is dead weight.
-      if (isEquipment(card)) {
-        if (equipmentSeen.has(card.id)) continue
-        equipmentSeen.add(card.id)
-      }
-      cards.push(instance)
-    }
-  }
+  for (let i = 0; i < PACKS_PER_EVENT; i++) cards.push(...generatePack(pool, rng))
   return cards
 }
