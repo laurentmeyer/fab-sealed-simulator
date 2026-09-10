@@ -23,20 +23,53 @@ export interface PoolCard {
   young?: boolean
 }
 
-/** One physical copy of a card in an event's pool. Foiling is not modelled. */
-export interface CardInstance {
-  instanceId: string
+/**
+ * Copies of a card have no identity of their own: duplicates always merge and always move
+ * as a group, so the deck is counts rather than instances.
+ */
+export interface CardCount {
   cardId: string
-  selected: boolean
+  count: number
+}
+
+/** One pile on the table. A cardId appears in at most ONE column of an event. */
+export interface DeckColumn {
+  /** Stable key for React and dnd-kit; it outlives every card that passes through. */
+  id: string
+  /** Entry order is irrelevant: the view sorts by the active sort mode. */
+  cards: CardCount[]
 }
 
 export interface SealedEvent {
+  schemaVersion: 2
   id: string
   name: string
   createdAt: string
-  cards: CardInstance[]
-  /** Card id of the chosen young hero. It brings its signature weapon along. */
+  /** Card id of the chosen young hero. It brings its kit along. */
   heroId?: string | null
+  /** cardId -> copies opened. Fixed at creation; the deck is carved out of it. */
+  pool: Record<string, number>
+  /** The selected cards, in column order. */
+  columns: DeckColumn[]
 }
 
-export type Grouping = 'rarity' | 'class' | 'pitch'
+/**
+ * An event saved by a version that stored individual card instances. It is kept in storage
+ * and listed, but cannot be opened — see LegacyEventScreen.
+ */
+export interface LegacyEvent {
+  schemaVersion?: undefined
+  id: string
+  name: string
+  createdAt: string
+  heroId?: string | null
+  cards?: unknown[]
+}
+
+export type StoredEvent = SealedEvent | LegacyEvent
+
+export const isLegacyEvent = (event: StoredEvent): event is LegacyEvent =>
+  event.schemaVersion !== 2
+
+/** How cards are ordered, both in the pool row and inside every column. */
+export type SortMode = 'rarity' | 'name' | 'pitch'

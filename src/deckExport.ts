@@ -1,28 +1,26 @@
 import { heroKitFor, isPlayableBy } from './heroes'
 import { countsTowardDeck, isDrawable } from './packGenerator'
-import type { CardInstance, PoolCard } from './types'
+import type { CardCount, PoolCard } from './types'
 
 const PITCH_NAMES: Record<number, string> = { 1: 'red', 2: 'yellow', 3: 'blue' }
 
 const label = (card: PoolCard) =>
   card.pitch && PITCH_NAMES[card.pitch] ? `${card.name} (${PITCH_NAMES[card.pitch]})` : card.name
 
+interface Line {
+  card: PoolCard
+  count: number
+}
+
 /** "3x Acrid Stench (red)" lines, one per distinct card, sorted by name. */
-const section = (cards: PoolCard[]): string[] => {
-  const counts = new Map<string, { card: PoolCard; count: number }>()
-  for (const card of cards) {
-    const entry = counts.get(card.id)
-    if (entry) entry.count++
-    else counts.set(card.id, { card, count: 1 })
-  }
-  return [...counts.values()]
+const section = (lines: Line[]): string[] =>
+  [...lines]
     .sort(
       (a, b) =>
         // Names are not unique: the same card exists once per pitch. Order those red first.
         a.card.name.localeCompare(b.card.name) || (a.card.pitch ?? 0) - (b.card.pitch ?? 0),
     )
     .map(({ card, count }) => `${count}x ${label(card)}`)
-}
 
 /**
  * The deck list in Fabrary's import format. The hero and its signature weapon come from the
@@ -30,21 +28,21 @@ const section = (cards: PoolCard[]): string[] => {
  */
 export const exportDeck = (
   eventName: string,
-  instances: CardInstance[],
+  entries: CardCount[],
   byId: Map<string, PoolCard>,
   hero: PoolCard | null,
 ): string => {
   const heroKey = hero?.hero ?? null
-  const selected = instances
-    .filter((i) => i.selected)
-    .map((i) => byId.get(i.cardId))
-    // isDrawable drops Basic cards, which come with the hero: events saved before that
-    // change can still hold them, and they must not be listed twice.
-    .filter((c): c is PoolCard => Boolean(c) && isDrawable(c!) && isPlayableBy(c!, heroKey))
+  const selected = entries
+    .map(({ cardId, count }) => ({ card: byId.get(cardId)!, count }))
+    // isDrawable drops Basic cards, which come with the hero rather than the pool.
+    .filter(({ card }) => card && isDrawable(card) && isPlayableBy(card, heroKey))
 
   // The arena is entirely the kit: hero gear is never opened, and the pool holds no equipment.
-  const arena = hero ? heroKitFor(hero, [...byId.values()]) : []
-  const deck = selected.filter(countsTowardDeck)
+  const arena = hero
+    ? heroKitFor(hero, [...byId.values()]).map((card) => ({ card, count: 1 }))
+    : []
+  const deck = selected.filter(({ card }) => countsTowardDeck(card))
 
   const blocks: string[] = []
 

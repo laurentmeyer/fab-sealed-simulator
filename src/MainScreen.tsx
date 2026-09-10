@@ -1,5 +1,5 @@
 import { Footer } from './Footer'
-import type { PoolCard, SealedEvent } from './types'
+import { isLegacyEvent, type PoolCard, type StoredEvent } from './types'
 
 const SET_IMAGE = 'https://content.fabrary.net/sets/usurp-the-shadow-throne.webp'
 
@@ -19,16 +19,16 @@ export function MainScreen({
   onOpen,
   onDelete,
 }: {
-  events: SealedEvent[]
+  events: StoredEvent[]
   byId: Map<string, PoolCard>
   onCreate: () => void
   onOpen: (id: string) => void
   onDelete: (id: string) => void
 }) {
   const sorted = [...events].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-  const heroOf = (event: SealedEvent) => (event.heroId ? byId.get(event.heroId) : null) ?? null
+  const heroOf = (event: StoredEvent) => (event.heroId ? byId.get(event.heroId) : null) ?? null
 
-  const remove = (event: SealedEvent) => {
+  const remove = (event: StoredEvent) => {
     if (window.confirm(`Delete "${event.name}"? This cannot be undone.`)) onDelete(event.id)
   }
 
@@ -56,12 +56,18 @@ export function MainScreen({
             <ul className="event-list">
               {sorted.map((event) => {
                 const hero = heroOf(event)
+                const outdated = isLegacyEvent(event)
                 return (
-                  <li key={event.id}>
+                  <li key={event.id} className={outdated ? 'outdated' : undefined}>
                     <button type="button" className="event-open" onClick={() => onOpen(event.id)}>
                       <span className="event-name">
                         {event.name}
                         {hero && <span className="event-hero"> &ndash; {hero.name}</span>}
+                        {outdated && (
+                          <span className="event-tag" title="Saved by an older version of the app">
+                            outdated
+                          </span>
+                        )}
                       </span>
                       <span className="event-meta">
                         {new Date(event.createdAt).toLocaleDateString()}
