@@ -17,6 +17,16 @@ guess. Each entry says what we assumed and where it lives.
       using Shadow and Generic cards only. He is now the fourth (always-selectable) hero.
 - [ ] **The 6–7 / 3–4 common split** is a straight coin flip, and the class commons are
       split as evenly as possible. The true distribution may be weighted.
+- [ ] **The 20-minute build window** the clock's colour is calibrated against is the
+      pre-release figure as we understand it, not one we have confirmed. It lives in
+      `BUILD_SECONDS`, with the red point five minutes past it.
+- [x] ~~**Is there an equipment slot in a pack after all?**~~ Resolved by the owner: yes, core
+      set boosters always have one — not every pack is opened at a pre-release. Packs now roll
+      equipment, and the kit's own pieces became selectable rather than auto-worn.
+- [ ] **Do rarer equipment roll at their rarity's odds?** Every equipment in the set is Basic
+      or Common today, and we assume Basic is as likely as Common — which makes a uniform draw
+      correct. A Rare or Majestic piece would need real odds; a test fails the moment one
+      appears in the data, so the question cannot be skipped.
 - [ ] **The foil slot's rarity odds** (Rare 1.75%, otherwise Common) are back-derived from
       the per-pack averages we were given, not from published pull rates.
 - [x] ~~**Should the export separate the deck from the sideboard?**~~ Resolved by testing
@@ -29,18 +39,10 @@ guess. Each entry says what we assumed and where it lives.
 The goal is to **simulate** an IRL sealed session, not to help you win one — you have no
 analytics at a game store. Items are ordered by value.
 
-- [ ] **Export straight to Talishar**, the gameplay simulator, alongside the Fabrary copy —
-      build the deck here, then jump into a game with friends.
+- [ ] ~**Export straight to Talishar**~~ Not feasable technically, Talishar used Fabrary deck as its input.
 - [ ] **First-time onboarding.** Explain in one screen what this is: open 8 packs at once,
       build a deck, play with friends — a simulation of real-life sealed deckbuilding.
-- [ ] **A build timer.** Sealed events give you a fixed deckbuilding window, and building in
-      20 minutes is a different exercise from building at leisure. Probably the highest
-      fidelity win available.
-- [ ] **Open the packs pack by pack.** The app hands you a finished pool, but the stated
-      goal is simulating opening 8 packs — and that is the part players enjoy.
-- [ ] **A "maybe" pile.** Everyone builds with three piles physically, not two.
-- [ ] **Deck stats after the fact**, to critique a finished 30-card deck: pitch and cost
-      curve, block profile, attack vs non-attack. Deliberately on-demand and tucked away,
+- [ ] **Deck stats** Deliberately on-demand and tucked away,
       never ambient during building, so it stays a review tool rather than a crutch — you
       will not have it at a real event.
 
@@ -50,8 +52,7 @@ analytics at a game store. Items are ordered by value.
       simpler, and a fresh pool deserves a fresh look at it.
 - [ ] The card size is fixed at 220px, which is generous on a laptop: the pool row and one
       full column barely fit together. A zoom control may have to come back.
-- [ ] **Name the columns.** The piles are the point; the rail above each one is already the
-      right place to write "banish enablers" and read the table at a glance.
+- [ ] ~~**Name the columns.**~~ the user does not have time to do this. Deck building is done in one short session, the user will remember the purpose of the columns.
 - [ ] Bring back "add all" / "remove all", which went with the old grouped panes. Some bulk
       way of clearing the off-hero cards out of the deck row would earn its place.
 - [x] ~~Consolidate the two ways to clear a hero.~~ Decided against: clicking the active
@@ -62,7 +63,7 @@ analytics at a game store. Items are ordered by value.
 
 ## Housekeeping
 
-- [ ] **Read the test suite** (`src/*.test.ts`, 81 tests) — not yet reviewed by the owner.
+- [ ] **Read the test suite** (`src/*.test.ts`, 113 tests) — not yet reviewed by the owner.
 - [ ] Add the README screenshot (`docs/screenshot.png`); the link is a TODO comment.
 - [ ] Confirm the copyright holder named in [`LICENSE`](../LICENSE).
 - [ ] Refresh the card data as the set is revealed: `npm update @flesh-and-blood/cards

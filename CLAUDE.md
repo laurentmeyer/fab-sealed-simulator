@@ -24,7 +24,7 @@ and stop; if the answer is to implement, expect a switch to Opus (`/model opus`)
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 81 tests
+npm test             # vitest, 113 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```
@@ -38,6 +38,8 @@ Run typecheck, build and tests before saying a change is done.
 - **notes/context.md** — the original brief, kept as history. Do not edit it to match reality.
 - **notes/mtga-ui.md** — the owner's spec for the table deckbuilding view. Same rule: it is
   the brief, not a description of the code. `docs/table-view-plan.md` is how it was built.
+- **docs/ui.md** — the design log of how the build screen behaves and why. The README stays
+  user-facing: simulation model and the few things a player cannot discover alone.
 - **src/packConfig.ts** — every tunable number of the simulation, with its derivation.
 
 ## Things worth knowing before changing code
@@ -46,6 +48,16 @@ Run typecheck, build and tests before saying a change is done.
   `id`. Always key on `id`, never on `name`.
 - **Legality comes from `legalHeroes`**, not from matching classes. They agree in this set,
   but FaB has cards specialized to a single hero.
+- **The hero kit is this set's own equipment**, spotted by its talent — not "anything that is
+  equipment". A generic piece was spoiled mid-project and gave every hero two Legs slots.
+- **Only the hero and its weapon are auto-included.** Everything else the kit guarantees is a
+  selectable singleton in the pool, derived by `kitEquipment` at render rather than stored, so
+  old events gain it without a migration. A test pins the guaranteed set.
+- **Equipment is not deck material.** It lives in `event.arena` beside the columns, never in
+  them, and its only drop target is the arena stack. In sorting it counts as pitch 0 — ahead
+  of the reds, but never ahead of a better rarity.
+- **Legendary and Fabled do not exist** anywhere in the model — not in the `Rarity` type, the
+  ladder, the odds, or the card snapshot. See the README for why.
 - **The card data is a committed snapshot.** The set is not fully revealed; regenerate it
   with `npm run fetch-cards` rather than hand-editing `src/data/cards.json`.
 - **Dim cards with `brightness`, not `opacity`.** Cards in a column overlap, so transparency

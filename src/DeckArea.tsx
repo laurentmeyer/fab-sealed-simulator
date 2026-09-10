@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { CARD, stackHeight, stackOffsets } from './cardMetrics'
 import { DeckColumnView } from './DeckColumnView'
 import { matches, type Filter } from './filters'
-import { KitStack } from './KitStack'
+import { ArenaStack, EmptyArena } from './ArenaStack'
 import { compareBy } from './sorting'
 import type { DeckColumn, PoolCard, SortMode } from './types'
 
@@ -62,9 +62,11 @@ export function DeckArea({
   filter,
   sort,
   hero,
-  kit,
+  weapon,
+  worn,
   illegal,
   onDeselect,
+  onRemoveArena,
   onRemoveIllegal,
 }: {
   columns: DeckColumn[]
@@ -72,10 +74,14 @@ export function DeckArea({
   filter: Filter
   sort: SortMode
   hero: PoolCard | null
-  kit: PoolCard[]
+  /** Put into play with the hero; nothing else is. */
+  weapon: PoolCard | null
+  /** Equipment you chose to wear. */
+  worn: PoolCard[]
   /** Copies of cards the hero cannot play, which are held but never drawn. */
   illegal: number
   onDeselect: (cardId: string) => void
+  onRemoveArena: (cardId: string) => void
   onRemoveIllegal: () => void
 }) {
   const compare = compareBy(sort)
@@ -96,7 +102,7 @@ export function DeckArea({
 
   const rowHeight = Math.max(
     CARD.height,
-    hero ? stackHeight(kit.length + 1) : 0,
+    stackHeight(worn.length + (hero ? 1 : 0) + (weapon ? 1 : 0)),
     ...laid.map((slot) => stackOffsets(slot.entries).height),
   )
 
@@ -106,7 +112,11 @@ export function DeckArea({
   return (
     <div className="deck-area">
       <div className="deck-row" style={{ minHeight: rowHeight }}>
-        {hero && <KitStack hero={hero} kit={kit} />}
+        {hero ? (
+          <ArenaStack hero={hero} weapon={weapon} worn={worn} onRemove={onRemoveArena} />
+        ) : (
+          <EmptyArena />
+        )}
         <Gap index={laid[0]?.index ?? 0} height={rowHeight} hint={hint} />
         {laid.map(({ column, index, entries }, position) => (
           <Fragment key={column.id}>

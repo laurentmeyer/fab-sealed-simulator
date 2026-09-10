@@ -1352,6 +1352,196 @@
     ]
   },
   {
+    "id": "dam-the-shadowake-blue",
+    "name": "Dam the Shadowake",
+    "pitch": 3,
+    "cost": null,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Shadow Block",
+    "image": "IAR220",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "dam-the-shadowake-red",
+    "name": "Dam the Shadowake",
+    "pitch": 1,
+    "cost": null,
+    "power": null,
+    "defense": 4,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Shadow Block",
+    "image": "IAR218",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "dam-the-shadowake-yellow",
+    "name": "Dam the Shadowake",
+    "pitch": 2,
+    "cost": null,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Shadow Block",
+    "image": "IAR219",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "dark-arcanite-boots",
+    "name": "Dark Arcanite Boots",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Generic Equipment - Legs",
+    "image": "IAR227",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
     "id": "darkest-hour-blue",
     "name": "Darkest Hour",
     "pitch": 3,
@@ -1765,6 +1955,34 @@
       "Zane",
       "Zen",
       "Zyggy"
+    ]
+  },
+  {
+    "id": "fallen-herald-yellow",
+    "name": "Fallen Herald",
+    "pitch": 2,
+    "cost": 2,
+    "power": 6,
+    "defense": null,
+    "rarity": "Majestic",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR165",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
     ]
   },
   {
@@ -2919,6 +3137,29 @@
     ],
     "typeText": "Shadow Necromancer Action - Zombie Ally",
     "image": "IAR065",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
+    "id": "restless-shieldmaiden-red",
+    "name": "Restless Shieldmaiden",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR088",
     "talents": [
       "Shadow"
     ],

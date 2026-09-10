@@ -1,5 +1,9 @@
-/** Marvel is deliberately absent: it is a treatment, not a real rarity. */
-export type Rarity = 'Basic' | 'Common' | 'Rare' | 'Majestic' | 'Legendary' | 'Fabled'
+/**
+ * Marvel is deliberately absent: it is a treatment, not a real rarity. Legendary and Fabled
+ * are absent too — see the README: roughly one Legendary in 96 packs means a sealed pool
+ * essentially never sees one, so the simulation pretends they do not exist.
+ */
+export type Rarity = 'Basic' | 'Common' | 'Rare' | 'Majestic'
 
 /** One card of the set, as snapshotted by scripts/fetch-cards.mjs. */
 export interface PoolCard {
@@ -40,6 +44,16 @@ export interface DeckColumn {
   cards: CardCount[]
 }
 
+/**
+ * How long has gone into this build. The run in progress is not stored — it is measured from
+ * when the event screen opened — so the banked total is the only thing that needs writing.
+ * Stopping the clock lasts as long as you are on the screen: opening the event starts it.
+ */
+export interface EventTimer {
+  /** Seconds banked from earlier runs. */
+  spent: number
+}
+
 export interface SealedEvent {
   schemaVersion: 2
   id: string
@@ -51,6 +65,13 @@ export interface SealedEvent {
   pool: Record<string, number>
   /** The selected cards, in column order. */
   columns: DeckColumn[]
+  /**
+   * Equipment you have chosen to wear, as card ids. It is not deck material and never forms a
+   * pile, so it lives beside the columns rather than in them. Absent means none chosen.
+   */
+  arena?: string[]
+  /** Absent on events built before there was a clock; they start from zero. */
+  timer?: EventTimer
 }
 
 /**

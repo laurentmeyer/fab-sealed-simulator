@@ -58,6 +58,25 @@ export const ExportIcon = () => (
   </Icon>
 )
 
+/** A fanned pair of cards: what the deck count is counting. */
+export const CardsIcon = () => (
+  <Icon>
+    <path
+      fill="currentColor"
+      d="M5.4 1.2a1.5 1.5 0 0 0-1.84 1.06L1.2 11.06a1.5 1.5 0 0 0 1.06 1.84l1.24.33V4.5A1.5 1.5 0 0 1 5 3h4.66l-.32-.47a1.5 1.5 0 0 0-.7-.6L5.4 1.2ZM5 4a.5.5 0 0 0-.5.5v9A1.5 1.5 0 0 0 6 15h6a1.5 1.5 0 0 0 1.5-1.5v-9A.5.5 0 0 0 13 4H5Zm.5 1h7v8.5a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V5Z"
+    />
+  </Icon>
+)
+
+export const ClockIcon = () => (
+  <Icon>
+    <path
+      fill="currentColor"
+      d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6.5-3.5a.5.5 0 0 0-1 0V8a.5.5 0 0 0 .22.42l2.25 1.5a.5.5 0 1 0 .56-.84L8.5 7.73V4.5Z"
+    />
+  </Icon>
+)
+
 export const BurgerIcon = () => (
   <Icon>
     <path
