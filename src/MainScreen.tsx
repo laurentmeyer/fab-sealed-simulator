@@ -35,7 +35,7 @@ export function MainScreen({
         <header className="intro">
           <p className="intro-set">Usurp the Shadow Throne</p>
           <h1>Sealed Simulator</h1>
-          <p className="subtitle">Open 8 packs, build 30 cards, sleeve up.</p>
+          <p className="subtitle">Open 8 packs, build a deck, and test online!</p>
           <button type="button" className="primary" onClick={onCreate}>
             New sealed event
           </button>
