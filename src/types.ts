@@ -40,6 +40,16 @@ export interface DeckColumn {
   cards: CardCount[]
 }
 
+/**
+ * How long has gone into this build. The run in progress is not stored — it is measured from
+ * when the event screen opened — so the banked total is the only thing that needs writing.
+ * Stopping the clock lasts as long as you are on the screen: opening the event starts it.
+ */
+export interface EventTimer {
+  /** Seconds banked from earlier runs. */
+  spent: number
+}
+
 export interface SealedEvent {
   schemaVersion: 2
   id: string
@@ -51,6 +61,8 @@ export interface SealedEvent {
   pool: Record<string, number>
   /** The selected cards, in column order. */
   columns: DeckColumn[]
+  /** Absent on events built before there was a clock; they start from zero. */
+  timer?: EventTimer
 }
 
 /**

@@ -141,7 +141,29 @@ anywhere or press Escape to put it down; starting a drag puts it down as well, s
 then dragging stays one gesture.
 
 The menu bar carries the deck count — **"28 / 30"**, green once you are there — the pitch
-split of the deck, and the export.
+split of the deck, and the menu.
+
+## The build clock
+
+A sealed event gives you a fixed window to build in, and building in twenty minutes is a
+different exercise from building at leisure — which is most of what there is to simulate once
+the packs are open. So the clock is always there, at the head of the menu bar beside the deck
+count: **how long you have taken, and how far you have got**, the two things worth half an eye
+while you sort cards.
+
+It counts up from zero, starting the moment the event does. Its colour is the whole of the
+pressure: green at the start, running through yellow and orange, red once you are five minutes
+past the twenty-minute window and red from then on. Nothing else happens — this simulates a
+sealed event, it does not referee one. You can keep building, and the point is knowing you
+went over.
+
+Click it to stop the clock and again to carry on, the way you would put the cards down at a
+real event. It only runs while the event is open, so time on the event list or in another tab
+is not time spent building; the total is banked as you go, so closing the tab keeps it. **Reset
+the build timer** in the menu puts it back to zero.
+
+Twenty minutes is the pre-release window as we understand it, and lives with the other tunable
+numbers in [`src/packConfig.ts`](src/packConfig.ts).
 
 The **menu at the right of the menu bar** holds everything you do to the event rather than to
 its cards. It opens with the deck's legality — a green tick when the deck is ready, or an

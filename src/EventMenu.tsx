@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { BurgerIcon, CopyIcon, FabraryIcon, TrashIcon } from './icons'
+import { BurgerIcon, ClockIcon, CopyIcon, FabraryIcon, TrashIcon } from './icons'
 
 /**
  * Everything you do to an event rather than to its cards. It opens with the deck's legality
@@ -11,11 +11,13 @@ export function EventMenu({
   onExport,
   onDuplicate,
   onDelete,
+  onResetTimer,
 }: {
   issues: string[]
   onExport: () => void
   onDuplicate: () => void
   onDelete: () => void
+  onResetTimer: () => void
 }) {
   const [open, setOpen] = useState(false)
   const menu = useRef<HTMLDivElement>(null)
@@ -71,6 +73,13 @@ export function EventMenu({
               </ul>
             )}
           </div>
+
+          <button type="button" role="menuitem" onClick={run(onResetTimer)}>
+            <ClockIcon />
+            Reset the timer
+          </button>
+
+          <span className="menu-rule" role="separator" />
 
           <button type="button" role="menuitem" onClick={run(onExport)}>
             <FabraryIcon />

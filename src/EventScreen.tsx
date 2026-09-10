@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CardOverlay, PreviewContext } from './CardOverlay'
 import { deselectCard, remainingPool, selectCard, selectedEntries } from './columns'
 import { deckCount, deckIssues, legalPoolCount, pitchSplit } from './deck'
@@ -7,10 +7,12 @@ import { EventMenu } from './EventMenu'
 import { type Filter } from './filters'
 import { Footer } from './Footer'
 import { HeroSelector } from './HeroSelector'
+import { CardsIcon, ClockIcon } from './icons'
 import { heroKitFor, youngHeroes } from './heroes'
 import { DECK_SIZE } from './packConfig'
 import { Table } from './Table'
 import { Toolbar } from './Toolbar'
+import { bank, elapsedOf, formatTime, NEW_TIMER, timerColour } from './timer'
 import type { DeckColumn, PoolCard, SealedEvent, SortMode } from './types'
 
 const PITCH_BAR = [
@@ -18,6 +20,38 @@ const PITCH_BAR = [
   { pitch: 2, className: 'bar-yellow', label: 'yellow' },
   { pitch: 3, className: 'bar-blue', label: 'blue' },
 ]
+
+/** How often the clock is written down, so a crash costs seconds rather than minutes. */
+const BANK_MS = 15000
+
+/**
+ * How long this build has taken, at the head of the menu bar beside the deck count — the two
+ * things worth keeping half an eye on. Clicking it stops the clock and clicking it again
+ * carries on, the way you would put the cards down at a real event.
+ */
+function BuildClock({
+  seconds,
+  running,
+  onToggle,
+}: {
+  seconds: number
+  running: boolean
+  onToggle: () => void
+}) {
+  return (
+    <button
+      type="button"
+      className={running ? 'build-clock' : 'build-clock paused'}
+      style={{ color: timerColour(seconds) }}
+      title={running ? 'Time spent building — click to stop the clock' : 'Stopped — click to carry on'}
+      onClick={onToggle}
+    >
+      <ClockIcon />
+      <span className="stat-value">{formatTime(seconds)}</span>
+      {!running && <span className="stat-note">paused</span>}
+    </button>
+  )
+}
 
 export function EventScreen({
   event,
@@ -36,6 +70,58 @@ export function EventScreen({
 }) {
   const [sort, setSort] = useState<SortMode>('rarity')
   const [preview, setPreview] = useState<PoolCard | null>(null)
+
+  /*
+   * The clock runs while this screen is open: what the event stores is the total banked so
+   * far, and the run in progress is measured from when the screen opened. So nothing is
+   * written every second, and time spent on another screen is not time spent building.
+   */
+  const timer = event.timer ?? NEW_TIMER
+  // Opening the event puts you back on the clock: a stop lasts as long as you are looking.
+  const [startedAt, setStartedAt] = useState<Date | null>(() => new Date())
+  const [now, setNow] = useState(() => new Date())
+  const elapsed = elapsedOf(timer, startedAt, now)
+
+  useEffect(() => {
+    if (!startedAt) return
+    const id = window.setInterval(() => setNow(new Date()), 1000)
+    return () => window.clearInterval(id)
+  }, [startedAt])
+
+  /*
+   * Banking rebases the run on the moment it happened, so the same seconds are never counted
+   * twice. It runs on a slow interval and again when the screen goes away, which is what makes
+   * the total survive leaving the event, closing the tab, or a crash.
+   */
+  const commit = useRef(() => {})
+  commit.current = () => {
+    if (!startedAt) return
+    const at = new Date()
+    onChange({ ...event, timer: bank(timer, startedAt, at) })
+    setStartedAt(at)
+  }
+
+  useEffect(() => {
+    const id = window.setInterval(() => commit.current(), BANK_MS)
+    const onHide = () => commit.current()
+    window.addEventListener('pagehide', onHide)
+    return () => {
+      window.clearInterval(id)
+      window.removeEventListener('pagehide', onHide)
+      commit.current()
+    }
+  }, [])
+
+  const toggleTimer = () => {
+    const at = new Date()
+    setNow(at)
+    if (startedAt) {
+      onChange({ ...event, timer: bank(timer, startedAt, at) })
+      setStartedAt(null)
+    } else {
+      setStartedAt(at)
+    }
+  }
   const [draftName, setDraftName] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [hoveredPitch, setHoveredPitch] = useState<number | null>(null)
@@ -127,11 +213,15 @@ export function EventScreen({
         </div>
 
         <div className="menu-right">
+          <BuildClock seconds={elapsed} running={startedAt !== null} onToggle={toggleTimer} />
           <span
             className={count >= DECK_SIZE ? 'deck-count ok' : 'deck-count warn'}
             title="Cards in your deck; the hero, the arena and off-hero cards do not count"
           >
-            {count} / {DECK_SIZE}
+            <CardsIcon />
+            <span className="stat-value">
+              {count} / {DECK_SIZE}
+            </span>
           </span>
           <span className="pitch-bar-wrap">
             <span className="pitch-bar" aria-label="Pitch split of the deck">
@@ -163,6 +253,10 @@ export function EventScreen({
             onDuplicate={onDuplicate}
             onDelete={() => {
               if (window.confirm(`Delete "${event.name}"? This cannot be undone.`)) onDelete()
+            }}
+            onResetTimer={() => {
+              setStartedAt(new Date())
+              onChange({ ...event, timer: NEW_TIMER })
             }}
           />
         </div>

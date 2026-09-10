@@ -9,6 +9,19 @@ import type { Rarity } from './types'
  */
 
 export const PACKS_PER_EVENT = 8
+
+/**
+ * How long you get to build. Twenty minutes is the window a Flesh and Blood pre-release gives
+ * you once the packs are open — see the "Open questions" section of the README. Nothing
+ * enforces it; it is the figure the clock's colour is calibrated against.
+ */
+export const BUILD_SECONDS = 20 * 60
+
+/**
+ * The clock runs green to red across this span and stays red after it: five minutes past the
+ * window, so red means "you are over" rather than "you are nearly out of time".
+ */
+export const TIMER_RED_SECONDS = BUILD_SECONDS + 5 * 60
 /** Minimum deck size. Anything above it is a sideboard to swap from between games. */
 export const DECK_SIZE = 30
 

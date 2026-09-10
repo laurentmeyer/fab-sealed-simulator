@@ -486,6 +486,67 @@ select:hover {
 
 
 
+/* ---- the two things worth watching ---- */
+
+/*
+ * The clock and the deck count, side by side at the head of the menu bar: how long you have
+ * taken and how far you have got. Same shape, so they read as one pair.
+ */
+.build-clock,
+.deck-count {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.build-clock svg,
+.deck-count svg {
+  flex: none;
+  display: block;
+  opacity: 0.8;
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-note {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/*
+ * The clock's colour is the whole of the pressure: green at the start, red once you are past
+ * the window. It is set inline, since it is a ramp rather than a set of states.
+ */
+.build-clock {
+  background: none;
+}
+
+.build-clock:hover {
+  border-color: currentColor;
+  filter: brightness(1.2);
+}
+
+/* A stopped clock should not look like a running one. */
+.build-clock.paused {
+  border-style: dashed;
+  opacity: 0.75;
+}
+
+.menu-rule {
+  height: 1px;
+  margin: 4px 8px;
+  background: var(--border);
+}
+
 /* ---- event menu ---- */
 
 /*
@@ -606,16 +667,6 @@ select:hover {
 .toolbar-note {
   font-size: 12px;
   color: var(--muted);
-  white-space: nowrap;
-}
-
-.deck-count {
-  font-size: 14px;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 6px;
-  border: 1px solid currentColor;
-  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
