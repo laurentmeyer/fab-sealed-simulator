@@ -12,9 +12,14 @@ import { signatureWeaponFor, youngHeroes } from './heroes'
 import { DECK_SIZE } from './packConfig'
 import { isEquipment } from './packGenerator'
 import { Table } from './Table'
+import { Tip } from './Tip'
 import { Toolbar } from './Toolbar'
+import { dismissTip } from './storage'
 import { bank, elapsedOf, formatTime, NEW_TIMER, timerColour } from './timer'
 import type { DeckColumn, PoolCard, SealedEvent, SortMode } from './types'
+
+/** Identifies the tip in storage; changing it would show the tip again to everyone. */
+const LONG_PRESS_TIP = 'long-press'
 
 const PITCH_BAR = [
   { pitch: 1, className: 'bar-red', label: 'red' },
@@ -71,6 +76,18 @@ export function EventScreen({
 }) {
   const [sort, setSort] = useState<SortMode>('rarity')
   const [preview, setPreview] = useState<PoolCard | null>(null)
+  /*
+   * Opening a card full size is the one thing on this screen nobody can discover alone, so a
+   * tip says so once. Doing it retires the tip as surely as closing it does.
+   */
+  const [tipUsed, setTipUsed] = useState(false)
+  const showPreview = (card: PoolCard | null) => {
+    if (card) {
+      dismissTip(LONG_PRESS_TIP)
+      setTipUsed(true)
+    }
+    setPreview(card)
+  }
 
   /*
    * The clock runs while this screen is open: what the event stores is the total banked so
@@ -297,7 +314,7 @@ export function EventScreen({
         onClearHero={() => onChange({ ...event, heroId: null })}
       />
 
-      <PreviewContext.Provider value={setPreview}>
+      <PreviewContext.Provider value={showPreview}>
         <Table
           columns={event.columns}
           pool={pool}
@@ -319,6 +336,9 @@ export function EventScreen({
 
       <Footer />
 
+      <Tip id={LONG_PRESS_TIP} dismissed={tipUsed}>
+        Hold any card down to see it full size.
+      </Tip>
       {preview && <CardOverlay card={preview} onClose={() => setPreview(null)} />}
       {copied && (
         <div className="toast" role="status">

@@ -43,8 +43,6 @@ analytics at a game store.
       block profile, attack vs non-attack. Deliberately on-demand and tucked away, never
       ambient while you build, so it stays a review tool rather than a crutch — you will not
       have it at a real event.
-- [ ] **Say that a long press enlarges a card.** The one thing about the build screen nobody
-      can discover alone, and the only part of onboarding worth doing.
 - [x] ~~**Export straight to Talishar.**~~ Not possible, and not needed: Talishar imports from
       Fabrary, which the app already exports to. The path exists, it just runs through Fabrary.
 - [x] ~~**Open the packs pack by pack.**~~ Decided against: this is a training tool, not an

@@ -151,7 +151,8 @@ from the averages we were given and would love a correction.
 The build screen aims to work like a table at a game store: your pool along the top, the deck
 as piles of overlapping cards below, and click and drag doing what you would expect. The one
 thing you would not find on your own: **hold the pointer on any card** (long-press on touch)
-to see it full size — that is how you read a card buried in a pile.
+to see it full size, for when the rules text is too small to read comfortably. A tip says so
+once, then never again.
 
 How and why the screen behaves the way it does is recorded in [docs/ui.md](docs/ui.md); it is
 a design log, not a manual.
