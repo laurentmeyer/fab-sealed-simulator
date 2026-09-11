@@ -57,21 +57,28 @@ const rollRareOrHigher = (rng: Rng): Rarity => {
 }
 
 /**
- * The equipment slot: one piece from the set, every piece equally likely.
+ * What the equipment slot can contain. Basic equipment is not opened — it comes with the
+ * pre-release kit and the slot never rolls it — so the class Arms are guaranteed but
+ * unopenable, which is the reverse of the four Dark Arcanite pieces.
+ */
+export const isOpenableEquipment = (card: PoolCard) =>
+  isEquipment(card) && card.rarity !== 'Basic'
+
+/**
+ * The equipment slot: one openable piece, every piece equally likely.
  *
- * The uniform draw *is* the rarity model while every equipment in the set is Basic or Common
- * and Basic is assumed as likely as Common — which held through the full reveal. Should a
- * correction ever introduce a Rare or Majestic piece, this needs real odds; `equipmentRarities`
- * below is what a test watches to force that.
+ * The uniform draw *is* the rarity model while all of them share a rarity, which they do —
+ * every openable piece is Common. Should a correction introduce a Rare or Majestic one, this
+ * needs real odds; `equipmentRarities` below is what a test watches to force that.
  */
 export const drawEquipment = (fullPool: PoolCard[], rng: Rng): PoolCard | null => {
-  const equipment = fullPool.filter(isEquipment)
+  const equipment = fullPool.filter(isOpenableEquipment)
   return equipment.length ? pick(equipment, rng) : null
 }
 
 /** The rarities the equipment slot is currently drawing across. */
 export const equipmentRarities = (fullPool: PoolCard[]): Set<Rarity> =>
-  new Set(fullPool.filter(isEquipment).map((c) => c.rarity))
+  new Set(fullPool.filter(isOpenableEquipment).map((c) => c.rarity))
 
 /** How many of each class among `count` class commons: as even as possible, remainder at random. */
 export const splitClassCommons = (count: number, rng: Rng): Record<string, number> => {

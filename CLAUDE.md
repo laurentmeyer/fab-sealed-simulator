@@ -24,7 +24,7 @@ and stop; if the answer is to implement, expect a switch to Opus (`/model opus`)
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 114 tests
+npm test             # vitest, 115 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```
@@ -53,6 +53,9 @@ Run typecheck, build and tests before saying a change is done.
 - **Only the hero and its weapon are auto-included.** Everything else the kit guarantees is a
   selectable singleton in the pool, derived by `kitEquipment` at render rather than stored, so
   old events gain it without a migration. A test pins the guaranteed set.
+- **Basic equipment is never opened.** The equipment slot skips it — it is kit material — so
+  the class Arms are guaranteed to you but unopenable, and the slot's uniform draw is only
+  correct because every piece it *can* reach is Common. A test fails if that stops being true.
 - **Equipment is not deck material.** It lives in `event.arena` beside the columns, never in
   them, and its only drop target is the arena stack. In sorting it counts as pitch 0 — ahead
   of the reds, but never ahead of a better rarity.

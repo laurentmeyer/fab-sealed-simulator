@@ -50,7 +50,7 @@ simulated. Everything else is:
 | 1 | Rare, any class |
 | 1 | Rare or better: Majestic 1 in 4, otherwise Rare |
 | 1 | The foil slot — a Rare 1.75% of the time, otherwise a Common |
-| 1 | Equipment — at Common odds, with Basic equipment as likely as Common; rarer equipment, once the set has any, rolls at its own rarity's odds |
+| 1 | Equipment — never a Basic piece, which comes with the kit rather than a pack; uniform across the rest, all of which are Common in this set |
 | 10 | Commons: 6–7 class cards split evenly across Necromancer, Brute and Runeblade (coin flip between 6 and 7, remainder to a random class), and the rest Shadow or Generic |
 
 **Legendary and Fabled do not exist in this model.** None are sealed-legal in the card data,
@@ -70,14 +70,15 @@ The arithmetic that falls out of those slots, which is what the pull-rate tests 
 **The equipment slot works differently from the others.** Duplicates of an equipment are
 worthless — you can only wear one per slot — so the pool keeps **at most one copy** of each
 distinct equipment, however many the eight packs roll. And most rolls are invisible anyway:
-anything the pre-release kit already guarantees (next section) adds nothing new. Every
-equipment in the set is Basic or Common, so the slot is uniform over all ten, and the rolls
-that change your pool are the four **Dark Arcanite** pieces (Helm, Plating, Gloves, Boots) at
-1/10 per pack each: a given piece turns up in about **57%** of events (1 − (9/10)^8), and
-**98%** of events hold at least one of the four (1 − (6/10)^8). Both figures are checked by
-simulation against the generator. A Rare or Majestic equipment would roll at its own rarity's
-odds instead; a test pins the set so such a card would force that decision rather than slide
-in silently — with the set now fully revealed, that door is closed unless the data itself
+anything the pre-release kit already guarantees (next section) adds nothing new. Of the set's
+ten equipment cards, three are Basic and never opened, leaving **seven** the slot can roll,
+all Common. Three of those seven are the cold-foil trio you already own, so the rolls that
+change your pool are the four **Dark Arcanite** pieces (Helm, Plating, Gloves, Boots) at 1/7
+per pack each: a given piece turns up in about **71%** of events (1 − (6/7)^8), and **99.9%**
+of events hold at least one of the four (1 − (3/7)^8). Both figures are checked by simulation
+against the generator. A Rare or Majestic equipment would need its own odds rather than this
+uniform draw; a test pins the set so such a card would force that decision rather than slide
+in silently — with the set fully revealed, that door is closed unless the data itself
 changes.
 
 ## What the pre-release kit provides
@@ -143,7 +144,8 @@ from the averages we were given and would love a correction.
 | Legendary and Fabled treated as nonexistent (~1.77 rares/pack instead of 1.75) | **Assumed** simplification — roughly one Legendary in 96 packs in reality, so we model P = 0 |
 | Second-slot and foil-slot odds back-derived from those averages | **Assumed** — chosen to reproduce the averages, not from published pull rates |
 | The 6–7 class-common split as a fair coin flip, split as evenly as possible | **Assumed** — the true distribution may be weighted |
-| The equipment slot rolls at Common odds, with Basic equipment as likely as Common | **Assumed** — the owner's guess, explicitly open to expert challenge |
+| The equipment slot never rolls Basic equipment | Sourced — a Flesh and Blood player who knows the product. It replaced our own guess, which had Basic as likely as Common |
+| The slot being uniform across the remaining equipment | **Assumed** — safe only because all seven are Common; a rarer piece would need real odds |
 | No hero has a legal alternative weapon (why weapons auto-select) | **Assumed** — checked against current data, could change as the set is revealed |
 
 ## Building a deck
