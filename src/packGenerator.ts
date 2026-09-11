@@ -60,8 +60,9 @@ const rollRareOrHigher = (rng: Rng): Rarity => {
  * The equipment slot: one piece from the set, every piece equally likely.
  *
  * The uniform draw *is* the rarity model while every equipment in the set is Basic or Common
- * and Basic is assumed as likely as Common. Should a Rare or Majestic piece be spoiled, this
- * needs real odds — `equipmentRarities` below is what a test watches to force that.
+ * and Basic is assumed as likely as Common — which held through the full reveal. Should a
+ * correction ever introduce a Rare or Majestic piece, this needs real odds; `equipmentRarities`
+ * below is what a test watches to force that.
  */
 export const drawEquipment = (fullPool: PoolCard[], rng: Rng): PoolCard | null => {
   const equipment = fullPool.filter(isEquipment)

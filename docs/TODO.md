@@ -66,12 +66,11 @@ analytics at a game store. Items are ordered by value.
 - [ ] **Read the test suite** (`src/*.test.ts`, 113 tests) — not yet reviewed by the owner.
 - [ ] Add the README screenshot (`docs/screenshot.png`); the link is a TODO comment.
 - [ ] Confirm the copyright holder named in [`LICENSE`](../LICENSE).
-- [ ] Refresh the card data as the set is revealed: `npm update @flesh-and-blood/cards
-      @flesh-and-blood/types && npm run fetch-cards`, then commit `src/data/cards.json`.
-- [ ] **Do that refresh on a schedule.** A weekly GitHub Action running those two commands and
-      opening a PR when `cards.json` changes would keep the snapshot current on its own; Vercel
-      redeploys on merge. Considered and rejected the alternative of reading the card package
-      at app load: it is 1 MB gzipped against the snapshot's 5 KB, every card in the game
-      rather than this set's 104, and it would make the app depend on a third-party CDN at
-      runtime. A PR also keeps the diff reviewable, which matters — the snapshot is what every
-      saved event's card ids point at.
+- [x] ~~Refresh the card data as the set is revealed.~~ The set is fully revealed as of
+      2026-09-11 and the snapshot holds all 230 sealed-legal cards; every pinning test passed
+      on the final data. A future `npm update && npm run fetch-cards` is only needed if the
+      source data is corrected.
+- [x] ~~Do that refresh on a schedule.~~ Mooted by the full reveal: the data has stopped
+      moving, so a weekly Action would only churn. (The runtime-fetch alternative had already
+      been rejected — 1 MB gzipped against the snapshot's 5 KB, and a third-party CDN in the
+      runtime path.)

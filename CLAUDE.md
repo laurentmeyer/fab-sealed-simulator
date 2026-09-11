@@ -58,8 +58,10 @@ Run typecheck, build and tests before saying a change is done.
   of the reds, but never ahead of a better rarity.
 - **Legendary and Fabled do not exist** anywhere in the model — not in the `Rarity` type, the
   ladder, the odds, or the card snapshot. See the README for why.
-- **The card data is a committed snapshot.** The set is not fully revealed; regenerate it
-  with `npm run fetch-cards` rather than hand-editing `src/data/cards.json`.
+- **The card data is a committed snapshot.** The set is fully revealed, so it should only move
+  if the source data is corrected — regenerate with `npm run fetch-cards` rather than
+  hand-editing `src/data/cards.json`. Several tests exist to fail when that data changes
+  something load-bearing; read them before overriding one.
 - **Dim cards with `brightness`, not `opacity`.** Cards in a column overlap, so transparency
   lets the ones underneath show through.
 - **The deck is columns of counts, not card instances.** Every rule about piles lives in

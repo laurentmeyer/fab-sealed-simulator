@@ -1,13 +1,15 @@
 /**
  * Snapshots the sealed-legal Usurp the Shadow Throne cards into src/data/cards.json.
  *
- * The set is not fully revealed yet. To pick up newly revealed cards:
+ * The set is fully revealed, so this should only be needed if the source data is corrected:
  *
  *     npm update @flesh-and-blood/cards @flesh-and-blood/types
  *     npm run fetch-cards
  *
  * then commit the regenerated src/data/cards.json. Saved events keep working: they store
- * card ids, and the UI renders an unknown id as a placeholder rather than crashing.
+ * card ids, and the UI renders an unknown id as a placeholder rather than crashing. Tests pin
+ * what a data change could silently break — see "what the kit guarantees" in
+ * src/packGenerator.test.ts.
  */
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'

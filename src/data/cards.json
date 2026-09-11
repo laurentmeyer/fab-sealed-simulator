@@ -1,5 +1,89 @@
 [
   {
+    "id": "abyssal-bite-blue",
+    "name": "Abyssal Bite",
+    "pitch": 3,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR206",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "abyssal-force-blue",
+    "name": "Abyssal Force",
+    "pitch": 3,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR207",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "abyssal-rush-blue",
+    "name": "Abyssal Rush",
+    "pitch": 3,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR208",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
     "id": "acrid-stench-blue",
     "name": "Acrid Stench",
     "pitch": 3,
@@ -602,6 +686,29 @@
     ]
   },
   {
+    "id": "blasmophets-boon-blue",
+    "name": "Blasmophet's Boon",
+    "pitch": 3,
+    "cost": 1,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR035",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
     "id": "blood-harvest",
     "name": "Blood Harvest",
     "pitch": null,
@@ -722,6 +829,75 @@
       "Chane",
       "Viserai2",
       "Vynnset"
+    ]
+  },
+  {
+    "id": "bonded-burial-blue",
+    "name": "Bonded Burial",
+    "pitch": 3,
+    "cost": 1,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action - Attack",
+    "image": "IAR102",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "bonded-burial-red",
+    "name": "Bonded Burial",
+    "pitch": 1,
+    "cost": 1,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action - Attack",
+    "image": "IAR100",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "bonded-burial-yellow",
+    "name": "Bonded Burial",
+    "pitch": 2,
+    "cost": 1,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action - Attack",
+    "image": "IAR101",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
     ]
   },
   {
@@ -1085,6 +1261,29 @@
     ]
   },
   {
+    "id": "consuming-command-blue",
+    "name": "Consuming Command",
+    "pitch": 3,
+    "cost": 1,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action",
+    "image": "IAR036",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
     "id": "consuming-lash-yellow",
     "name": "Consuming Lash",
     "pitch": 2,
@@ -1212,6 +1411,75 @@
       "Malice",
       "Viserai2",
       "Vynnset"
+    ]
+  },
+  {
+    "id": "corpse-cover-blue",
+    "name": "Corpse Cover",
+    "pitch": 3,
+    "cost": null,
+    "power": null,
+    "defense": 1,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Necromancer Block",
+    "image": "IAR099",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "corpse-cover-red",
+    "name": "Corpse Cover",
+    "pitch": 1,
+    "cost": null,
+    "power": null,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Necromancer Block",
+    "image": "IAR097",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "corpse-cover-yellow",
+    "name": "Corpse Cover",
+    "pitch": 2,
+    "cost": null,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Necromancer Block",
+    "image": "IAR098",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
     ]
   },
   {
@@ -1451,6 +1719,324 @@
     ],
     "typeText": "Generic Equipment - Legs",
     "image": "IAR227",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "dark-arcanite-gloves",
+    "name": "Dark Arcanite Gloves",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Generic Equipment - Arms",
+    "image": "IAR226",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "dark-arcanite-helm",
+    "name": "Dark Arcanite Helm",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Generic Equipment - Head",
+    "image": "IAR224",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "dark-arcanite-plating",
+    "name": "Dark Arcanite Plating",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": 0,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Equipment"
+    ],
+    "typeText": "Generic Equipment - Chest",
+    "image": "IAR225",
     "talents": [],
     "legalHeroes": [
       "Arakni",
@@ -1852,6 +2438,81 @@
     ]
   },
   {
+    "id": "enshrine-sin-blue",
+    "name": "Enshrine Sin",
+    "pitch": 3,
+    "cost": 0,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR140",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "enshrine-sin-red",
+    "name": "Enshrine Sin",
+    "pitch": 1,
+    "cost": 0,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR138",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "enshrine-sin-yellow",
+    "name": "Enshrine Sin",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR139",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
     "id": "exorcism-red",
     "name": "Exorcism",
     "pitch": 1,
@@ -1986,6 +2647,144 @@
     ]
   },
   {
+    "id": "feasting-shadowbeast-blue",
+    "name": "Feasting Shadowbeast",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR025",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "feasting-shadowbeast-red",
+    "name": "Feasting Shadowbeast",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR023",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "feasting-shadowbeast-yellow",
+    "name": "Feasting Shadowbeast",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR024",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "feeding-frenzy-blue",
+    "name": "Feeding Frenzy",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR028",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "feeding-frenzy-red",
+    "name": "Feeding Frenzy",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR026",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "feeding-frenzy-yellow",
+    "name": "Feeding Frenzy",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR027",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
     "id": "forbidden-harvest-yellow",
     "name": "Forbidden Harvest",
     "pitch": 2,
@@ -2031,6 +2830,182 @@
     ],
     "legalHeroes": [
       "Malice"
+    ]
+  },
+  {
+    "id": "ghostly-visit-blue",
+    "name": "Ghostly Visit",
+    "pitch": 3,
+    "cost": 1,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR190",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "ghostly-visit-red",
+    "name": "Ghostly Visit",
+    "pitch": 1,
+    "cost": 1,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR188",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "ghostly-visit-yellow",
+    "name": "Ghostly Visit",
+    "pitch": 2,
+    "cost": 1,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR189",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "goremass-summoning-blue",
+    "name": "Goremass Summoning",
+    "pitch": 3,
+    "cost": 2,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action",
+    "image": "IAR037",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "gorging-shadowbeast-blue",
+    "name": "Gorging Shadowbeast",
+    "pitch": 3,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR031",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "gorging-shadowbeast-red",
+    "name": "Gorging Shadowbeast",
+    "pitch": 1,
+    "cost": 2,
+    "power": 7,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR029",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "gorging-shadowbeast-yellow",
+    "name": "Gorging Shadowbeast",
+    "pitch": 2,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR030",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
     ]
   },
   {
@@ -2519,6 +3494,112 @@
     ]
   },
   {
+    "id": "murmur-of-iarathael-red",
+    "name": "Murmur of i'Arathael",
+    "pitch": 1,
+    "cost": 1,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR230",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
     "id": "murmuring-gloomblade-blue",
     "name": "Murmuring Gloomblade",
     "pitch": 3,
@@ -2591,6 +3672,75 @@
       "Chane",
       "Viserai2",
       "Vynnset"
+    ]
+  },
+  {
+    "id": "mutual-sacrifice-blue",
+    "name": "Mutual Sacrifice",
+    "pitch": 3,
+    "cost": 1,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action - Attack",
+    "image": "IAR105",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "mutual-sacrifice-red",
+    "name": "Mutual Sacrifice",
+    "pitch": 1,
+    "cost": 1,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action - Attack",
+    "image": "IAR103",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
+    ]
+  },
+  {
+    "id": "mutual-sacrifice-yellow",
+    "name": "Mutual Sacrifice",
+    "pitch": 2,
+    "cost": 1,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Necromancer Action - Attack",
+    "image": "IAR104",
+    "talents": [],
+    "legalHeroes": [
+      "Frankie",
+      "Gravy Bones",
+      "Malice"
     ]
   },
   {
@@ -2870,6 +4020,90 @@
     ]
   },
   {
+    "id": "permanent-interment-blue",
+    "name": "Permanent Interment",
+    "pitch": 3,
+    "cost": 0,
+    "power": 1,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR193",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "permanent-interment-red",
+    "name": "Permanent Interment",
+    "pitch": 1,
+    "cost": 0,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR191",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "permanent-interment-yellow",
+    "name": "Permanent Interment",
+    "pitch": 2,
+    "cost": 0,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR192",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
     "id": "planar-chaos-red",
     "name": "Planar Chaos",
     "pitch": 1,
@@ -2913,6 +4147,31 @@
     ],
     "typeText": "Shadow Runeblade Action - Attack",
     "image": "IAR116",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "promise-of-power-yellow",
+    "name": "Promise of Power",
+    "pitch": 2,
+    "cost": 1,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action",
+    "image": "IAR122",
     "talents": [
       "Shadow"
     ],
@@ -2994,6 +4253,90 @@
     ],
     "typeText": "Shadow Action",
     "image": "IAR213",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "rally-the-shadow-horde-blue",
+    "name": "Rally the Shadow Horde",
+    "pitch": 3,
+    "cost": 3,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR173",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "rally-the-shadow-horde-red",
+    "name": "Rally the Shadow Horde",
+    "pitch": 1,
+    "cost": 3,
+    "power": 7,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR171",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "rally-the-shadow-horde-yellow",
+    "name": "Rally the Shadow Horde",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR172",
     "talents": [
       "Shadow"
     ],
@@ -3122,6 +4465,29 @@
     ]
   },
   {
+    "id": "restless-plowman-red",
+    "name": "Restless Plowman",
+    "pitch": 1,
+    "cost": 0,
+    "power": 3,
+    "defense": null,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action - Zombie Ally",
+    "image": "IAR087",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
     "id": "restless-quartermaster-red",
     "name": "Restless Quartermaster",
     "pitch": 1,
@@ -3214,6 +4580,81 @@
     ]
   },
   {
+    "id": "rise-to-the-challenge-blue",
+    "name": "Rise to the Challenge",
+    "pitch": 3,
+    "cost": null,
+    "power": null,
+    "defense": 1,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Brute Block",
+    "image": "IAR052",
+    "talents": [],
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "rise-to-the-challenge-red",
+    "name": "Rise to the Challenge",
+    "pitch": 1,
+    "cost": null,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Brute Block",
+    "image": "IAR050",
+    "talents": [],
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "rise-to-the-challenge-yellow",
+    "name": "Rise to the Challenge",
+    "pitch": 2,
+    "cost": null,
+    "power": null,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Block"
+    ],
+    "typeText": "Brute Block",
+    "image": "IAR051",
+    "talents": [],
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
     "id": "rites-of-nightfall-blue",
     "name": "Rites of Nightfall",
     "pitch": 3,
@@ -3268,6 +4709,256 @@
       "Taylor",
       "Viserai2",
       "Vynnset"
+    ]
+  },
+  {
+    "id": "rocktop-bellow-blue",
+    "name": "Rocktop Bellow",
+    "pitch": 3,
+    "cost": 2,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action",
+    "image": "IAR046",
+    "talents": [],
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "rocktop-bellow-red",
+    "name": "Rocktop Bellow",
+    "pitch": 1,
+    "cost": 2,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action",
+    "image": "IAR044",
+    "talents": [],
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "rocktop-bellow-yellow",
+    "name": "Rocktop Bellow",
+    "pitch": 2,
+    "cost": 2,
+    "power": null,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Brute Action",
+    "image": "IAR045",
+    "talents": [],
+    "legalHeroes": [
+      "Kayo",
+      "Levia",
+      "RKO",
+      "Rhinar",
+      "Tuffnut"
+    ]
+  },
+  {
+    "id": "rumbling-hunger-blue",
+    "name": "Rumbling Hunger",
+    "pitch": 3,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR016",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "rumbling-hunger-red",
+    "name": "Rumbling Hunger",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR014",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "rumbling-hunger-yellow",
+    "name": "Rumbling Hunger",
+    "pitch": 2,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Rare",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR015",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "rumbling-of-iarathael-red",
+    "name": "Rumbling of i'Arathael",
+    "pitch": 1,
+    "cost": 2,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR231",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
     ]
   },
   {
@@ -3635,6 +5326,391 @@
     ]
   },
   {
+    "id": "satiate-bloodthirst-blue",
+    "name": "Satiate Bloodthirst",
+    "pitch": 3,
+    "cost": 3,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR034",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "satiate-bloodthirst-red",
+    "name": "Satiate Bloodthirst",
+    "pitch": 1,
+    "cost": 3,
+    "power": 7,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR032",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "satiate-bloodthirst-yellow",
+    "name": "Satiate Bloodthirst",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Brute"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Brute Action - Attack",
+    "image": "IAR033",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Levia"
+    ]
+  },
+  {
+    "id": "seek-horizon-blue",
+    "name": "Seek Horizon",
+    "pitch": 3,
+    "cost": 0,
+    "power": 2,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR238",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "seek-horizon-red",
+    "name": "Seek Horizon",
+    "pitch": 1,
+    "cost": 0,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR236",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "seek-horizon-yellow",
+    "name": "Seek Horizon",
+    "pitch": 2,
+    "cost": 0,
+    "power": 3,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR237",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
     "id": "seven-sin-nebula",
     "name": "Seven Sin Nebula",
     "pitch": null,
@@ -3650,6 +5726,81 @@
     ],
     "typeText": "Shadow Runeblade Weapon - Sword (2H)",
     "image": "IAR108",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowake-gloomblade-blue",
+    "name": "Shadowake Gloomblade",
+    "pitch": 3,
+    "cost": 2,
+    "power": 2,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR137",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowake-gloomblade-red",
+    "name": "Shadowake Gloomblade",
+    "pitch": 1,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR135",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Chane",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "shadowake-gloomblade-yellow",
+    "name": "Shadowake Gloomblade",
+    "pitch": 2,
+    "cost": 2,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Runeblade Action - Attack",
+    "image": "IAR136",
     "talents": [
       "Shadow"
     ],
@@ -3958,6 +6109,29 @@
     ]
   },
   {
+    "id": "shadowrealm-swiftness-yellow",
+    "name": "Shadowrealm Swiftness",
+    "pitch": 2,
+    "cost": 0,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "Necromancer"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Necromancer Action",
+    "image": "IAR083",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Malice"
+    ]
+  },
+  {
     "id": "shadowrealm-walker-blue",
     "name": "Shadowrealm Walker",
     "pitch": 3,
@@ -4164,6 +6338,90 @@
     ]
   },
   {
+    "id": "step-through-realms-blue",
+    "name": "Step through Realms",
+    "pitch": 3,
+    "cost": 2,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR217",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "step-through-realms-red",
+    "name": "Step through Realms",
+    "pitch": 1,
+    "cost": 2,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR215",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "step-through-realms-yellow",
+    "name": "Step through Realms",
+    "pitch": 2,
+    "cost": 2,
+    "power": null,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action",
+    "image": "IAR216",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
     "id": "tome-of-necrosis-red",
     "name": "Tome of Necrosis",
     "pitch": 1,
@@ -4185,6 +6443,112 @@
       "Gravy Bones",
       "Librarian",
       "Malice"
+    ]
+  },
+  {
+    "id": "tremor-of-iarathael-red",
+    "name": "Tremor of i'Arathael",
+    "pitch": 1,
+    "cost": 1,
+    "power": 4,
+    "defense": 2,
+    "rarity": "Rare",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR232",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
     ]
   },
   {
@@ -4450,6 +6814,115 @@
     "young": true
   },
   {
+    "id": "viserai-usurper",
+    "name": "Viserai, Usurper",
+    "pitch": null,
+    "cost": null,
+    "power": null,
+    "defense": null,
+    "rarity": "Basic",
+    "classes": [
+      "Runeblade"
+    ],
+    "types": [
+      "Hero"
+    ],
+    "typeText": "Shadow Runeblade Hero - Demon",
+    "image": "IAR106_BACK",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Viserai2"
+    ],
+    "hero": "Viserai2",
+    "young": false
+  },
+  {
+    "id": "void-wraith-blue",
+    "name": "Void Wraith",
+    "pitch": 3,
+    "cost": 2,
+    "power": 3,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR205",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "void-wraith-red",
+    "name": "Void Wraith",
+    "pitch": 1,
+    "cost": 2,
+    "power": 5,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR203",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
+    "id": "void-wraith-yellow",
+    "name": "Void Wraith",
+    "pitch": 2,
+    "cost": 2,
+    "power": 4,
+    "defense": 3,
+    "rarity": "Common",
+    "classes": [
+      "NotClassed"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Shadow Action - Attack",
+    "image": "IAR204",
+    "talents": [
+      "Shadow"
+    ],
+    "legalHeroes": [
+      "Baalghor",
+      "Chane",
+      "Levia",
+      "Malice",
+      "Viserai2",
+      "Vynnset"
+    ]
+  },
+  {
     "id": "vox-necropolis",
     "name": "Vox Necropolis",
     "pitch": null,
@@ -4470,6 +6943,322 @@
     ],
     "legalHeroes": [
       "Malice"
+    ]
+  },
+  {
+    "id": "whispers-within-blue",
+    "name": "Whispers Within",
+    "pitch": 3,
+    "cost": 3,
+    "power": 5,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR241",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "whispers-within-red",
+    "name": "Whispers Within",
+    "pitch": 1,
+    "cost": 3,
+    "power": 7,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR239",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Emperor",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
+    ]
+  },
+  {
+    "id": "whispers-within-yellow",
+    "name": "Whispers Within",
+    "pitch": 2,
+    "cost": 3,
+    "power": 6,
+    "defense": 2,
+    "rarity": "Common",
+    "classes": [
+      "Generic"
+    ],
+    "types": [
+      "Action"
+    ],
+    "typeText": "Generic Action - Attack",
+    "image": "IAR240",
+    "talents": [],
+    "legalHeroes": [
+      "Arakni",
+      "Aurora",
+      "Aurora2",
+      "Azalea",
+      "Baalghor",
+      "Benji",
+      "Betsy",
+      "Blaze",
+      "Bolfar",
+      "Boltyn",
+      "Bravo",
+      "Brevant",
+      "Briar",
+      "Broscilio",
+      "Brutus",
+      "Chane",
+      "Cindra",
+      "Crackni",
+      "Crix",
+      "Dash",
+      "Data Doll",
+      "Dorinthea",
+      "Dromai",
+      "Enigma",
+      "Fai",
+      "Fang",
+      "Florian",
+      "Frankie",
+      "Genis",
+      "Gravy Bones",
+      "Hala",
+      "Ira",
+      "Iyslander",
+      "Jarl",
+      "Kano",
+      "Kassai",
+      "Katsu",
+      "Kavdaen",
+      "Kayo",
+      "Killjoy",
+      "Kox",
+      "Levia",
+      "Lexi",
+      "Librarian",
+      "Lyath",
+      "Malice",
+      "Marlynn",
+      "Maxx",
+      "Melody",
+      "Mortimer",
+      "Nuu",
+      "Oldhim",
+      "Olympia",
+      "Oscilio",
+      "Pleiades",
+      "Prism",
+      "Puffin",
+      "RKO",
+      "Reya",
+      "Rhinar",
+      "Riptide",
+      "Ruu'di",
+      "Scurv",
+      "Shiyana",
+      "Slippy",
+      "Squizzy",
+      "Starvo",
+      "Taipanis",
+      "Taylor",
+      "Teklovossen",
+      "Terra",
+      "Theryon",
+      "Tuffnut",
+      "Uzuri",
+      "Valda",
+      "Verdance",
+      "Victor",
+      "Viserai",
+      "Viserai2",
+      "Vynnset",
+      "Yoji",
+      "Yorick",
+      "Zane",
+      "Zen",
+      "Zyggy"
     ]
   }
 ]
