@@ -24,7 +24,7 @@ and stop; if the answer is to implement, expect a switch to Opus (`/model opus`)
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 113 tests
+npm test             # vitest, 114 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```
@@ -73,6 +73,10 @@ Run typecheck, build and tests before saying a change is done.
 - **All the drag and drop is one `DndContext`** in `src/Table.tsx`, because cards cross
   between the pool and the deck. What a drop means is decided by the custom collision
   detection there, not by where the droppables happen to be.
+- **A screen's `onChange` can outlive its event.** The build clock banks its time as the event
+  screen unmounts, which is *after* a delete has run. `App.updateEvent` reads the current list
+  from a ref and ignores writes to an event that is gone — without that, deleting from the menu
+  silently resurrected the event. Any new late write needs the same care.
 - **A card has three gestures on it**: click (select/deselect), drag, and press-and-hold
   (open it full size). They share one pointer stream, so `CardGroupView` cancels the hold on
   movement and `Table` closes the overlay when a drag starts. Change one and check the other

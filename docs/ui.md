@@ -55,6 +55,11 @@ equipment shelf at the head of the row, sorting by rarity still ranks a Majestic
 piece and only leads the Commons with it, and sorting by name treats it like anything else.
 Equipment jumps the pitch order, never a rarity.
 
+**Basic sorts as Common.** Basic marks a card as pre-release kit material rather than as
+something scarce — the pack odds assume the same — so putting the class Arms behind every
+Common in the set would say something untrue about them. With both rules together, the
+equipment reads as one contiguous shelf at the head of the Commons.
+
 **Picking a hero also filters.** The toolbar says how big a pool you are really building from
 — "61 legal cards for Malice", counting every copy that hero may play whether it is in the
 deck or not. In the pool, cards that hero cannot play go grey and drop to the end of the row. In the deck they are not drawn at all — a single tile at the very end of

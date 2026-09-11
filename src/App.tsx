@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import cardsJson from './data/cards.json'
 import { EventScreen } from './EventScreen'
 import { MainScreen } from './MainScreen'
@@ -30,9 +30,25 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
+  /**
+   * The list as it is right now, which a callback held by a screen may not be. The build clock
+   * banks its time as the event screen goes away, and that write used to arrive through a
+   * closure holding the pre-delete list — resurrecting the event you had just deleted.
+   */
+  const latest = useRef(events)
+  latest.current = events
+
   const persist = (next: StoredEvent[]) => {
+    latest.current = next
     setEvents(next)
     saveEvents(next)
+  }
+
+  /** Writes an event back. An event that is no longer there is not brought back to life. */
+  const updateEvent = (updated: SealedEvent) => {
+    const events = latest.current
+    if (!events.some((e) => e.id === updated.id)) return
+    persist(events.map((e) => (e.id === updated.id ? updated : e)))
   }
 
   const navigate = (target: string) => {
@@ -96,7 +112,7 @@ export default function App() {
       <EventScreen
         event={openEvent}
         byId={byId}
-        onChange={(updated) => persist(events.map((e) => (e.id === updated.id ? updated : e)))}
+        onChange={updateEvent}
         onBack={() => navigate('')}
         onDuplicate={() => duplicateEvent(openEvent.id)}
         onDelete={() => {

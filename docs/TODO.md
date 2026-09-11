@@ -63,7 +63,7 @@ analytics at a game store. Items are ordered by value.
 
 ## Housekeeping
 
-- [ ] **Read the test suite** (`src/*.test.ts`, 113 tests) — not yet reviewed by the owner.
+- [ ] **Read the test suite** (`src/*.test.ts`, 114 tests) — not yet reviewed by the owner.
 - [ ] Add the README screenshot (`docs/screenshot.png`); the link is a TODO comment.
 - [ ] Confirm the copyright holder named in [`LICENSE`](../LICENSE).
 - [x] ~~Refresh the card data as the set is revealed.~~ The set is fully revealed as of

@@ -177,6 +177,20 @@ describe('sorting equipment', () => {
     expect(compareBy('rarity')(piece, red)).toBeLessThan(0)
   })
 
+  /**
+   * Basic is a mark of the pre-release kit, not of scarcity — the pack odds treat it as Common
+   * too — so the class Arms must not sort behind every Common in the set.
+   */
+  it('ranks Basic equipment with the Commons, not after them', () => {
+    const basic = pool.find((c) => isEquipment(c) && c.rarity === 'Basic')!
+    const common = pool.find((c) => isEquipment(c) && c.rarity === 'Common')!
+    expect(compareBy('rarity')(basic, common)).toBe(compareBy('rarity')(common, basic) * -1)
+    expect(Math.abs(compareBy('rarity')(basic, red))).toBeGreaterThan(0)
+    expect(compareBy('rarity')(basic, red)).toBeLessThan(0)
+    // And a Majestic still outranks it.
+    expect(compareBy('rarity')(majestic, basic)).toBeLessThan(0)
+  })
+
   it('is ordered by name like anything else when the sort is by name', () => {
     const [first, second] = ['Zebra', 'Aardvark'].map((name) => ({ ...piece, name }))
     expect(compareBy('name')(first, second)).toBeGreaterThan(0)
