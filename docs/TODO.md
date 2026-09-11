@@ -8,9 +8,9 @@ Anything already built is described in the README instead of here.
 The pack layout came from the set's product description, but some numbers are our best
 guess. Each entry says what we assumed and where it lives.
 
-- [x] ~~**Basic vs Common equipment in the equipment slot.**~~ Resolved: Basic rarity is the
-      pre-release kit, not pack content. Each hero comes with its weapon and its class Arms,
-      and packs only ever supply the generic Head/Chest/Legs equipment.
+- [x] ~~**Basic vs Common equipment in the equipment slot.**~~ Resolved at the time as "Basic
+      is kit, not pack content", then overtaken by the equipment-slot answer below: packs roll
+      across every piece, and a Basic result is simply redundant with what the kit guarantees.
 - [x] ~~**Is Baalghor, Omen of the End a legal sealed hero?**~~ Resolved by
       [this prerelease guide](https://afabjourney.substack.com/p/flesh-and-blood-usurp-the-shadow):
       he is the kit's rainbow-foil promo and playable if you get him, with no weapon or Arms,
@@ -37,29 +37,36 @@ guess. Each entry says what we assumed and where it lives.
 ## Product backlog
 
 The goal is to **simulate** an IRL sealed session, not to help you win one — you have no
-analytics at a game store. Items are ordered by value.
+analytics at a game store.
 
-- [ ] ~**Export straight to Talishar**~~ Not feasable technically, Talishar used Fabrary deck as its input.
-- [ ] **First-time onboarding.** Explain in one screen what this is: open 8 packs at once,
-      build a deck, play with friends — a simulation of real-life sealed deckbuilding.
-- [ ] **Deck stats** Deliberately on-demand and tucked away,
-      never ambient during building, so it stays a review tool rather than a crutch — you
-      will not have it at a real event.
+- [ ] **Deck stats, after the fact.** The main next step for the tool: pitch and cost curve,
+      block profile, attack vs non-attack. Deliberately on-demand and tucked away, never
+      ambient while you build, so it stays a review tool rather than a crutch — you will not
+      have it at a real event.
+- [ ] **Say that a long press enlarges a card.** The one thing about the build screen nobody
+      can discover alone, and the only part of onboarding worth doing.
+- [x] ~~**Export straight to Talishar.**~~ Not possible, and not needed: Talishar imports from
+      Fabrary, which the app already exports to. The path exists, it just runs through Fabrary.
+- [x] ~~**Open the packs pack by pack.**~~ Decided against: this is a training tool, not an
+      unboxing. Sealed gives you so little time that players rip all eight packs at once, and
+      there is less to savour here anyway — the set has no Legendary or Fabled to find.
+- [x] ~~**A "maybe" pile.**~~ Decided against: the columns already are that. Start one and use
+      it as your maybe pile.
+- [x] ~~**First-time onboarding.**~~ Decided against: the app is good enough as it is, bar the
+      long-press note above.
 
 ### Interface quality
 
+- [ ] **Make the app mobile friendly.** It is built for a laptop today and assumes a mouse.
+      This is the one open interface item, and it swallows several others: the fixed 220px
+      card size wants re-evaluating on a small screen, and the interactions that are still
+      hover-only (the pitch tooltips, the issues popup) need a touch answer.
+- [x] ~~**Name the columns.**~~ Decided against: at a game store nobody labels their piles.
+      There is no time for it, and there are few enough piles to hold in your head.
 - [x] ~~Persist the sort mode.~~ Decided against: starting every event on the default sort is
       simpler, and a fresh pool deserves a fresh look at it.
-- [ ] The card size is fixed at 220px, which is generous on a laptop: the pool row and one
-      full column barely fit together. A zoom control may have to come back.
-- [ ] ~~**Name the columns.**~~ the user does not have time to do this. Deck building is done in one short session, the user will remember the purpose of the columns.
-- [ ] Bring back "add all" / "remove all", which went with the old grouped panes. Some bulk
-      way of clearing the off-hero cards out of the deck row would earn its place.
 - [x] ~~Consolidate the two ways to clear a hero.~~ Decided against: clicking the active
       portrait and the toolbar's "clear" link can both stay.
-- [ ] The deck row can get very wide, one column per card, before you start piling. A
-      "tidy up" that merges singles by rarity or class might be a kinder starting point.
-- [ ] Reduce hover-only interactions: the pitch tooltips and the issues popup are mouse-only.
 
 ## Housekeeping
 
