@@ -50,10 +50,10 @@ export const RARE_OR_HIGHER_ODDS: { rarity: Rarity; chance: number }[] = [
 export const FOIL_SLOT_RARE_CHANCE = 0.0175
 
 /**
- * The equipment slot. Every pack has one, and it is uniform over the set's equipment: with
- * everything currently Basic or Common, and Basic assumed as likely as Common, one draw over
- * all of them is exactly that. A Rare or Majestic equipment would need its own odds — a test
- * fails if one appears, so the decision cannot be skipped. See the README.
+ * The equipment slot. Every pack has one, and it never rolls Basic equipment: those come with
+ * the pre-release kit and are not pack content. What is left is uniform, because every
+ * openable piece in this set is Common. A Rare or Majestic one would need its own odds — a
+ * test fails if one appears, so the decision cannot be skipped. See the README.
  */
 export const EQUIPMENT_PER_PACK = 1
 

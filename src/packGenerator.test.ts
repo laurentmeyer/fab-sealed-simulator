@@ -5,6 +5,7 @@ import {
   countsTowardDeck,
   drawEquipment,
   equipmentRarities,
+  isOpenableEquipment,
   generateEventPool,
   generatePack,
   isDrawable,
@@ -94,18 +95,29 @@ describe('rarity', () => {
 
 describe('the equipment slot', () => {
   /**
-   * The slot draws uniformly, which *is* the rarity model only while every equipment in the
-   * set is Basic or Common and Basic is assumed as likely as Common. A rarer piece would need
-   * real odds, so this fails rather than letting one slide in at the wrong rate.
+   * The slot draws uniformly, which *is* the rarity model only while every piece it can reach
+   * shares a rarity. A rarer one would need real odds, so this fails rather than letting it
+   * slide in at the wrong rate.
    */
-  it('draws across Basic and Common only, which is what makes a uniform draw right', () => {
-    expect([...equipmentRarities(pool)].sort()).toEqual(['Basic', 'Common'])
+  it('draws across one rarity, which is what makes a uniform draw right', () => {
+    expect([...equipmentRarities(pool)]).toEqual(['Common'])
   })
 
-  it('reaches every piece of equipment in the set', () => {
+  /** Basic equipment is kit material: guaranteed to you, and never opened. */
+  it('never rolls Basic equipment', () => {
+    const basic = pool.filter((c) => isEquipment(c) && c.rarity === 'Basic')
+    expect(basic.length).toBeGreaterThan(0)
+    expect(basic.every((c) => !isOpenableEquipment(c))).toBe(true)
+
     const seen = new Set<string>()
-    for (let i = 0; i < 400; i++) seen.add(drawEquipment(pool, Math.random)!.id)
-    expect(seen.size).toBe(pool.filter(isEquipment).length)
+    for (let i = 0; i < 600; i++) seen.add(drawEquipment(pool, Math.random)!.id)
+    for (const piece of basic) expect(seen).not.toContain(piece.id)
+  })
+
+  it('reaches every piece it can open', () => {
+    const seen = new Set<string>()
+    for (let i = 0; i < 600; i++) seen.add(drawEquipment(pool, Math.random)!.id)
+    expect(seen.size).toBe(pool.filter(isOpenableEquipment).length)
   })
 })
 
