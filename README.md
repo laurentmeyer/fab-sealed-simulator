@@ -20,8 +20,8 @@ npm run build    # static site in dist/
 
 ## Updating the card data
 
-The set is not fully revealed, so the card list is a snapshot committed at
-`src/data/cards.json`. To pull in newly spoiled cards:
+The card list is a snapshot committed at `src/data/cards.json` — the set is fully revealed
+now, so it should only change if the source data is corrected:
 
 ```bash
 npm update @flesh-and-blood/cards @flesh-and-blood/types
@@ -30,7 +30,8 @@ npm run fetch-cards
 
 The script prints a summary (cards per rarity, class and type) so you can see what changed,
 and existing saved events keep working — they store card ids, and the event screen tells you
-if any of them are no longer in the data.
+if any of them are no longer in the data. Tests pin everything the data could silently break:
+what the kit guarantees, the equipment slot's rarities, and no hero having a choice of weapon.
 
 ## How a pack is simulated
 
@@ -69,12 +70,15 @@ The arithmetic that falls out of those slots, which is what the pull-rate tests 
 **The equipment slot works differently from the others.** Duplicates of an equipment are
 worthless — you can only wear one per slot — so the pool keeps **at most one copy** of each
 distinct equipment, however many the eight packs roll. And most rolls are invisible anyway:
-anything the pre-release kit already guarantees (next section) adds nothing new. Today every
-equipment in the set is Basic or Common, so the slot is uniform over all seven, and the only
-roll that changes your pool is **Dark Arcanite Boots** at 1/7 per pack — about **71%** of
-events hold one (1 − (6/7)^8). A Rare or Majestic equipment, once spoiled, would roll at its
-own rarity's odds instead; a test pins the current set so such a card forces that decision
-rather than sliding in silently.
+anything the pre-release kit already guarantees (next section) adds nothing new. Every
+equipment in the set is Basic or Common, so the slot is uniform over all ten, and the rolls
+that change your pool are the four **Dark Arcanite** pieces (Helm, Plating, Gloves, Boots) at
+1/10 per pack each: a given piece turns up in about **57%** of events (1 − (9/10)^8), and
+**98%** of events hold at least one of the four (1 − (6/10)^8). Both figures are checked by
+simulation against the generator. A Rare or Majestic equipment would roll at its own rarity's
+odds instead; a test pins the set so such a card would force that decision rather than slide
+in silently — with the set now fully revealed, that door is closed unless the data itself
+changes.
 
 ## What the pre-release kit provides
 
@@ -114,8 +118,9 @@ makes him the hard mode of the set.
   legal for almost every hero in the game. Legality always comes from each card's
   `legalHeroes` list, never from matching classes — the two agree in this set, but FaB has
   cards specialized to a single hero.
-- **Created cards never appear.** Blasmophet, Gate to i'Arathael and Corrupted Corpse are made
-  by other cards during play, not opened in a pack; they are dropped at snapshot time.
+- **Created cards never appear.** Blasmophet, Gate to i'Arathael, Corrupted Corpse and Cracked
+  Bauble are made by other cards during play, not opened in a pack; they are dropped at
+  snapshot time, spotted by their presence in another card's `createdExtras`.
 - **Only Necromancer, Brute, Runeblade and generic cards can appear** — the "any class" slots
   never roll a Guardian or a Ninja.
 - **Heroes, weapons and equipment are not deck cards.** They never count toward the "X / 30",

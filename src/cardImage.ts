@@ -1,6 +1,6 @@
 /**
- * Fabrary hosts the card art. Not every Usurp the Shadow Throne card is revealed yet, so
- * misses are expected until release day and every <img> falls back to a text card.
+ * Fabrary hosts the card art. Every card in the set has art now that it is fully revealed, but
+ * a miss is still survivable: every <img> falls back to a text card rather than a gap.
  */
 const IMAGE_URL = (image: string) => `https://content.fabrary.net/cards/${image}.webp`
 

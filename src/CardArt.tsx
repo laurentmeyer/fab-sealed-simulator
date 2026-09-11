@@ -5,8 +5,8 @@ import type { PoolCard } from './types'
 const PITCH_CLASS: Record<number, string> = { 1: 'pitch-red', 2: 'pitch-yellow', 3: 'pitch-blue' }
 
 /**
- * The card art, or a readable text card when the art is missing — which is the common case
- * until the set is fully revealed.
+ * The card art, or a readable text card when the art is missing. Every card in the set has art
+ * today; the fallback is what keeps a CDN hiccup or a data correction from leaving a hole.
  */
 export function CardArt({ card }: { card: PoolCard }) {
   const url = cardImageUrl(card.image)
