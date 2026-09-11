@@ -55,6 +55,11 @@ equipment shelf at the head of the row, sorting by rarity still ranks a Majestic
 piece and only leads the Commons with it, and sorting by name treats it like anything else.
 Equipment jumps the pitch order, never a rarity.
 
+**Basic sorts as Common.** Basic marks a card as pre-release kit material rather than as
+something scarce — the pack odds assume the same — so putting the class Arms behind every
+Common in the set would say something untrue about them. With both rules together, the
+equipment reads as one contiguous shelf at the head of the Commons.
+
 **Picking a hero also filters.** The toolbar says how big a pool you are really building from
 — "61 legal cards for Malice", counting every copy that hero may play whether it is in the
 deck or not. In the pool, cards that hero cannot play go grey and drop to the end of the row. In the deck they are not drawn at all — a single tile at the very end of
@@ -63,10 +68,15 @@ from the deck" and offers to **remove from deck**. Equipment you cannot wear cou
 another class's Arms is as illegal as an off-hero deck card, and just as hidden. They stay in the event until you do, so switching hero back
 brings them straight home.
 
-**Hold the pointer on any card** to open it full size over the table — the way to read a card
-that is buried in a pile and showing only its header. It works on kit cards too. Click
-anywhere or press Escape to put it down; starting a drag puts it down as well, so pressing and
-then dragging stays one gesture.
+**Hold the pointer on any card** to open it full size over the table. Note what this is *not*
+for: a card buried in a pile is already reachable, since hovering lifts it above its
+neighbours. What the overlay solves is **legibility** — the rules text at 220px is readable by
+some people and not by others, and no amount of hover fixes that. It works on kit cards too.
+Click anywhere or press Escape to put it down; starting a drag puts it down as well, so
+pressing and then dragging stays one gesture.
+
+Because nobody can guess the gesture, a floating tip says so once per device, and retires
+itself the moment it is closed or used.
 
 The menu bar carries the deck count — **"28 / 30"**, green once you are there — the pitch
 split of the deck, and the menu.

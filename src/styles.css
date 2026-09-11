@@ -649,6 +649,57 @@ select:hover {
   display: block;
 }
 
+/*
+ * A one-off note, shown until it is dismissed or acted on. It floats above the table instead
+ * of sitting in the flow, and is light on a dark app so it reads as a message rather than as
+ * another panel — it has one job, and being missed would defeat it.
+ */
+.tip {
+  position: fixed;
+  left: 50%;
+  bottom: 64px;
+  z-index: 40;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px 12px 20px;
+  border-radius: 12px;
+  /* Light purple: the accent's own colour, lifted until dark text sits comfortably on it. */
+  background: #d7c6f5;
+  color: #1d1630;
+  font-size: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+  animation: tip-in 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes tip-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+}
+
+.tip-text {
+  flex: none;
+}
+
+/* Deeper than the panel it sits on, so it reads as the thing to press. */
+.tip-close {
+  flex: none;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #5a2fb0;
+  border-color: #5a2fb0;
+  color: #f6f2ff;
+}
+
+.tip-close:hover {
+  background: #6f3ccb;
+  border-color: #6f3ccb;
+}
+
 /* ---- toolbar and table ---- */
 
 .toolbar {

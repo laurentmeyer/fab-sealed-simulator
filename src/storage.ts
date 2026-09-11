@@ -36,6 +36,29 @@ export const copyEventName = (name: string, events: StoredEvent[]): string => {
   }
 }
 
+/**
+ * Tips are dismissed for good, per device. One key each rather than a shared list, so adding
+ * a second tip later needs no migration and dismissing one cannot disturb another.
+ */
+const tipKey = (id: string) => `fab-sealed-tip:${id}`
+
+export const isTipDismissed = (id: string): boolean => {
+  try {
+    return localStorage.getItem(tipKey(id)) === 'dismissed'
+  } catch {
+    // A blocked localStorage means the tip shows again; that is the harmless direction.
+    return false
+  }
+}
+
+export const dismissTip = (id: string): void => {
+  try {
+    localStorage.setItem(tipKey(id), 'dismissed')
+  } catch {
+    // Losing a dismissal is not worth an error screen.
+  }
+}
+
 export const loadEvents = (): StoredEvent[] => {
   try {
     const raw = localStorage.getItem(KEY)

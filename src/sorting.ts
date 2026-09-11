@@ -2,8 +2,14 @@ import { isEquipment } from './packGenerator'
 import { RARITY_LADDER } from './packConfig'
 import type { PoolCard, SortMode } from './types'
 
-/** Best rarity first, the way a player fans out what they opened. */
-const rarityRank = (card: PoolCard) => RARITY_LADDER.indexOf(card.rarity)
+/**
+ * Best rarity first, the way a player fans out what they opened — with Basic counted as
+ * Common. Basic is a printing detail of the pre-release kit rather than a measure of how rare
+ * a card is, so sorting the class Arms behind every Common would say something untrue about
+ * them. It also matches the pack odds, which assume the same thing.
+ */
+const rarityRank = (card: PoolCard) =>
+  RARITY_LADDER.indexOf(card.rarity === 'Basic' ? 'Common' : card.rarity)
 
 /**
  * Equipment counts as pitch 0: ahead of the reds wherever pitch decides the order, and no more
