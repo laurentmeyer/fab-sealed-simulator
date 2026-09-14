@@ -78,6 +78,10 @@ pressing and then dragging stays one gesture.
 Because nobody can guess the gesture, a floating tip says so once per device, and retires
 itself the moment it is closed or used.
 
+Nothing may cover the table while a card is being dragged: the whole point of the drag is
+seeing where the card will land. That sounds obvious and was not free — see the gesture notes
+in `CLAUDE.md` for the three rules that keep a press and a drag from firing over each other.
+
 The menu bar carries the deck count — **"28 / 30"**, green once you are there — the pitch
 split of the deck, and the menu.
 

@@ -37,40 +37,51 @@ export function CardGroupView({
   handleProps?: Record<string, unknown>
 }) {
   const showPreview = useShowPreview()
-  const press = useRef<{ timer: number; x: number; y: number } | null>(null)
+  const press = useRef<{ stop: () => void } | null>(null)
   // Set when a press opened the preview, so a release that still reaches the card does not
   // also count as a click and move a copy across. Cleared by the next press on this card:
   // the release usually lands on the overlay instead, and no click ever arrives to clear it.
   const opened = useRef(false)
 
   const cancelPress = () => {
-    if (press.current) window.clearTimeout(press.current.timer)
+    press.current?.stop()
     press.current = null
   }
   useEffect(() => cancelPress, [])
 
+  /*
+   * The press watches the *window* rather than this card. Once a drag begins the pointer is
+   * over other things entirely — columns, the drag image — and pointermove stops reaching the
+   * card, so a press watching only itself would never hear the movement that should call it
+   * off. It would then fire mid-drag and cover the table at the worst moment.
+   */
   const startPress = (e: PointerEvent) => {
     opened.current = false
     if (e.button !== 0) return
-    const { clientX: x, clientY: y } = e
     cancelPress()
-    press.current = {
-      x,
-      y,
-      timer: window.setTimeout(() => {
-        press.current = null
-        opened.current = true
-        showPreview(card)
-      }, PRESS_MS),
-    }
-  }
+    const { clientX: x, clientY: y } = e
 
-  const movePress = (e: PointerEvent) => {
-    const held = press.current
-    if (!held) return
-    if (Math.abs(e.clientX - held.x) > PRESS_SLOP || Math.abs(e.clientY - held.y) > PRESS_SLOP) {
-      cancelPress()
+    const onMove = (move: globalThis.PointerEvent) => {
+      if (Math.abs(move.clientX - x) > PRESS_SLOP || Math.abs(move.clientY - y) > PRESS_SLOP) {
+        cancelPress()
+      }
     }
+    const timer = window.setTimeout(() => {
+      cancelPress()
+      opened.current = true
+      showPreview(card)
+    }, PRESS_MS)
+
+    const stop = () => {
+      window.clearTimeout(timer)
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerup', cancelPress)
+      window.removeEventListener('pointercancel', cancelPress)
+    }
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointerup', cancelPress)
+    window.addEventListener('pointercancel', cancelPress)
+    press.current = { stop }
   }
 
   const className = ['card-group', locked && 'locked', dimmed && 'dimmed', dragging && 'dragging']
@@ -82,9 +93,6 @@ export function CardGroupView({
       className={className}
       style={style}
       onPointerDown={startPress}
-      onPointerMove={movePress}
-      onPointerUp={cancelPress}
-      onPointerCancel={cancelPress}
     >
       <button
         type="button"

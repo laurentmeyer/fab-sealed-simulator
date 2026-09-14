@@ -114,6 +114,7 @@ export function Table({
   onSelect,
   onDeselect,
   onUnwear,
+  onDragChange,
 }: {
   columns: DeckColumn[]
   pool: Record<string, number>
@@ -130,6 +131,8 @@ export function Table({
   onSelect: (cardId: string) => void
   onDeselect: (cardId: string) => void
   onUnwear: (cardId: string) => void
+  /** Tells the screen a drag is under way, so nothing else opens over the table. */
+  onDragChange: (dragging: boolean) => void
 }) {
   const showPreview = useShowPreview()
   const [dragged, setDragged] = useState<{ card: PoolCard; count: number; pile?: number } | null>(
@@ -137,8 +140,12 @@ export function Table({
   )
   const [locked, setLocked] = useState<string | null>(null)
   const sensors = useSensors(
-    // A small threshold, so a click still selects and only a real drag picks the card up.
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    /*
+     * Far enough that a press-and-hold has already been called off by the time a drag can
+     * start — PRESS_SLOP is half of this — and still close enough that dragging feels
+     * immediate. A click selects, as it always did.
+     */
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor),
   )
 
@@ -158,6 +165,7 @@ export function Table({
 
   const start = ({ active }: DragStartEvent) => {
     // Holding still long enough to open a card and then dragging it is one gesture, not two.
+    onDragChange(true)
     showPreview(null)
     const data = active.data.current as DragData | undefined
     if (data?.type === 'column') {
@@ -193,6 +201,7 @@ export function Table({
   const clear = () => {
     setDragged(null)
     setLocked(null)
+    onDragChange(false)
   }
 
   const end = ({ active, over }: DragEndEvent) => {

@@ -12,8 +12,12 @@ export const useShowPreview = (): ((card: PoolCard | null) => void) => useContex
 
 /** How long the pointer must be held still on a card before it opens. */
 export const PRESS_MS = 400
-/** Moving further than this is a drag, not a press. */
-export const PRESS_SLOP = 6
+/**
+ * Moving further than this is a drag, not a press. It must stay comfortably *below* the
+ * distance that starts a drag (see Table's PointerSensor): if a drag could begin while a press
+ * was still pending, the press would fire mid-drag and drop this overlay over the table.
+ */
+export const PRESS_SLOP = 5
 
 export function CardOverlay({ card, onClose }: { card: PoolCard; onClose: () => void }) {
   useEffect(() => {

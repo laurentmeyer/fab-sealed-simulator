@@ -81,6 +81,14 @@ Run typecheck, build and tests before saying a change is done.
   from a ref and ignores writes to an event that is gone — without that, deleting from the menu
   silently resurrected the event. Any new late write needs the same care.
 - **A card has three gestures on it**: click (select/deselect), drag, and press-and-hold
-  (open it full size). They share one pointer stream, so `CardGroupView` cancels the hold on
-  movement and `Table` closes the overlay when a drag starts. Change one and check the other
-  two still work.
+  (open it full size). They share one pointer stream, and keeping them apart rests on three
+  things — change any of them and check the other two gestures still work:
+  - **`PRESS_SLOP` (5px) must stay well under the sensor's activation distance (10px).** When
+    they were 6 and 5, a drag could begin while a press was still pending, and the press then
+    fired mid-drag and dropped the overlay over the table. A slow drag landed in that 1px gap
+    every time.
+  - **The press watches the window, not the card.** Once a drag starts the pointer is over
+    other elements entirely, so a press listening only to its own card never hears the
+    movement that should call it off.
+  - **`EventScreen` refuses to open the overlay while a drag is under way**, via a ref rather
+    than state, because a press that began earlier holds a stale closure.
