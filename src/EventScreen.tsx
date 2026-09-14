@@ -1,13 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CardOverlay, PreviewContext } from './CardOverlay'
 import { deselectCard, remainingPool, selectCard, selectedEntries } from './columns'
-import { deckCount, deckIssues, legalPoolCount, openedPool, pitchSplit } from './deck'
+import {
+  deckCount,
+  deckIssues,
+  heroPoolCounts,
+  openedPool,
+  pitchSplit,
+  poolBandFacets,
+  poolPitchFacets,
+} from './deck'
 import { exportDeck } from './deckExport'
 import { EventMenu } from './EventMenu'
 import { type Filter } from './filters'
 import { Footer } from './Footer'
-import { HeroSelector } from './HeroSelector'
 import { CardsIcon, ClockIcon } from './icons'
+import { classOf, talentName } from './cardTraits'
 import { signatureWeaponFor, youngHeroes } from './heroes'
 import { DECK_SIZE } from './packConfig'
 import { isEquipment } from './packGenerator'
@@ -17,6 +25,7 @@ import { Toolbar } from './Toolbar'
 import { dismissTip } from './storage'
 import { bank, elapsedOf, formatTime, NEW_TIMER, timerColour } from './timer'
 import type { DeckColumn, PoolCard, SealedEvent, SortMode } from './types'
+import { EMPTY_VIEW, toggleBandGroup, togglePitch, type ViewFilter } from './viewFilter'
 
 /** Identifies the tip in storage; changing it would show the tip again to everyone. */
 const LONG_PRESS_TIP = 'long-press'
@@ -75,6 +84,12 @@ export function EventScreen({
   onDelete: () => void
 }) {
   const [sort, setSort] = useState<SortMode>('rarity')
+  /*
+   * The type/pitch narrowing the toolbar's pills express. Deliberately not reset when the
+   * hero changes: a stale band label (say, a class the new hero does not have) just reads as
+   * zero everywhere until you clear it, rather than the toolbar silently forgetting your pick.
+   */
+  const [view, setView] = useState<ViewFilter>(EMPTY_VIEW)
   const [preview, setPreview] = useState<PoolCard | null>(null)
   /*
    * Opening a card full size is the one thing on this screen nobody can discover alone, so a
@@ -155,6 +170,9 @@ export function EventScreen({
   const allCards = useMemo(() => [...byId.values()], [byId])
   const heroes = useMemo(() => youngHeroes(allCards), [allCards])
   const hero = event.heroId ? (byId.get(event.heroId) ?? null) : null
+  // The word "Shadow" itself, read from the data rather than hardcoded — see cardTraits.ts.
+  const talent = useMemo(() => talentName(allCards), [allCards])
+  const heroClass = hero ? classOf(hero) : null
   // The only thing put into play with the hero; the rest of the kit is yours to choose.
   const weapon = useMemo(() => (hero ? signatureWeaponFor(hero, allCards) : null), [hero, allCards])
 
@@ -256,12 +274,6 @@ export function EventScreen({
               </button>
             </span>
           )}
-          <HeroSelector
-            heroes={heroes}
-            cards={allCards}
-            selectedId={event.heroId ?? null}
-            onSelect={(heroId) => onChange({ ...event, heroId })}
-          />
         </div>
 
         <div className="menu-right">
@@ -317,9 +329,17 @@ export function EventScreen({
       <Toolbar
         sort={sort}
         onSort={setSort}
-        hero={hero?.name ?? null}
-        legal={legalPoolCount(pool, byId, filter)}
-        onClearHero={() => onChange({ ...event, heroId: null })}
+        heroes={heroes}
+        allCards={allCards}
+        selectedHeroId={event.heroId ?? null}
+        heroCounts={heroPoolCounts(pool, byId, heroes, view)}
+        onSelectHero={(heroId) => onChange({ ...event, heroId })}
+        bands={poolBandFacets(pool, byId, filter, view, heroClass, talent)}
+        selectedBands={view.bands}
+        onToggleBand={(keys) => setView(toggleBandGroup(view, keys))}
+        pitches={poolPitchFacets(pool, byId, filter, view)}
+        selectedPitches={view.pitches}
+        onTogglePitch={(bucket) => setView(togglePitch(view, bucket))}
       />
 
       <PreviewContext.Provider value={showPreview}>
@@ -330,6 +350,7 @@ export function EventScreen({
           arena={arena}
           byId={byId}
           filter={filter}
+          view={view}
           sort={sort}
           hero={hero}
           weapon={weapon}

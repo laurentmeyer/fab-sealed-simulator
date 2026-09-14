@@ -26,8 +26,8 @@ target.
 **Whole piles move the same way.** Every column carries a rail above its top card: grab it and
 the pile follows the cursor, and it obeys exactly the rule a single card does — dropped in the
 middle of another pile the two merge, dropped near an edge it moves between piles. Cards
-inside a column are always in the order the **Sort by** selector says (rarity, name or pitch);
-there is no hand ordering inside a pile.
+inside a column are always in the order the **Sort by** selector says (rarity, class/talent,
+name or pitch); there is no hand ordering inside a pile.
 
 Piling cards up is the point: on a table you sort a strategy's pillars into heaps — Malice
 wants zombies, banish enablers, graveyard recursion — and each heap's height tells you
@@ -54,6 +54,21 @@ In the ordering it counts as **pitch 0** — the colour before red. So sorting b
 equipment shelf at the head of the row, sorting by rarity still ranks a Majestic above a Common
 piece and only leads the Commons with it, and sorting by name treats it like anything else.
 Equipment jumps the pitch order, never a rarity.
+
+**Class and talent order the row too.** **Class/Talent** is a sort mode of its own, laying the
+row out the way a player thinks about their pool: each class with the set's talent behind it
+first, then the rest of that class, then the talent cards no class can claim, and Generic last.
+Classes fall alphabetically, which only shows with no hero chosen — pick one and every other
+class is off-hero anyway.
+
+It is also a *tiebreaker in every mode but Name*. Two cards level on rarity and pitch are more
+usefully beside their own class than beside an alphabetical neighbour; sorting by name is the
+one case where you asked for the alphabet and get it.
+
+The pool header carries the same split: **"67 for Malice: 16 Necromancer + Shadow · 2
+Necromancer · 38 Shadow · 11 Generic"**. It is the shape of the pool, not just its size — and
+the bands a hero has nothing in are left out, so Baalghor, who has no class, sees two numbers
+rather than four.
 
 **Basic sorts as Common.** Basic marks a card as pre-release kit material rather than as
 something scarce — the pack odds assume the same — so putting the class Arms behind every

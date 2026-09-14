@@ -24,7 +24,7 @@ and stop; if the answer is to implement, expect a switch to Opus (`/model opus`)
 
 ```bash
 npm run dev          # http://localhost:5173
-npm test             # vitest, 115 tests
+npm test             # vitest, 125 tests
 npm run build        # tsc --noEmit && vite build -> dist/
 npm run fetch-cards  # regenerate src/data/cards.json from @flesh-and-blood/cards
 ```
@@ -46,6 +46,9 @@ Run typecheck, build and tests before saying a change is done.
 
 - **Card names are not unique.** The same card exists once per pitch value, each with its own
   `id`. Always key on `id`, never on `name`.
+- **Class, talent and Generic are read from the card** in `src/cardTraits.ts`, never from a
+  list of this set's names — Generic is the *absence* of a class, and the talent is whatever
+  the card carries. The four bands it defines order the row and split the pool header.
 - **Legality comes from `legalHeroes`**, not from matching classes. They agree in this set,
   but FaB has cards specialized to a single hero.
 - **The hero kit is this set's own equipment**, spotted by its talent — not "anything that is

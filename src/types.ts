@@ -93,4 +93,4 @@ export const isLegacyEvent = (event: StoredEvent): event is LegacyEvent =>
   event.schemaVersion !== 2
 
 /** How cards are ordered, both in the pool row and inside every column. */
-export type SortMode = 'rarity' | 'name' | 'pitch'
+export type SortMode = 'rarity' | 'name' | 'pitch' | 'class'

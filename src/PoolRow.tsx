@@ -1,9 +1,10 @@
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CARD } from './cardMetrics'
 import { CardGroupView } from './CardGroupView'
-import { matches, partition, type Filter } from './filters'
+import { matches, type Filter } from './filters'
 import { isEquipment } from './packGenerator'
 import { compareBy } from './sorting'
+import { matchesView, type ViewFilter } from './viewFilter'
 import type { CardCount, PoolCard, SortMode } from './types'
 
 function PoolCardView({
@@ -49,23 +50,35 @@ export function PoolRow({
   entries,
   byId,
   filter,
+  view,
   sort,
   onSelect,
 }: {
   entries: CardCount[]
   byId: Map<string, PoolCard>
+  /** Hero legality — whether the card can go in the deck at all. */
   filter: Filter
+  /** The toolbar's type/pitch narrowing — a lens, not a legality check. */
+  view: ViewFilter
   sort: SortMode
   onSelect: (cardId: string) => void
 }) {
   const { setNodeRef, isOver, active } = useDroppable({ id: 'pool-section', data: { type: 'pool' } })
   const returning = isOver && active?.data.current?.type === 'group'
 
+  // Hero-illegal or filtered-out by type/pitch: both are "not what you're looking at right
+  // now", so both are treated the same — greyed and pushed to the end, never hidden.
+  const shown = (entry: CardCount): boolean => {
+    const card = byId.get(entry.cardId)!
+    return matches(card, filter) && matchesView(card, view)
+  }
+
   const compare = compareBy(sort)
   const known = [...entries]
     .filter((entry) => byId.has(entry.cardId))
     .sort((a, b) => compare(byId.get(a.cardId)!, byId.get(b.cardId)!))
-  const { matching, others } = partition(known, (entry) => byId.get(entry.cardId)!, filter)
+  const matching = known.filter(shown)
+  const others = known.filter((entry) => !shown(entry))
   const sorted = [...matching, ...others]
 
   return (
@@ -82,7 +95,7 @@ export function PoolRow({
             key={entry.cardId}
             card={byId.get(entry.cardId)!}
             count={entry.count}
-            playable={matches(byId.get(entry.cardId)!, filter)}
+            playable={shown(entry)}
             onSelect={() => onSelect(entry.cardId)}
           />
         ))

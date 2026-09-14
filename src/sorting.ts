@@ -1,3 +1,4 @@
+import { compareBands } from './cardTraits'
 import { isEquipment } from './packGenerator'
 import { RARITY_LADDER } from './packConfig'
 import type { PoolCard, SortMode } from './types'
@@ -23,18 +24,26 @@ const pitchRank = (card: PoolCard) =>
 /**
  * One order for the pool row and for the inside of every column. Each mode falls through to
  * the others, so the order is total and a card never jumps around between renders.
+ *
+ * Class and talent sit ahead of name in every mode but Name itself: two cards that tie on
+ * rarity and pitch are far more usefully next to their own class than next to an alphabetical
+ * neighbour. Sorting by name is the one case where you asked for the alphabet and get it.
  */
 export const compareBy = (sort: SortMode) => (a: PoolCard, b: PoolCard): number => {
   const byName = a.name.localeCompare(b.name)
   const byPitch = pitchRank(a) - pitchRank(b)
   const byRarity = rarityRank(a) - rarityRank(b)
+  const byBand = compareBands(a, b)
+
   if (sort === 'name') return byName || byPitch
-  if (sort === 'pitch') return byPitch || byRarity || byName
-  return byRarity || byPitch || byName
+  if (sort === 'class') return byBand || byRarity || byPitch || byName
+  if (sort === 'pitch') return byPitch || byRarity || byBand || byName
+  return byRarity || byPitch || byBand || byName
 }
 
 export const SORT_MODES: { value: SortMode; label: string }[] = [
   { value: 'rarity', label: 'Rarity' },
+  { value: 'class', label: 'Class/Talent' },
   { value: 'name', label: 'Name' },
   { value: 'pitch', label: 'Pitch' },
 ]

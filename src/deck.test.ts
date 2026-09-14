@@ -1,12 +1,22 @@
 import { describe, expect, it } from 'vitest'
 import cardsJson from './data/cards.json'
-import { deckCount, deckIssues, legalPoolCount, openedPool, pitchSplit } from './deck'
+import {
+  deckCount,
+  deckIssues,
+  heroPoolCounts,
+  openedPool,
+  pitchSplit,
+  poolBandFacets,
+  poolPitchFacets,
+  poolTotal,
+} from './deck'
 import { kitEquipment } from './heroes'
 import { compareBy } from './sorting'
 import { isEquipment } from './packGenerator'
 import { matches, partition, type Filter } from './filters'
 import { countsTowardDeck, isDrawable } from './packGenerator'
 import type { CardCount, PoolCard } from './types'
+import { EMPTY_VIEW, toggleBandGroup, togglePitch, type ViewFilter } from './viewFilter'
 
 const pool = cardsJson as PoolCard[]
 const byId = new Map(pool.map((c) => [c.id, c]))
@@ -91,20 +101,170 @@ describe('pitchSplit', () => {
   })
 })
 
-describe('legalPoolCount', () => {
+describe('poolTotal', () => {
   const offHero = pool.find((c) => !c.legalHeroes.includes('Malice'))!
   const eventPool = { [playable[0].id]: 3, [playable[1].id]: 1, [offHero.id]: 2 }
 
   it('counts every copy the hero may play, in the deck or not', () => {
-    expect(legalPoolCount(eventPool, byId, forHero('Malice'))).toBe(4)
+    expect(poolTotal(eventPool, byId, forHero('Malice'), EMPTY_VIEW)).toBe(4)
   })
 
   it('counts the whole pool before a hero is picked', () => {
-    expect(legalPoolCount(eventPool, byId, forHero(null))).toBe(6)
+    expect(poolTotal(eventPool, byId, forHero(null), EMPTY_VIEW)).toBe(6)
   })
 
   it('ignores cards that are no longer in the card data', () => {
-    expect(legalPoolCount({ 'gone-from-the-set': 5 }, byId, forHero(null))).toBe(0)
+    expect(poolTotal({ 'gone-from-the-set': 5 }, byId, forHero(null), EMPTY_VIEW)).toBe(0)
+  })
+
+  it('narrows to a type or a pitch filter, and both together', () => {
+    const red = playable.find((c) => c.pitch === 1)!
+    const withPitch = { [red.id]: 2, [playable[1].id]: 1 }
+    const onlyRed: ViewFilter = { pitches: new Set([1]), bands: new Set() }
+    expect(poolTotal(withPitch, byId, forHero(null), onlyRed)).toBe(2)
+  })
+})
+
+describe('poolBandFacets', () => {
+  const wholeSet = Object.fromEntries(pool.map((c) => [c.id, 1]))
+  const talent = 'Shadow'
+
+  /**
+   * The filter's *logic* must survive a hero change even though its label does not: picking
+   * Necromancer and later switching to Runeblade should relabel the same selected band, never
+   * silently clear it. Proven here by toggling the class+talent key once and reading it back
+   * as still active under a different hero's class name.
+   */
+  it('keeps the same band selected across a change of hero, only the label moving', () => {
+    const view = toggleBandGroup(EMPTY_VIEW, ['class+talent'])
+    const asNecromancer = poolBandFacets(wholeSet, byId, forHero('Malice'), view, 'Necromancer', talent)
+    const asRuneblade = poolBandFacets(wholeSet, byId, forHero('Viserai2'), view, 'Runeblade', talent)
+
+    expect(asNecromancer.find((b) => b.label === 'Shadow Necromancer')).toBeTruthy()
+    expect(asRuneblade.find((b) => b.label === 'Shadow Runeblade')).toBeTruthy()
+    // The key underneath both is the same one — the toggle never needed to change.
+    expect(asNecromancer.find((b) => b.label === 'Shadow Necromancer')!.key).toEqual(['class+talent'])
+    expect(asRuneblade.find((b) => b.label === 'Shadow Runeblade')!.key).toEqual(['class+talent'])
+  })
+
+  /** A hero with no class of its own should not be shown two empty class buckets. */
+  it('leaves out the bands a hero has nothing in', () => {
+    const baalghor = poolBandFacets(wholeSet, byId, forHero('Baalghor'), EMPTY_VIEW, null, talent).map(
+      (b) => b.label,
+    )
+    expect(baalghor).toEqual(['Shadow', 'Generic'])
+
+    const malice = poolBandFacets(
+      wholeSet,
+      byId,
+      forHero('Malice'),
+      EMPTY_VIEW,
+      'Necromancer',
+      talent,
+    ).map((b) => b.label)
+    expect(malice).toEqual(['Shadow Necromancer', 'Necromancer', 'Shadow', 'Generic'])
+  })
+
+  /**
+   * No hero: classed cards are not broken down by *which* class, but a class card with the
+   * talent is still a different pill from one without — that distinction does not need a hero
+   * to be meaningful, only "which class" does.
+   */
+  it('keeps four distinct pills with no hero, generically labelled', () => {
+    const bands = poolBandFacets(wholeSet, byId, forHero(null), EMPTY_VIEW, null, talent)
+    expect(bands.map((b) => b.label)).toEqual(['Shadow and Class', 'Class', 'Shadow', 'Generic'])
+    expect(bands.map((b) => b.key)).toEqual([['class+talent'], ['class'], ['talent'], ['generic']])
+
+    const total = bands.reduce((sum, b) => sum + b.count, 0)
+    expect(total).toBe(poolTotal(wholeSet, byId, forHero(null), EMPTY_VIEW))
+  })
+
+  it('toggles the class+talent and class-only pills independently', () => {
+    const bands = poolBandFacets(wholeSet, byId, forHero(null), EMPTY_VIEW, null, talent)
+    const classTalentPill = bands.find((b) => b.label === 'Shadow and Class')!
+    const view = toggleBandGroup(EMPTY_VIEW, classTalentPill.key)
+
+    expect(view.bands).toEqual(new Set(['class+talent']))
+    expect(poolTotal(wholeSet, byId, forHero(null), view)).toBe(classTalentPill.count)
+
+    const untoggled = toggleBandGroup(view, classTalentPill.key)
+    expect(untoggled.bands.size).toBe(0)
+  })
+
+  /**
+   * A pill's own block never restricts its own list — clicking a pitch pill should not make
+   * band pills disappear, only change their counts. Otherwise a band you just narrowed out of
+   * existence could never be clicked back on.
+   */
+  it('keeps every band pill visible as the pitch filter changes, only moving the counts', () => {
+    const labelsAt = (view: ViewFilter) =>
+      poolBandFacets(wholeSet, byId, forHero('Malice'), view, 'Necromancer', talent).map(
+        (b) => b.label,
+      )
+
+    const noFilter = labelsAt(EMPTY_VIEW)
+    const blueOnly = togglePitch(EMPTY_VIEW, 3)
+    expect(labelsAt(blueOnly)).toEqual(noFilter)
+
+    const total = poolBandFacets(
+      wholeSet,
+      byId,
+      forHero('Malice'),
+      blueOnly,
+      'Necromancer',
+      talent,
+    ).reduce((sum, b) => sum + b.count, 0)
+    expect(total).toBe(poolTotal(wholeSet, byId, forHero('Malice'), blueOnly))
+  })
+})
+
+describe('poolPitchFacets', () => {
+  it('always returns the same four buckets, in a fixed order', () => {
+    const wholeSet = Object.fromEntries(pool.map((c) => [c.id, 1]))
+    expect(poolPitchFacets(wholeSet, byId, forHero(null), EMPTY_VIEW).map((p) => p.label)).toEqual([
+      'No pitch',
+      'Red',
+      'Yellow',
+      'Blue',
+    ])
+  })
+
+  it('puts equipment and pitchless cards in the No pitch bucket', () => {
+    const wholeSet = Object.fromEntries(pool.map((c) => [c.id, 1]))
+    const equipment = pool.filter((c) => isEquipment(c) && c.legalHeroes.includes('Malice'))
+    const facets = poolPitchFacets(wholeSet, byId, forHero('Malice'), EMPTY_VIEW)
+    const noPitch = facets.find((f) => f.bucket === 'none')!
+    expect(noPitch.count).toBeGreaterThanOrEqual(equipment.length)
+  })
+
+  /** Symmetric with poolBandFacets: the type filter narrows counts, not which pills show. */
+  it('keeps every pitch pill visible as the type filter changes', () => {
+    const wholeSet = Object.fromEntries(pool.map((c) => [c.id, 1]))
+    const bands = poolBandFacets(wholeSet, byId, forHero('Malice'), EMPTY_VIEW, 'Necromancer', 'Shadow')
+    const oneBand = toggleBandGroup(EMPTY_VIEW, bands[0].key)
+    const buckets = poolPitchFacets(wholeSet, byId, forHero('Malice'), oneBand).map((p) => p.bucket)
+    expect(buckets).toEqual(['none', 1, 2, 3])
+  })
+})
+
+describe('heroPoolCounts', () => {
+  it('gives each hero the total poolTotal would report if they were picked', () => {
+    const wholeSet = Object.fromEntries(pool.map((c) => [c.id, 1]))
+    const heroes = pool.filter((c) => c.types.includes('Hero') && c.young)
+    const counts = heroPoolCounts(wholeSet, byId, heroes, EMPTY_VIEW)
+    for (const hero of heroes) {
+      expect(counts.get(hero.id)).toBe(poolTotal(wholeSet, byId, forHero(hero.hero ?? null), EMPTY_VIEW))
+    }
+  })
+
+  it('respects the current type and pitch filters', () => {
+    const wholeSet = Object.fromEntries(pool.map((c) => [c.id, 1]))
+    const heroes = pool.filter((c) => c.types.includes('Hero') && c.young)
+    const redOnly = togglePitch(EMPTY_VIEW, 1)
+    const counts = heroPoolCounts(wholeSet, byId, heroes, redOnly)
+    for (const hero of heroes) {
+      expect(counts.get(hero.id)).toBe(poolTotal(wholeSet, byId, forHero(hero.hero ?? null), redOnly))
+    }
   })
 })
 
