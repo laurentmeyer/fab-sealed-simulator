@@ -81,7 +81,15 @@ export function EventScreen({
    * tip says so once. Doing it retires the tip as surely as closing it does.
    */
   const [tipUsed, setTipUsed] = useState(false)
+  /*
+   * A ref rather than state: a press that began before the drag did holds a stale closure, so
+   * the check has to read the value as it is now. Nothing may cover the table mid-drag — you
+   * need to see where the card is going to land.
+   */
+  const dragging = useRef(false)
+
   const showPreview = (card: PoolCard | null) => {
+    if (card && dragging.current) return
     if (card) {
       dismissTip(LONG_PRESS_TIP)
       setTipUsed(true)
@@ -331,6 +339,9 @@ export function EventScreen({
           onSelect={select}
           onDeselect={deselect}
           onUnwear={unwear}
+          onDragChange={(active) => {
+            dragging.current = active
+          }}
         />
       </PreviewContext.Provider>
 
