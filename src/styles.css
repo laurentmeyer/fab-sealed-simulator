@@ -702,23 +702,134 @@ select:hover {
 
 /* ---- toolbar and table ---- */
 
+/*
+ * The filter bar. Three blocks — Hero, Class/Talent, Pitch — each a row of pills that OR
+ * together within the block and AND across blocks. It wraps rather than scrolling, since a
+ * filter you cannot see is a filter you cannot clear.
+ */
 .toolbar {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 16px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 16px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
+}
+
+.toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
 }
 
 .toolbar-spacer {
   flex: 1;
 }
 
-.toolbar-note {
-  font-size: 12px;
+.filter-block {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/*
+ * One filter pill: a label, a live count, and — once active — a small × standing in for the
+ * "clear" link this replaced. The count is a badge rather than plain text, since it changes
+ * as other blocks narrow the pool and deserves to be easy to re-read at a glance.
+ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
   color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
   white-space: nowrap;
+}
+
+.pill:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.pill.active {
+  border-color: var(--accent);
+  background: rgba(166, 120, 240, 0.18);
+  color: var(--text);
+}
+
+.pill-label {
+  font-weight: 500;
+}
+
+.pill-count {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pill.active .pill-count {
+  background: var(--accent);
+  color: #14161c;
+  font-weight: 600;
+}
+
+/* Clicking an active pill again clears it — no separate × to click. */
+.pill.active:hover {
+  border-color: var(--danger);
+}
+
+.pill.active:hover .pill-count {
+  background: var(--danger);
+}
+
+/*
+ * The pitch pills carry only their colour, no word — red/yellow/blue is already how the
+ * deck's own pitch bar speaks. The dot sits directly on the pill (there is no `.pill-label` to
+ * hang it off any more) and takes its place in the flex row via the pill's own gap.
+ */
+.pill.pitch-red::before,
+.pill.pitch-yellow::before,
+.pill.pitch-blue::before,
+.pill.pitch-none::before {
+  content: '';
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.pill.pitch-red::before {
+  background: var(--red);
+}
+
+.pill.pitch-yellow::before {
+  background: var(--yellow);
+}
+
+.pill.pitch-blue::before {
+  background: var(--blue);
+}
+
+.pill.pitch-none::before {
+  background: var(--muted);
+}
+
+/* No label text either side of the dot now, so the pill can afford to be snugger. */
+.pill.pitch-red,
+.pill.pitch-yellow,
+.pill.pitch-blue,
+.pill.pitch-none {
+  padding-left: 8px;
 }
 
 .deck-count.ok {
@@ -1110,55 +1221,54 @@ select:hover {
 
 /* ---- hero selector ---- */
 
+/* The hero block is a pill row like the others; only the portrait sets it apart. */
 .hero-selector {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-.hero-selector .hero {
-  position: relative;
-  width: 56px;
-  height: 56px;
-  padding: 0;
-  /* The circle crop lives on the image, so the promo badge can overhang the edge. */
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  background: var(--surface-2);
-  filter: grayscale(0.8);
-  opacity: 0.75;
-  transition: filter 0.1s ease, opacity 0.1s ease, border-color 0.1s ease;
+.hero-pill {
+  padding: 3px 10px 3px 3px;
+  filter: grayscale(0.6);
+  opacity: 0.85;
 }
 
-.hero-selector .hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 50%;
-}
-
-.hero-selector .hero:hover {
-  filter: grayscale(0.2);
+.hero-pill:hover {
+  filter: grayscale(0.15);
   opacity: 1;
 }
 
-.hero-selector .hero.active {
-  border-color: var(--accent);
+.hero-pill.active {
   filter: none;
   opacity: 1;
 }
 
 /* Baalghor is the kit's lucky rainbow foil, not a standard pick. */
-.hero-selector .hero.promo {
+.hero-pill.promo {
   border-style: dashed;
+}
+
+.hero-pill-portrait {
+  position: relative;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.hero-pill-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .hero-promo-badge {
   position: absolute;
   right: -2px;
   bottom: -2px;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--yellow);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
@@ -1168,7 +1278,7 @@ select:hover {
   place-items: center;
   width: 100%;
   height: 100%;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
 }
 

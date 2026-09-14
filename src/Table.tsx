@@ -20,6 +20,7 @@ import { useShowPreview } from './CardOverlay'
 import { addCardAt, columnOf, mergeColumns, moveColumn, moveGroup, removeCards } from './columns'
 import { DeckArea } from './DeckArea'
 import { matches, type Filter } from './filters'
+import type { ViewFilter } from './viewFilter'
 import { PoolRow } from './PoolRow'
 import type { CardCount, DeckColumn, PoolCard, SortMode } from './types'
 
@@ -105,6 +106,7 @@ export function Table({
   arena,
   byId,
   filter,
+  view,
   sort,
   hero,
   weapon,
@@ -121,7 +123,10 @@ export function Table({
   remaining: CardCount[]
   arena: string[]
   byId: Map<string, PoolCard>
+  /** Hero legality, used everywhere: the deck, the arena, the illegal-cards tile. */
   filter: Filter
+  /** The toolbar's type/pitch narrowing — the pool row only, never legality. */
+  view: ViewFilter
   sort: SortMode
   hero: PoolCard | null
   weapon: PoolCard | null
@@ -271,6 +276,7 @@ export function Table({
           entries={remaining}
           byId={byId}
           filter={filter}
+          view={view}
           sort={sort}
           onSelect={onSelect}
         />
